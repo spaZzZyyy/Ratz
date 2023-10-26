@@ -10,8 +10,6 @@ public class PlayerMovement : MonoBehaviour
     
     [SerializeField] private Transform groundCheck;
     private Rigidbody2D _playerRigidbody;
-    private Animator _playerAni;
-    
     private float _movementPlayer;
     private float _playerThickness;
     private bool _canDash = true;
@@ -24,9 +22,6 @@ public class PlayerMovement : MonoBehaviour
         private KeyCode _moveLeftButton;
         private KeyCode _moveJumpButton;
         private KeyCode _moveCrouchButton;
-        private KeyCode _atkShootButton;
-        private KeyCode _atkRotateInvRightButton;
-        private KeyCode _atkRotateInvLeftButton;
         private KeyCode _moveDashButton;
 
     #endregion
@@ -36,7 +31,6 @@ public class PlayerMovement : MonoBehaviour
     {
         _playerRigidbody = GetComponent<Rigidbody2D>();
         _playerThickness = transform.localScale.x;
-        _playerAni = GetComponent<Animator>();
 
         #region Assigning Controls
 
@@ -46,7 +40,7 @@ public class PlayerMovement : MonoBehaviour
             _moveCrouchButton = controls.moveCrouch;
             _moveDashButton = controls.dash;
 
-            #endregion
+        #endregion
 
     }
 
@@ -75,7 +69,6 @@ public class PlayerMovement : MonoBehaviour
         #region Jump
             if ( (Input.GetKeyDown(_moveJumpButton) && IsGrounded() ) || (Input.GetKeyDown(_moveJumpButton) && scriptMovement.coyoteTime > _timeFromGround))
             {
-                Debug.Log(_timeFromGround);
                 _playerRigidbody.velocity = new Vector2(_playerRigidbody.velocity.x, scriptMovement.jumpForce);
             }
 
@@ -121,7 +114,7 @@ public class PlayerMovement : MonoBehaviour
         }
     }
 
-    private bool IsGrounded()
+    public bool IsGrounded()
     {
         return Physics2D.OverlapCircle(groundCheck.position, scriptMovement.groundCheckDistance, scriptMovement.groundLayer);
     }
