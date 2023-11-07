@@ -2,12 +2,12 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Security;
 using UnityEngine;
+using System;
 
 public class PlayerMovement : MonoBehaviour
 {
     public ScriptMovement scriptMovement;
     public ScriptControls controls;
-    
     [SerializeField] private Transform groundCheck;
     private Rigidbody2D _playerRigidbody;
     private float _movementPlayer;
@@ -70,11 +70,13 @@ public class PlayerMovement : MonoBehaviour
             if ( (Input.GetKeyDown(_moveJumpButton) && IsGrounded() ) || (Input.GetKeyDown(_moveJumpButton) && scriptMovement.coyoteTime > _timeFromGround))
             {
                 _playerRigidbody.velocity = new Vector2(_playerRigidbody.velocity.x, scriptMovement.jumpForce);
+                Actions.OnPlayerJump();
             }
 
             if (Input.GetKeyUp(_moveJumpButton) && _playerRigidbody.velocity.y > 0f)
             {
                 _playerRigidbody.velocity = new Vector2(_playerRigidbody.velocity.x, _playerRigidbody.velocity.y * scriptMovement.minJumpHeight);
+                Actions.OnPlayerJump();
             }
             
         #endregion

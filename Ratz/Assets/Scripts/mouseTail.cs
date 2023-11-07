@@ -23,7 +23,6 @@ public class mouseTail : MonoBehaviour
     float trailSpeedFactor;
     private Vector3[] segmentVelocity;
     public float tailEndHeight;
-
     private Transform tarDirTransform;
     // Start is called before the first frame update
     void Start()
@@ -41,7 +40,7 @@ public class mouseTail : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-
+        #region ->Used BlackThornProd trail design
         wiggleDir.localRotation = Quaternion.Euler(0,tailEndHeight,Mathf.Sin(Time.time * wiggleSpeed) * wigFactor);
         segmentPoses[0] = targetDir.position;
 
@@ -49,11 +48,11 @@ public class mouseTail : MonoBehaviour
             segmentPoses[i] = Vector3.SmoothDamp(segmentPoses[i], segmentPoses[i-1] + targetDir.right * targetDistance, ref segmentVelocity[i], smoothSpeed + i / trailSpeedFactor);
         }
         lineRend.SetPositions(segmentPoses);
+        #endregion
 
         flipTail();
         
     }
-
     void flipTail(){
         wigFactor = wiggleMagnitude;
         trailSpeedFactor = trailSpeed;
