@@ -6,6 +6,7 @@ using System;
 
 public class PlayerMovement : MonoBehaviour
 {
+
     public ScriptMovement scriptMovement;
     public ScriptControls controls;
     [SerializeField] private Transform groundCheck;
@@ -85,8 +86,9 @@ public class PlayerMovement : MonoBehaviour
         
         if (Input.GetKey(_moveDashButton))
         {
-            if (_canDash)
+            if (_canDash && _playerRigidbody.velocity.x !=0)
             {
+                _playerRigidbody.constraints = RigidbodyConstraints2D.FreezePositionY;
                 _playerRigidbody.AddForce(new Vector2(scriptMovement.dashDistance * _movementPlayer, 0));
                 StartCoroutine(OnDash());
             }
@@ -108,7 +110,7 @@ public class PlayerMovement : MonoBehaviour
         //Coyote time
         if (IsGrounded() == false)
         {
-            _timeFromGround++;
+            _timeFromGround+=Time.deltaTime;
         }
         else
         {
@@ -127,6 +129,7 @@ public class PlayerMovement : MonoBehaviour
         
         yield return new WaitForSeconds(scriptMovement.dashDuration);
         _canDash = false;
+        _playerRigidbody.constraints = RigidbodyConstraints2D.None;
         yield return new WaitForSeconds(scriptMovement.dashCoolDown);
         _canDash = true;
     }
