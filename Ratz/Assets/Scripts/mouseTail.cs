@@ -6,6 +6,7 @@ using UnityEngine;
 
 public class mouseTail : MonoBehaviour
 {
+    PlayerMovement player_movement;
     private float _playerThickness;
     public int length;
     public LineRenderer lineRend;
@@ -17,6 +18,8 @@ public class mouseTail : MonoBehaviour
     public float trailSpeedRun;
     public float wiggleSpeed;
     public float wiggleMagnitude;
+    public float jumpWig;
+    public float jumpTailSpeed;
     public Transform wiggleDir;
     public float wigRun;
     private float wigFactor;
@@ -28,17 +31,18 @@ public class mouseTail : MonoBehaviour
     void Start()
     {
         _playerThickness = transform.localScale.x;
-
         tarDirTransform = GetComponentInChildren<Transform>();
         lineRend.positionCount = length;
         segmentPoses = new Vector3[length];
         segmentVelocity = new Vector3[length];
         trailSpeedFactor = trailSpeed;
         wigFactor = wiggleMagnitude;
+        
+        player_movement = GetComponentInParent<PlayerMovement>();
     }
 
     // Update is called once per frame
-    void Update()
+    void FixedUpdate()
     {
         #region ->Used BlackThornProd trail design
         wiggleDir.localRotation = Quaternion.Euler(0,tailEndHeight,Mathf.Sin(Time.time * wiggleSpeed) * wigFactor);
@@ -50,40 +54,67 @@ public class mouseTail : MonoBehaviour
         lineRend.SetPositions(segmentPoses);
         #endregion
 
-        flipTail();
-        
+        FlipTail();
+
+        if (player_movement.IsGrounded() == false){
+            ResetTail();
+        }
+
     }
-    void flipTail(){
+    void FlipTail(){
         wigFactor = wiggleMagnitude;
         trailSpeedFactor = trailSpeed;
-        if(Input.GetKey(KeyCode.A)){
-            Vector2 localScale = transform.localScale;
-            localScale.x = _playerThickness;
-            transform.localScale = localScale;
-
-            transform.localRotation = Quaternion.Euler(0, 180, 0);
-
-            Vector2 childLocalScale = tarDirTransform.localScale;
-            childLocalScale.x = _playerThickness;
-            tarDirTransform.localScale = childLocalScale;
-
-            trailSpeedFactor = trailSpeedRun;
-            wigFactor = wigRun;
+        
+        if(Input.GetKey(KeyCode.A))
+        {
+            FlipTailLeft();
         }
-
         if(Input.GetKey(KeyCode.D)){
-            Vector2 localScale = transform.localScale;
-            localScale.x = -_playerThickness;
-            transform.localScale = localScale;
-
-            transform.localRotation = Quaternion.Euler(0, 0, 0);
-
-            Vector2 childLocalScale = tarDirTransform.localScale;
-            childLocalScale.x = -_playerThickness;
-            tarDirTransform.localScale = childLocalScale;
-
-            trailSpeedFactor = trailSpeedRun;
-            wigFactor = wigRun;
+            FlipTailRight();
         }
     }
+
+    void ResetTail(){
+
+        wigFactor = jumpWig;
+        trailSpeedFactor = jumpTailSpeed;
+
+        segmentPoses[0] = targetDir.position;
+
+        for (int i = 1; i < length; i++){
+            segmentPoses[i] = segmentPoses[i - 1] + targetDir.right * targetDistance;
+        }
+        lineRend.SetPositions(segmentPoses);
+
+    }
+    void FlipTailLeft(){
+        Vector2 localScale = transform.localScale;
+        localScale.x = _playerThickness;
+        transform.localScale = localScale;
+
+        transform.localRotation = Quaternion.Euler(0, 180, 0);
+
+        Vector2 childLocalScale = tarDirTransform.localScale;
+        childLocalScale.x = _playerThickness;
+        tarDirTransform.localScale = childLocalScale;
+
+        trailSpeedFactor = trailSpeedRun;
+        wigFactor = wigRun;
+    }
+
+    void FlipTailRight(){
+        Vector2 localScale = transform.localScale;
+        localScale.x = -_playerThickness;
+        transform.localScale = localScale;
+
+        transform.localRotation = Quaternion.Euler(0, 0, 0);
+
+        Vector2 childLocalScale = tarDirTransform.localScale;
+        childLocalScale.x = -_playerThickness;
+        tarDirTransform.localScale = childLocalScale;
+
+        trailSpeedFactor = trailSpeedRun;
+        wigFactor = wigRun;
+    }
+
 }

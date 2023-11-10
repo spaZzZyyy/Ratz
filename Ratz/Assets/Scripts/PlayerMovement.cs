@@ -14,6 +14,9 @@ public class PlayerMovement : MonoBehaviour
     private float _movementPlayer;
     private float _playerThickness;
     private bool _canDash = true;
+    private bool _canJump = true;
+    private int _maxJumps = 1;
+    private int _numJumps = 0;
 
     private float _timeFromGround;
 
@@ -68,14 +71,16 @@ public class PlayerMovement : MonoBehaviour
             #endregion
 
         #region Jump
-            if ( (Input.GetKeyDown(_moveJumpButton) && IsGrounded() ) || (Input.GetKeyDown(_moveJumpButton) && scriptMovement.coyoteTime > _timeFromGround))
+            if ( (Input.GetKeyDown(_moveJumpButton) && IsGrounded() ) || (Input.GetKeyDown(_moveJumpButton) && (scriptMovement.coyoteTime > _timeFromGround) && _canJump))
             {
                 _playerRigidbody.velocity = new Vector2(_playerRigidbody.velocity.x, scriptMovement.jumpForce);
+                _numJumps++;
                 Actions.OnPlayerJump();
             }
 
-            if (Input.GetKeyUp(_moveJumpButton) && _playerRigidbody.velocity.y > 0f)
+            if (Input.GetKeyUp(_moveJumpButton) && _playerRigidbody.velocity.y > 0f && _canJump)
             {
+                _numJumps++;
                 _playerRigidbody.velocity = new Vector2(_playerRigidbody.velocity.x, _playerRigidbody.velocity.y * scriptMovement.minJumpHeight);
                 Actions.OnPlayerJump();
             }
@@ -107,6 +112,7 @@ public class PlayerMovement : MonoBehaviour
             _playerRigidbody.velocity = new Vector2(_movementPlayer * scriptMovement.movementSpeed, _playerRigidbody.velocity.y);
             
         #endregion
+
         //Coyote time
         if (IsGrounded() == false)
         {
@@ -114,7 +120,17 @@ public class PlayerMovement : MonoBehaviour
         }
         else
         {
+            _numJumps = 0;
             _timeFromGround = 0;
+        }
+
+        //Jump Cap
+        if(_numJumps <= _maxJumps)
+        {
+            _canJump = true;
+        } else 
+        {
+            _canJump = false;
         }
     }
 
@@ -130,6 +146,7 @@ public class PlayerMovement : MonoBehaviour
         yield return new WaitForSeconds(scriptMovement.dashDuration);
         _canDash = false;
         _playerRigidbody.constraints = RigidbodyConstraints2D.None;
+        _playerRigidbody.constraints = RigidbodyConstraints2D.FreezeRotation;
         yield return new WaitForSeconds(scriptMovement.dashCoolDown);
         _canDash = true;
     }
