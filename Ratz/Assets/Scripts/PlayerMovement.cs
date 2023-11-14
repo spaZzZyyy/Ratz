@@ -14,9 +14,6 @@ public class PlayerMovement : MonoBehaviour
     private float _movementPlayer;
     private float _playerThickness;
     private bool _canDash = true;
-    private bool _canJump = true;
-    private int _maxJumps = 1;
-    private int _numJumps = 0;
 
     private float _timeFromGround;
 
@@ -71,16 +68,14 @@ public class PlayerMovement : MonoBehaviour
             #endregion
 
         #region Jump
-            if ( (Input.GetKeyDown(_moveJumpButton) && IsGrounded() ) || (Input.GetKeyDown(_moveJumpButton) && (scriptMovement.coyoteTime > _timeFromGround) && _canJump))
+            if ( (Input.GetKeyDown(_moveJumpButton) && IsGrounded() ) || (Input.GetKeyDown(_moveJumpButton) && (scriptMovement.coyoteTime > _timeFromGround)))
             {
                 _playerRigidbody.velocity = new Vector2(_playerRigidbody.velocity.x, scriptMovement.jumpForce);
-                _numJumps++;
                 Actions.OnPlayerJump();
             }
 
-            if (Input.GetKeyUp(_moveJumpButton) && _playerRigidbody.velocity.y > 0f && _canJump)
+            if (Input.GetKeyUp(_moveJumpButton) && _playerRigidbody.velocity.y > 0f)
             {
-                _numJumps++;
                 _playerRigidbody.velocity = new Vector2(_playerRigidbody.velocity.x, _playerRigidbody.velocity.y * scriptMovement.minJumpHeight);
                 Actions.OnPlayerJump();
             }
@@ -93,6 +88,7 @@ public class PlayerMovement : MonoBehaviour
         {
             if (_canDash && _playerRigidbody.velocity.x !=0)
             {
+                Actions.OnPlayerDashed();
                 _playerRigidbody.constraints = RigidbodyConstraints2D.FreezePositionY;
                 _playerRigidbody.AddForce(new Vector2(scriptMovement.dashDistance * _movementPlayer, 0));
                 StartCoroutine(OnDash());
@@ -120,18 +116,9 @@ public class PlayerMovement : MonoBehaviour
         }
         else
         {
-            _numJumps = 0;
             _timeFromGround = 0;
         }
 
-        //Jump Cap
-        if(_numJumps <= _maxJumps)
-        {
-            _canJump = true;
-        } else 
-        {
-            _canJump = false;
-        }
     }
 
     public bool IsGrounded()
