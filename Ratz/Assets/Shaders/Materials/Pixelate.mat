@@ -52,7 +52,7 @@ Material:
     m_Floats:
     - _EnableExternalAlpha: 0
     - _Pixelate: 0.73
-    - _Pixelate_Amount: 0
+    - _Pixelate_Amount: 0.725
     - _Size: 1.99
     m_Colors:
     - _Color: {r: 1, g: 1, b: 1, a: 1}

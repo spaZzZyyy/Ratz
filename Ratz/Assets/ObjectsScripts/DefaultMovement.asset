@@ -13,14 +13,14 @@ MonoBehaviour:
   m_Name: DefaultMovement
   m_EditorClassIdentifier: 
   gravityForce: 14.9
-  movementSpeed: 45
-  jumpForce: 58.2
+  movementSpeed: 71
+  jumpForce: 102.6
   groundLayer:
     serializedVersion: 2
     m_Bits: 1024
   groundCheckDistance: 2.18
   minJumpHeight: 0.5
-  dashDistance: 2632
+  dashDistance: 2671.6
   dashCoolDown: 0.92
   dashDuration: 0.12
   coyoteTime: 1.32
