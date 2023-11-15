@@ -133,8 +133,7 @@ public class PlayerMovement : MonoBehaviour
         
         yield return new WaitForSeconds(scriptMovement.dashDuration);
         _canDash = false;
-        _playerRigidbody.constraints = RigidbodyConstraints2D.None;
-        _playerRigidbody.constraints = RigidbodyConstraints2D.FreezeRotation;
+        _playerRigidbody.constraints = RigidbodyConstraints2D.FreezePositionY;
         yield return new WaitForSeconds(scriptMovement.dashCoolDown);
         _canDash = true;
     }
