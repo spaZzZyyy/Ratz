@@ -6,4 +6,5 @@ using UnityEngine;
 public static class Actions
 {
     public static Action OnPlayerJump;
+    public static Action OnPlayerDashed;
 }

@@ -7,15 +7,18 @@ using UnityEngine.iOS;
 public class PlayerAnimations : MonoBehaviour
 {
     public ScriptControls scriptControls;
+    public ScriptMovement scriptMovement;
     PlayerMovement player_movement;
     Animator playerAni;
     bool onGround;
 
     private void OnEnable() {
         Actions.OnPlayerJump += PlayerJumped;
+        Actions.OnPlayerDashed += PlayerDashed;
     }
     private void OnDisable() {
         Actions.OnPlayerJump -= PlayerJumped;
+        Actions.OnPlayerDashed -= PlayerDashed;
     }
 
     // Start is called before the first frame update
@@ -43,13 +46,29 @@ public class PlayerAnimations : MonoBehaviour
             playerAni.SetBool("isRunning", false);
         }
         #endregion
+    }
 
-        #region JumpingAnimation
-        
-        #endregion
+    private void PlayerDashed()
+    {
+        if(Input.GetKey(scriptControls.moveRight) || Input.GetKey(scriptControls.moveLeft)){
+            playerAni.SetBool("Dashed", true);
+            StartCoroutine(OnDashed());
+        }
     }
 
     public void PlayerJumped(){
         playerAni.SetTrigger("jumpKeyPressed");
+        StartCoroutine(OnJump());
     }
+
+    IEnumerator OnDashed(){
+        yield return new WaitForSeconds(scriptMovement.dashDuration);
+        playerAni.SetBool("Dashed", false);
+    }
+
+    IEnumerator OnJump(){
+        yield return new WaitForSeconds(0.1f);
+        playerAni.SetBool("jumpKeyPressed", false);
+    }
+
 }

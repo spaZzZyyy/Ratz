@@ -49,13 +49,6 @@ public class PlayerMovement : MonoBehaviour
     {
         #region Run Input
             _movementPlayer = 0f;
-            if (Input.GetKey(_moveRightButton))
-            {
-                _movementPlayer = 1f;
-                Vector2 localScale = transform.localScale;
-                localScale.x = _playerThickness;
-                transform.localScale = localScale;
-            }
 
             if (Input.GetKey(_moveLeftButton))
             {
@@ -65,10 +58,18 @@ public class PlayerMovement : MonoBehaviour
                 transform.localScale = localScale;
             }
 
+            if (Input.GetKey(_moveRightButton))
+            {
+                _movementPlayer = 1f;
+                Vector2 localScale = transform.localScale;
+                localScale.x = _playerThickness;
+                transform.localScale = localScale;
+            }
+
             #endregion
 
         #region Jump
-            if ( (Input.GetKeyDown(_moveJumpButton) && IsGrounded() ) || (Input.GetKeyDown(_moveJumpButton) && scriptMovement.coyoteTime > _timeFromGround))
+            if ( (Input.GetKeyDown(_moveJumpButton) && IsGrounded() ) || (Input.GetKeyDown(_moveJumpButton) && (scriptMovement.coyoteTime > _timeFromGround)))
             {
                 _playerRigidbody.velocity = new Vector2(_playerRigidbody.velocity.x, scriptMovement.jumpForce);
                 Actions.OnPlayerJump();
@@ -88,6 +89,7 @@ public class PlayerMovement : MonoBehaviour
         {
             if (_canDash && _playerRigidbody.velocity.x !=0)
             {
+                Actions.OnPlayerDashed();
                 _playerRigidbody.constraints = RigidbodyConstraints2D.FreezePositionY;
                 _playerRigidbody.AddForce(new Vector2(scriptMovement.dashDistance * _movementPlayer, 0));
                 StartCoroutine(OnDash());
@@ -107,6 +109,7 @@ public class PlayerMovement : MonoBehaviour
             _playerRigidbody.velocity = new Vector2(_movementPlayer * scriptMovement.movementSpeed, _playerRigidbody.velocity.y);
             
         #endregion
+
         //Coyote time
         if (IsGrounded() == false)
         {
@@ -116,6 +119,7 @@ public class PlayerMovement : MonoBehaviour
         {
             _timeFromGround = 0;
         }
+
     }
 
     public bool IsGrounded()
@@ -129,7 +133,7 @@ public class PlayerMovement : MonoBehaviour
         
         yield return new WaitForSeconds(scriptMovement.dashDuration);
         _canDash = false;
-        _playerRigidbody.constraints = RigidbodyConstraints2D.None;
+        _playerRigidbody.constraints = RigidbodyConstraints2D.FreezePositionY;
         yield return new WaitForSeconds(scriptMovement.dashCoolDown);
         _canDash = true;
     }
