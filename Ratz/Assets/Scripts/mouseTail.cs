@@ -27,9 +27,12 @@ public class mouseTail : MonoBehaviour
     private Vector3[] segmentVelocity;
     public float tailEndHeight;
     private Transform tarDirTransform;
+    private LineRenderer tail;
     // Start is called before the first frame update
     void Start()
     {
+        tail = GetComponent<LineRenderer>();
+        tail.enabled = true;
         _playerThickness = transform.localScale.x;
         tarDirTransform = GetComponentInChildren<Transform>();
         lineRend.positionCount = length;
