@@ -14,6 +14,7 @@ public class PlayerMovement : MonoBehaviour
     private float _movementPlayer;
     private float _playerThickness;
     private bool _canDash = true;
+    private bool _keepZLocked = true;
 
     private float _timeFromGround;
 
@@ -87,13 +88,7 @@ public class PlayerMovement : MonoBehaviour
         
         if (Input.GetKey(_moveDashButton))
         {
-            if (_canDash && _playerRigidbody.velocity.x !=0)
-            {
-                Actions.OnPlayerDashed();
-                _playerRigidbody.constraints = RigidbodyConstraints2D.FreezePositionY;
-                _playerRigidbody.AddForce(new Vector2(scriptMovement.dashDistance * _movementPlayer, 0));
-                StartCoroutine(OnDash());
-            }
+            Dash();
         }
 
         #endregion
@@ -120,20 +115,35 @@ public class PlayerMovement : MonoBehaviour
             _timeFromGround = 0;
         }
 
+        if (_keepZLocked){
+            _playerRigidbody.constraints = RigidbodyConstraints2D.FreezeRotation;
+        }
+
     }
 
     public bool IsGrounded()
     {
         return Physics2D.OverlapCircle(groundCheck.position, scriptMovement.groundCheckDistance, scriptMovement.groundLayer);
     }
+
+
     
-    
+    void Dash(){
+        if (_canDash && _playerRigidbody.velocity.x !=0)
+            {
+                Actions.OnPlayerDashed();
+                _playerRigidbody.constraints = RigidbodyConstraints2D.FreezePositionY;
+                _playerRigidbody.AddForce(new Vector2(scriptMovement.dashDistance * _movementPlayer, 0));
+                StartCoroutine(OnDash());
+            }
+    }
+
     IEnumerator OnDash()
     {
         
         yield return new WaitForSeconds(scriptMovement.dashDuration);
         _canDash = false;
-        _playerRigidbody.constraints = RigidbodyConstraints2D.FreezePositionY;
+        _playerRigidbody.constraints = RigidbodyConstraints2D.None;
         yield return new WaitForSeconds(scriptMovement.dashCoolDown);
         _canDash = true;
     }
