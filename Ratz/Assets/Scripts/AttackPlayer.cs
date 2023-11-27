@@ -7,10 +7,12 @@ public class AttackPlayer : MonoBehaviour
     [SerializeField] private float attackLength = 1f;
     [SerializeField] GameObject player;
     [SerializeField] GameObject hitBox;
+    [SerializeField] float startWindDownTime;
+    float windDownTime;
     // Start is called before the first frame update
     void Start()
     {
-        
+        windDownTime = 0;
     }
 
     // Update is called once per frame
@@ -18,8 +20,9 @@ public class AttackPlayer : MonoBehaviour
     {
         RaycastHit2D hit = Physics2D.Raycast(transform.position, Vector2.right, attackLength);
         Debug.DrawRay(transform.position, Vector2.right* attackLength, Color.green);
-        if(hit.collider != null)
+        if(hit.collider != null && windDownTime <= 0)
         {
+        windDownTime = startWindDownTime;
             if(hit.collider.gameObject == player)
             {
                 Debug.DrawRay(transform.position, Vector2.right * attackLength, Color.red);
@@ -29,5 +32,6 @@ public class AttackPlayer : MonoBehaviour
                 }
             }
         }
+        windDownTime -=  Time.deltaTime;
     }
 }
