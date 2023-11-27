@@ -71,4 +71,5 @@ public class PlayerAnimations : MonoBehaviour
         playerAni.SetBool("jumpKeyPressed", false);
     }
 
+
 }
