@@ -10,5 +10,4 @@ public class ScriptControls : ScriptableObject
     public KeyCode moveJump;
     public KeyCode moveCrouch;
     public KeyCode dash;
-    public KeyCode parry;
 }
