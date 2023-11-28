@@ -5,41 +5,80 @@ using UnityEngine;
 
 public class Parry : MonoBehaviour
 {
-    [SerializeField] List<GameObject> hitBoxes;
-
+    public ScriptControls controls;
+    private float parryTime = 1f;
+    [SerializeField] public float parryTimeStart = 1f;
+    private float parryCooldown = .5f;
+    [SerializeField] private float parryCooldownStart = .5f;
+    [SerializeField] public List<GameObject> hitBoxes = new List<GameObject>();
+    [SerializeField] KeyCode _parryButton;
+    public bool inParry;
+    private void Start()
+    {
+        parryTime = parryTimeStart;
+         _parryButton = controls.parry;
+        parryCooldown = 0;
+        inParry = false;
+    }
 
     // Update is called once per frame
     void Update()
     {
-        if(hitBoxes.Count > 0)
+        #region parry
+        if (Input.GetKeyDown(_parryButton) && parryCooldown <= -.01f)
         {
-            Debug.Log(hitBoxes);
-            for(int i = 0; i < hitBoxes.Count; i++)
-            {
-                hitBox currHitBox = hitBoxes[i].GetComponent<hitBox>();
-                if (currHitBox.parryTime)
+            parryCooldown = parryCooldownStart;
+            inParry = true;
+            
+        
+        }
+        else if (inParry)
+        {
+            if(hitBoxes.Count > 0) {
+                for (int i = 0; i < hitBoxes.Count; i++)
                 {
-                    Debug.Log("parried");
+                    if (hitBoxes[i].GetComponent<hitBox>().parryTime)
+                    {
+                        Debug.Log("Parried");
+                        GameObject curHitbox = hitBoxes[i];
+                        hitBoxes.Remove(curHitbox);
+                        Destroy(curHitbox);
+                    }
                 }
+                }
+            
+            parryTime -= Time.deltaTime;
+            if(parryTime <= 0)
+            {
+                inParry = false;
+                parryTime = parryTimeStart;
             }
         }
+        else
+        {
+            parryCooldown -= Time.deltaTime;
+        }
+         
+
+        #endregion
+
     }
 
-    private void OnCollisionEnter2D(Collision2D collision)
+
+    private void OnTriggerEnter2D(Collider2D collision)
     {
-        Debug.Log(collision.gameObject.name);
-        if (collision.gameObject.tag == "hitBox")
+        if (collision.gameObject.tag == "hitBox" && !hitBoxes.Contains(collision.gameObject))
         {
-            hitBoxes.Append(collision.gameObject);
+            hitBoxes.Add(collision.gameObject);
         }
     }
 
-    private void OnCollisionExit2D(Collision2D collision)
+    private void OnTriggerExit2D(Collider2D collision)
     {
-        Debug.Log(collision.gameObject.name);
-        if (collision.gameObject.tag == "hitBox")
+        if (collision.gameObject.tag == "hitBox" && hitBoxes.Contains(collision.gameObject))
         {
             hitBoxes.Remove(collision.gameObject);
         }
     }
+   
 }

@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class hitBox : MonoBehaviour
 {
-    public GameObject player;
+    [SerializeField] bool playerIn; 
     [SerializeField] float windUpTime;
     [SerializeField] float ParryTime;
     [SerializeField] float hit;
@@ -14,6 +14,7 @@ public class hitBox : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        playerIn = false;
         spriteRenderer = GetComponent<SpriteRenderer>();
         spriteRenderer.color = new Color(.2f, .2f, 1f, .5f);
         this.gameObject.transform.position = new Vector3(this.transform.position.x + hitGap, this.transform.position.y, this.transform.position.z);
@@ -42,4 +43,5 @@ public class hitBox : MonoBehaviour
         }
         windUpTime -= Time.deltaTime;
     }
+
 }
