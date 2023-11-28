@@ -756,10 +756,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 1967973682, guid: 9116197ca0a55764c901ced43075c39d, type: 3}
-      propertyPath: m_Enabled
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 363729419125439848, guid: 9116197ca0a55764c901ced43075c39d, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0.34409443
@@ -883,14 +879,6 @@ PrefabInstance:
     - target: {fileID: 3197830760323076229, guid: 9116197ca0a55764c901ced43075c39d, type: 3}
       propertyPath: m_Name
       value: Mouseie Variant
-      objectReference: {fileID: 0}
-    - target: {fileID: 3389461609564337998, guid: 9116197ca0a55764c901ced43075c39d, type: 3}
-      propertyPath: m_LocalPosition.x
-      value: 2.3515966
-      objectReference: {fileID: 0}
-    - target: {fileID: 3389461609564337998, guid: 9116197ca0a55764c901ced43075c39d, type: 3}
-      propertyPath: m_LocalPosition.y
-      value: 0.00000018614536
       objectReference: {fileID: 0}
     - target: {fileID: 3389461609564337998, guid: 9116197ca0a55764c901ced43075c39d, type: 3}
       propertyPath: m_LocalRotation.w
@@ -1096,10 +1084,6 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 7050506230805832382, guid: 9116197ca0a55764c901ced43075c39d, type: 3}
-      propertyPath: m_Materials.Array.data[0]
-      value: 
-      objectReference: {fileID: 2100000, guid: b4895cb2f34c0af41b2fbd34a16cb2ac, type: 2}
     - target: {fileID: 7345676260664711732, guid: 9116197ca0a55764c901ced43075c39d, type: 3}
       propertyPath: m_LocalRotation.w
       value: 0.9996878
