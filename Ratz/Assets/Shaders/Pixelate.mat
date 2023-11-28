@@ -8,13 +8,7 @@ Material:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_Name: Pixelate
-<<<<<<< HEAD:Ratz/Assets/Shaders/Materials/Pixelate.mat
-  m_Shader: {fileID: -6465566751694194690, guid: aa631d2bea522254ca5c5d6e5c1dc1f6, type: 3}
-  m_Parent: {fileID: 0}
-  m_ModifiedSerializedProperties: 0
-=======
   m_Shader: {fileID: -6465566751694194690, guid: 084a92fc1ac14724787ee082899c83c6, type: 3}
->>>>>>> a0bb2356098c0e862cc4025da979216d86d8572b:Ratz/Assets/Shaders/Pixelate.mat
   m_ValidKeywords: []
   m_InvalidKeywords: []
   m_LightmapFlags: 4
