@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
@@ -16,7 +17,7 @@ public class Parry : MonoBehaviour
     private void Start()
     {
         parryTime = parryTimeStart;
-         _parryButton = controls.parry;
+        _parryButton = controls.parry;
         parryCooldown = 0;
         inParry = false;
     }
@@ -29,7 +30,7 @@ public class Parry : MonoBehaviour
         {
             parryCooldown = parryCooldownStart;
             inParry = true;
-            
+            Actions.OnParry();
         
         }
         else if (inParry)
@@ -51,6 +52,7 @@ public class Parry : MonoBehaviour
             if(parryTime <= 0)
             {
                 inParry = false;
+                Actions.NotParry();
                 parryTime = parryTimeStart;
             }
         }
@@ -58,7 +60,7 @@ public class Parry : MonoBehaviour
         {
             parryCooldown -= Time.deltaTime;
         }
-         
+    
 
         #endregion
 
@@ -80,5 +82,5 @@ public class Parry : MonoBehaviour
             hitBoxes.Remove(collision.gameObject);
         }
     }
-   
+
 }
