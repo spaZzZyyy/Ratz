@@ -42,6 +42,7 @@ public class Parry : MonoBehaviour
                     {
                         Debug.Log("Parried");
                         GameObject curHitbox = hitBoxes[i];
+                        curHitbox.transform.parent.GetComponent<AttackPlayer>().attacking = false;
                         hitBoxes.Remove(curHitbox);
                         Destroy(curHitbox);
                     }

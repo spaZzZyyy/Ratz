@@ -4,21 +4,20 @@ using UnityEngine;
 
 public class hitBox : MonoBehaviour
 {
-    [SerializeField] bool playerIn; 
     [SerializeField] float windUpTime;
     [SerializeField] float ParryTime;
     [SerializeField] float hit;
-    [SerializeField] float hitGap;
     public bool parryTime;
     SpriteRenderer spriteRenderer;
+    AttackPlayer attackPlayer;
     // Start is called before the first frame update
     void Start()
     {
-        playerIn = false;
+        attackPlayer = transform.parent.GetComponent<AttackPlayer>();
         spriteRenderer = GetComponent<SpriteRenderer>();
         spriteRenderer.color = new Color(.2f, .2f, 1f, .5f);
-        this.gameObject.transform.position = new Vector3(this.transform.position.x + hitGap, this.transform.position.y, this.transform.position.z);
         parryTime = false;
+
     }
 
     // Update is called once per frame
@@ -35,6 +34,7 @@ public class hitBox : MonoBehaviour
                 spriteRenderer.color = new Color(1f, .1f, .08f, .5f);
                 if(hit <= 0)
                 {
+                    attackPlayer.attacking = false;
                     Destroy(gameObject);
                 }
                 hit -= Time.deltaTime;
