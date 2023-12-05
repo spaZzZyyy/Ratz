@@ -40,8 +40,8 @@ public class mouseTail : MonoBehaviour
         segmentVelocity = new Vector3[length];
         trailSpeedFactor = trailSpeed;
         wigFactor = wiggleMagnitude;
-        
         player_movement = GetComponentInParent<PlayerMovement>();
+        ResetTail();
     }
 
     // Update is called once per frame
