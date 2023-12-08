@@ -17,7 +17,7 @@ public class ToolMovement : MonoBehaviour
     }
 
     private void OnDisable() {
-        isRunning = true;
+        isRunning = false;
     }
 
     void OnDrawGizmos(){
@@ -37,8 +37,8 @@ public class ToolMovement : MonoBehaviour
                 Gizmos.color = Color.red;
                 Vector3 minJumpHeight = new Vector3(playerTrans.position.x, playerTrans.position.y + scriptMovement.minJumpHeight * 30f);
                 Gizmos.DrawLine(playerTrans.position, minJumpHeight);
-                Gizmos.DrawLine(minJumpHeight, new Vector3(minJumpHeight.x + 5f, minJumpHeight.y));
-                Gizmos.DrawLine(minJumpHeight, new Vector3(minJumpHeight.x - 5f, minJumpHeight.y));
+                Gizmos.DrawLine(minJumpHeight, new Vector3(minJumpHeight.x + 10f, minJumpHeight.y));
+                Gizmos.DrawLine(minJumpHeight, new Vector3(minJumpHeight.x - 10f, minJumpHeight.y));
             #endregion
 
         #endregion
