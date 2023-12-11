@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 using UnityEngine.iOS;
 
@@ -15,10 +16,15 @@ public class PlayerAnimations : MonoBehaviour
     private void OnEnable() {
         Actions.OnPlayerJump += PlayerJumped;
         Actions.OnPlayerDashed += PlayerDashed;
+        Actions.OnParry += PlayerParried;
+        Actions.NotParry += PlayerNotParried;
     }
+
     private void OnDisable() {
         Actions.OnPlayerJump -= PlayerJumped;
         Actions.OnPlayerDashed -= PlayerDashed;
+        Actions.OnParry -= PlayerParried;
+        Actions.NotParry -= PlayerNotParried;
     }
 
     // Start is called before the first frame update
@@ -39,7 +45,7 @@ public class PlayerAnimations : MonoBehaviour
         #endregion
 
         #region RunningAnimation
-        if((Input.GetKey(KeyCode.A) || Input.GetKey(KeyCode.D)) && onGround){
+        if((Input.GetKey(scriptControls.moveLeft) || Input.GetKey(scriptControls.moveRight)) && onGround){
             playerAni.SetBool("isRunning", true);
         }
         else{
@@ -69,6 +75,16 @@ public class PlayerAnimations : MonoBehaviour
     IEnumerator OnJump(){
         yield return new WaitForSeconds(0.1f);
         playerAni.SetBool("jumpKeyPressed", false);
+    }
+
+    private void PlayerParried()
+    {
+        playerAni.SetBool("isParry", true);
+    }
+
+    private void PlayerNotParried()
+    {
+        playerAni.SetBool("isParry", false);
     }
 
 
