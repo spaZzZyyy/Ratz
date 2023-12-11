@@ -77,11 +77,8 @@ public class enemyMovementStagnant : MonoBehaviour
         {
             rb.constraints = RigidbodyConstraints2D.FreezeRotation;
             rb.AddForce(-dir * rb.mass * rb.mass);
-            Debug.Log("Force Direction: " + new Vector2(-dir.x * parriedYOffset, (dir.y + 1) * parriedYOffset) * parriedForce);
             playerAttack.windDownTime = parriedWindDown;
             playerAttack.parried = false;
-
-
         }
     }
 }

@@ -75,9 +75,8 @@ public class PlayerMovement : MonoBehaviour
         #region Jump
             if ( (Input.GetKeyDown(_moveJumpButton) && IsGrounded() && jumpCount > 0) || (Input.GetKeyDown(_moveJumpButton) && (scriptMovement.coyoteTime > _timeFromGround)) && jumpCount >0)
             {
-            
-            jumpCount-=1;
-            Debug.Log(jumpCount);
+
+            jumpCount -= 1;
             _playerRigidbody.velocity = new Vector2(_playerRigidbody.velocity.x, scriptMovement.jumpForce);
                 Actions.OnPlayerJump();
             }
