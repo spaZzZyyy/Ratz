@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Security;
 using UnityEngine;
 using System;
+using UnityEngine.UIElements;
 
 public class PlayerMovement : MonoBehaviour
 {
@@ -15,12 +16,14 @@ public class PlayerMovement : MonoBehaviour
     private float _playerThickness;
     private bool _canDash = true;
     private bool _keepZLocked = true;
-
+    int jumpCount = 2;
+    BoxCollider2D box;
     private float _timeFromGround;
+    [SerializeField] private LayerMask groundLayer;
 
     #region Assigning Controls
 
-        private KeyCode _moveRightButton;
+    private KeyCode _moveRightButton;
         private KeyCode _moveLeftButton;
         private KeyCode _moveJumpButton;
         private KeyCode _moveCrouchButton;
@@ -33,7 +36,7 @@ public class PlayerMovement : MonoBehaviour
     {
         _playerRigidbody = GetComponent<Rigidbody2D>();
         _playerThickness = transform.localScale.x;
-
+        box = GetComponent<BoxCollider2D>();   
         #region Assigning Controls
 
             _moveRightButton = controls.moveRight;
@@ -70,9 +73,12 @@ public class PlayerMovement : MonoBehaviour
             #endregion
 
         #region Jump
-            if ( (Input.GetKeyDown(_moveJumpButton) && IsGrounded() ) || (Input.GetKeyDown(_moveJumpButton) && (scriptMovement.coyoteTime > _timeFromGround)))
+            if ( (Input.GetKeyDown(_moveJumpButton) && IsGrounded() && jumpCount > 0) || (Input.GetKeyDown(_moveJumpButton) && (scriptMovement.coyoteTime > _timeFromGround)) && jumpCount >0)
             {
-                _playerRigidbody.velocity = new Vector2(_playerRigidbody.velocity.x, scriptMovement.jumpForce);
+            
+            jumpCount-=1;
+            Debug.Log(jumpCount);
+            _playerRigidbody.velocity = new Vector2(_playerRigidbody.velocity.x, scriptMovement.jumpForce);
                 Actions.OnPlayerJump();
             }
 
@@ -123,7 +129,9 @@ public class PlayerMovement : MonoBehaviour
 
     public bool IsGrounded()
     {
-        return Physics2D.OverlapCircle(groundCheck.position, scriptMovement.groundCheckDistance, scriptMovement.groundLayer);
+        jumpCount = 2;
+        RaycastHit2D rayHit = Physics2D.BoxCast(box.bounds.center, box.bounds.size, 0, Vector2.down, 0.1f, groundLayer);
+        return rayHit.collider != null;
     }
 
 

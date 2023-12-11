@@ -10,6 +10,8 @@ public class hitBox : MonoBehaviour
     public bool parryTime;
     SpriteRenderer spriteRenderer;
     AttackPlayer attackPlayer;
+    [SerializeField] GameObject player;
+    private bool playerIn;
     // Start is called before the first frame update
     void Start()
     {
@@ -17,7 +19,7 @@ public class hitBox : MonoBehaviour
         spriteRenderer = GetComponent<SpriteRenderer>();
         spriteRenderer.color = new Color(.2f, .2f, 1f, .5f);
         parryTime = false;
-
+        player = GameObject.FindGameObjectWithTag("Player");
     }
 
     // Update is called once per frame
@@ -32,7 +34,12 @@ public class hitBox : MonoBehaviour
             {
                 parryTime = false;
                 spriteRenderer.color = new Color(1f, .1f, .08f, .5f);
-                if(hit <= 0)
+                if(playerIn) {
+                    Debug.Log("Hit player");
+                    attackPlayer.attacking = false;
+                    Destroy(gameObject);
+                }
+                else if(hit <= 0)
                 {
                     attackPlayer.attacking = false;
                     Destroy(gameObject);
@@ -44,4 +51,19 @@ public class hitBox : MonoBehaviour
         windUpTime -= Time.deltaTime;
     }
 
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if(collision.gameObject == player)
+        {
+            playerIn = true;
+        }
+    }
+
+    private void OnTriggerExit2D(Collider2D collision)
+    {
+        if(collision.gameObject == player)
+        {
+            playerIn = false;
+        }
+    }
 }
