@@ -10,7 +10,8 @@ public class AttackPlayer : MonoBehaviour
     [SerializeField] GameObject player;
     [SerializeField] GameObject hitBox;
     [SerializeField] float startWindDownTime;
-    float windDownTime;
+    [SerializeField] public bool parried;
+    public float windDownTime;
     Vector2 attackDirection;
     // Start is called before the first frame update
     void Start()
@@ -18,6 +19,7 @@ public class AttackPlayer : MonoBehaviour
         attacking = false;
         windDownTime = 0;
         player = GameObject.FindGameObjectWithTag("Player");
+        parried = false;
     }
 
     // Update is called once per frame
@@ -29,7 +31,7 @@ public class AttackPlayer : MonoBehaviour
         Debug.DrawRay(transform.position, attackDirection * attackLength, Color.green);
         if(hit.collider != null && windDownTime <= 0)
         {
-        windDownTime = startWindDownTime;
+            windDownTime = startWindDownTime;
             if(hit.collider.gameObject == player)
             {
                 attacking = true;
@@ -51,6 +53,7 @@ public class AttackPlayer : MonoBehaviour
             }
         }
         windDownTime -=  Time.deltaTime;
+     
     }
    private Vector2 playerDirection()
     {

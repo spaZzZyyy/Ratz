@@ -13,6 +13,7 @@ public class Parry : MonoBehaviour
     [SerializeField] private float parryCooldownStart = .5f;
     [SerializeField] public List<GameObject> hitBoxes = new List<GameObject>();
     [SerializeField] KeyCode _parryButton;
+    [SerializeField] private float parriedWindDown;
     public bool inParry;
     private void Start()
     {
@@ -40,9 +41,9 @@ public class Parry : MonoBehaviour
                 {
                     if (hitBoxes[i].GetComponent<hitBox>().parryTime)
                     {
-                        Debug.Log("Parried");
                         GameObject curHitbox = hitBoxes[i];
                         curHitbox.transform.parent.GetComponent<AttackPlayer>().attacking = false;
+                        curHitbox.transform.parent.GetComponent<AttackPlayer>().parried = true;
                         hitBoxes.Remove(curHitbox);
                         Destroy(curHitbox);
                     }
