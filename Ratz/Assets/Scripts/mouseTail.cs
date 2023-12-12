@@ -7,10 +7,11 @@ using UnityEngine;
 public class mouseTail : MonoBehaviour
 {
     PlayerMovement player_movement;
+    [SerializeField] ScriptControls scriptControls;
     private float _playerThickness;
     public int length;
     public LineRenderer lineRend;
-    public Vector3[] segmentPoses;
+    [HideInInspector] public Vector3[] segmentPoses;
     public Transform targetDir;
     public float targetDistance;
     public float smoothSpeed;
@@ -48,13 +49,13 @@ public class mouseTail : MonoBehaviour
     void FixedUpdate()
     {
         #region ->Used BlackThornProd trail design
-        wiggleDir.localRotation = Quaternion.Euler(0,tailEndHeight,Mathf.Sin(Time.time * wiggleSpeed) * wigFactor);
-        segmentPoses[0] = targetDir.position;
+            wiggleDir.localRotation = Quaternion.Euler(0,tailEndHeight,Mathf.Sin(Time.time * wiggleSpeed) * wigFactor);
+            segmentPoses[0] = targetDir.position;
 
-        for (int i = 1; i < segmentPoses.Length; i++){
-            segmentPoses[i] = Vector3.SmoothDamp(segmentPoses[i], segmentPoses[i-1] + targetDir.right * targetDistance, ref segmentVelocity[i], smoothSpeed + i / trailSpeedFactor);
-        }
-        lineRend.SetPositions(segmentPoses);
+            for (int i = 1; i < segmentPoses.Length; i++){
+                segmentPoses[i] = Vector3.SmoothDamp(segmentPoses[i], segmentPoses[i-1] + targetDir.right * targetDistance, ref segmentVelocity[i], smoothSpeed + i / trailSpeedFactor);
+            }
+            lineRend.SetPositions(segmentPoses);
         #endregion
 
         FlipTail();
@@ -68,11 +69,11 @@ public class mouseTail : MonoBehaviour
         wigFactor = wiggleMagnitude;
         trailSpeedFactor = trailSpeed;
         
-        if(Input.GetKey(KeyCode.A))
+        if(Input.GetKey(scriptControls.moveLeft))
         {
             FlipTailLeft();
         }
-        if(Input.GetKey(KeyCode.D)){
+        if(Input.GetKey(scriptControls.moveRight)){
             FlipTailRight();
         }
     }
