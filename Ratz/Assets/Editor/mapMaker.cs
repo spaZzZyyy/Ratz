@@ -22,7 +22,7 @@ public class mapMaker : EditorWindow {
     private void OnGUI() {
         GameObject player = GameObject.FindGameObjectWithTag("Player");
         ToolMovement TM = player.GetComponentInChildren<ToolMovement>();
-        GUI.Label(new Rect(55, 30, 150, 100), "Player Guide Lines");
+        GUI.Label(new Rect(55, 10, 150, 100), "Player Guide Lines");
         //Enable Movement Guide Lines
         if (GUI.Button(new Rect(10, 70, 100, 20), "Enable")){
             TM.enabled = true;
