@@ -20,14 +20,18 @@ public class PlayerMovement : MonoBehaviour
     BoxCollider2D box;
     private float _timeFromGround;
     [SerializeField] private LayerMask groundLayer;
+    [SerializeField] private float playerKnockbackX;
+
+    [SerializeField] private float playerKnockbackY;
+
 
     #region Assigning Controls
 
     private KeyCode _moveRightButton;
-        private KeyCode _moveLeftButton;
-        private KeyCode _moveJumpButton;
-        private KeyCode _moveCrouchButton;
-        private KeyCode _moveDashButton;
+    private KeyCode _moveLeftButton;
+    private KeyCode _moveJumpButton;
+    private KeyCode _moveCrouchButton;
+    private KeyCode _moveDashButton;
 
     #endregion
 
@@ -143,6 +147,12 @@ public class PlayerMovement : MonoBehaviour
                 _playerRigidbody.AddForce(new Vector2(scriptMovement.dashDistance * _movementPlayer, 0));
                 StartCoroutine(OnDash());
             }
+    }
+
+    public void Hit(Vector2 dir)
+    {
+        Vector2 hitDir = new Vector2(dir.x * playerKnockbackX, playerKnockbackY) * _playerRigidbody.mass;
+        _playerRigidbody.AddForce(hitDir);
     }
 
     IEnumerator OnDash()
