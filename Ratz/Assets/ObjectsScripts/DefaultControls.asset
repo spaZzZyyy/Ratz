@@ -12,10 +12,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ab14a0cbc9e70b84ab5e4b703463cf24, type: 3}
   m_Name: DefaultControls
   m_EditorClassIdentifier: 
-  moveRight: 100
-  moveLeft: 97
-  moveJump: 119
-  moveCrouch: 115
+  moveRight: 275
+  moveLeft: 276
+  moveJump: 273
+  moveCrouch: 274
   dash: 32
   parry: 101
   attack: 114
