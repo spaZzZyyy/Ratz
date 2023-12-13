@@ -11,6 +11,12 @@ public class AttackPlayer : MonoBehaviour
     [SerializeField] GameObject hitBox;
     [SerializeField] float startWindDownTime;
     [SerializeField] public bool parried;
+    [SerializeField] public bool attackThrough;
+
+    [SerializeField] public float attackWindUp;
+    [SerializeField] public float attackParryTime;
+    [SerializeField] public float attackDamageTime;
+    [SerializeField] public float attackOffset;
     public float windDownTime;
     Vector2 attackDirection;
     // Start is called before the first frame update
@@ -40,13 +46,19 @@ public class AttackPlayer : MonoBehaviour
                 {
                     
                     GameObject newHitbox= Instantiate(hitBox, parent:this.transform);
+                    hitBox newHitBoxComp = newHitbox.GetComponent<hitBox>();
+                    newHitBoxComp.dir = attackDirection;
+                    newHitBoxComp.windUpTime = attackWindUp;
+                    newHitBoxComp.parryZone = attackParryTime;
+                    newHitBoxComp.hitTime = attackDamageTime;
+                   // newHitbox.transform.localScale = new Vector3(newHitbox.transform.localScale.x * attackLength/20, newHitbox.transform.localScale.y, newHitbox.transform.localScale.z);
 
                     if (attackDirection == Vector2.left)
                     {
-                        newHitbox.transform.position = new Vector3(newHitbox.transform.position.x - 10, newHitbox.transform.position.y, 0);
+                        newHitbox.transform.position = new Vector3(newHitbox.transform.position.x - attackOffset, newHitbox.transform.position.y, 0);
                     } else
                     {
-                        newHitbox.transform.position = new Vector3(newHitbox.transform.position.x + 10, newHitbox.transform.position.y, 0);
+                        newHitbox.transform.position = new Vector3(newHitbox.transform.position.x + attackOffset, newHitbox.transform.position.y, 0);
 
                     }
                 }

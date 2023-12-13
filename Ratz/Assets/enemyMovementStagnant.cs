@@ -15,6 +15,7 @@ public class enemyMovementStagnant : MonoBehaviour
     [SerializeField] private float parriedWindDown;
     [SerializeField] private Rigidbody2D rb;
     [SerializeField] private float moveWindDownStart;
+    private healthManagerEnemy healthManagerEnemyThis;
     private float moveWindDown;
     Vector2 dir;
 
@@ -27,6 +28,8 @@ public class enemyMovementStagnant : MonoBehaviour
         rb = GetComponent<Rigidbody2D>();
         dir = Vector2.right;
         moveWindDown = moveWindDownStart;
+        healthManagerEnemyThis = GetComponent<healthManagerEnemy>();
+
     }
 
 
@@ -78,6 +81,7 @@ public class enemyMovementStagnant : MonoBehaviour
             rb.constraints = RigidbodyConstraints2D.FreezeRotation;
             rb.AddForce(-dir * rb.mass * rb.mass);
             playerAttack.windDownTime = parriedWindDown;
+            healthManagerEnemyThis.parriedWindow = parriedWindDown;
             playerAttack.parried = false;
         }
     }

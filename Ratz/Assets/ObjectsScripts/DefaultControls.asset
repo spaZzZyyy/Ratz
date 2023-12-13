@@ -18,3 +18,4 @@ MonoBehaviour:
   moveCrouch: 115
   dash: 32
   parry: 101
+  attack: 114
