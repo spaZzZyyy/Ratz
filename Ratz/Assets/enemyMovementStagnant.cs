@@ -6,7 +6,6 @@ public class enemyMovementStagnant : MonoBehaviour
 {
     [SerializeField] GameObject player;
     [SerializeField] private float speed;
-    [SerializeField] private AttackPlayer playerAttack;
     [SerializeField] private float rayCastOffset;
     [SerializeField] private float debugDistance;
     [SerializeField] private float parriedForce;
@@ -24,7 +23,6 @@ public class enemyMovementStagnant : MonoBehaviour
     void Start()
     {
         player = GameObject.FindGameObjectWithTag("Player");
-        playerAttack = GetComponent<AttackPlayer>();
         rb = GetComponent<Rigidbody2D>();
         dir = Vector2.right;
         moveWindDown = moveWindDownStart;
@@ -37,11 +35,7 @@ public class enemyMovementStagnant : MonoBehaviour
     void Update()
     {
         //if not attacking, don't move towards player
-        if (playerAttack.attacking == false)
-        {
-            dir = detectEdge(dir);
-        }
-        checkParried();
+        dir = detectEdge(dir);
         moveWindDownStart -= Time.deltaTime;
     }
 
@@ -53,8 +47,6 @@ public class enemyMovementStagnant : MonoBehaviour
         RaycastHit2D rayLeft = Physics2D.Raycast(origin: rayLeftOrigin, Vector2.down, debugDistance);
         Debug.DrawRay(rayRightOrigin, Vector3.down * debugDistance, Color.green);
         Debug.DrawRay(rayLeftOrigin, Vector3.down * debugDistance, Color.green);
-        if (playerAttack.windDownTime <= 0)
-        {
             if ((rayLeft.collider == null || rayLeft.collider.gameObject.tag == "Enemy") && dir == Vector2.left && moveWindDownStart <=0)
             {
                 moveWindDown = moveWindDownStart;
@@ -70,11 +62,10 @@ public class enemyMovementStagnant : MonoBehaviour
             }
             
                 transform.Translate(dir * speed * Time.deltaTime);
-        }
         return dir;
     }
 
-    private void checkParried()
+   /* private void checkParried()
     {
         if (playerAttack.parried)
         {
@@ -84,5 +75,5 @@ public class enemyMovementStagnant : MonoBehaviour
             healthManagerEnemyThis.parriedWindow = parriedWindDown;
             playerAttack.parried = false;
         }
-    }
+    }*/
 }

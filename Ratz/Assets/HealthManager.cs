@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
-
+using UnityEngine.SceneManagement;
 
 public class HealthManager : MonoBehaviour
 {
@@ -16,10 +16,23 @@ public class HealthManager : MonoBehaviour
         textHealth.text = "Health: " + health.ToString();
     }
 
+    private void Update()
+    {
+        checkIfDead();
+    }
+
     public void damage()
     {
         health--;
         textHealth.text = "Health: " + health.ToString();
+    }
+
+    void checkIfDead()
+    {
+        if (health <= 0)
+        {
+            SceneManager.LoadScene(1);
+        }
     }
 
 }

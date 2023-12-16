@@ -120,7 +120,6 @@ public class SpawnEnemies : MonoBehaviour
     private int returnRandomSpawn()
     {
         int randSpawn = Random.Range(0, this.transform.childCount);
-        Debug.Log(randSpawn);
         return randSpawn;
     }
 }
