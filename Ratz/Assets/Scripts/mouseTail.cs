@@ -48,12 +48,18 @@ public class mouseTail : MonoBehaviour
     // Update is called once per frame
     void FixedUpdate()
     {
+        /*
+            problem TO FIX,
+            The mouse tail isn't seeable when flipped, not able to see due to Z axis being positive
+            need to change something so the tail render segments Z axis remains negative
+        */
         #region ->Used BlackThornProd trail design
             wiggleDir.localRotation = Quaternion.Euler(0,tailEndHeight,Mathf.Sin(Time.time * wiggleSpeed) * wigFactor);
             segmentPoses[0] = targetDir.position;
 
             for (int i = 1; i < segmentPoses.Length; i++){
                 segmentPoses[i] = Vector3.SmoothDamp(segmentPoses[i], segmentPoses[i-1] + targetDir.right * targetDistance, ref segmentVelocity[i], smoothSpeed + i / trailSpeedFactor);
+                
             }
             lineRend.SetPositions(segmentPoses);
         #endregion
@@ -79,7 +85,6 @@ public class mouseTail : MonoBehaviour
     }
 
     void ResetTail(){
-
         wigFactor = jumpWig;
         trailSpeedFactor = jumpTailSpeed;
 

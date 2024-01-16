@@ -22,8 +22,6 @@ Material:
   m_PrefabAsset: {fileID: 0}
   m_Name: Brick
   m_Shader: {fileID: -6465566751694194690, guid: 9ba02b3e8637e1140a98db37c0927d7d, type: 3}
-  m_Parent: {fileID: 0}
-  m_ModifiedSerializedProperties: 0
   m_ValidKeywords: []
   m_InvalidKeywords: []
   m_LightmapFlags: 4
@@ -32,7 +30,6 @@ Material:
   m_CustomRenderQueue: -1
   stringTagMap: {}
   disabledShaderPasses: []
-  m_LockedProperties: 
   m_SavedProperties:
     serializedVersion: 3
     m_TexEnvs:
@@ -71,7 +68,7 @@ Material:
     - _QueueOffset: 0
     m_Colors:
     - _2ndColor: {r: 0.3584906, g: 0.3567996, b: 0.3567996, a: 0}
-    - _Blocks: {r: 1.46, g: 3.19, b: 0, a: 0}
+    - _Blocks: {r: 2, g: 2, b: 0, a: 0}
     - _BrickColor: {r: 1, g: 0, b: 0, a: 0}
     - _Color: {r: 1, g: 1, b: 1, a: 1}
     - _Flip: {r: 1, g: 1, b: 1, a: 1}

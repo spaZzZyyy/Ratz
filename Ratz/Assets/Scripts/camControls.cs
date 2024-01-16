@@ -5,8 +5,7 @@ using UnityEngine;
 [CreateAssetMenu(menuName = "ScriptableObjects/Cam Controls")]
 public class camControls : ScriptableObject
 {
-    public float timeUntilZoomOut;
-    public float camZoomInSize;
-    public float camZoomOutSize;
-    public float camZoomSpeed;
+    public float zoomMax;
+    public float zoomMin;
+
 }
