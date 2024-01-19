@@ -12,9 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 45caf86dd3778a34fb1af33989f46a90, type: 3}
   m_Name: DefaultMovement
   m_EditorClassIdentifier: 
-  gravityForce: 14.9
-  movementSpeed: 71
-  jumpForce: 102.6
+  gravityForce: 12.31
+  movementSpeed: 10
+  jumpForce: 32.5
   groundLayer:
     serializedVersion: 2
     m_Bits: 1024
