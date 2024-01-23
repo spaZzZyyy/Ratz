@@ -1014,9 +1014,9 @@ MonoBehaviour:
   - prefab: {fileID: 6417063373048587312, guid: ba9a92d903b1ea1468d27c64ab7510dc, type: 3}
     cost: 1
   - prefab: {fileID: 8648419074639638244, guid: 8d5b4df066928154bb16f5fa1a2b2ac3, type: 3}
-    cost: 3
+    cost: 1
   - prefab: {fileID: 3994792100004025176, guid: 6c46ff8e2a4d70c4c89bfea988e50bb8, type: 3}
-    cost: 10
+    cost: 1
   currWave: 1
   waveValue: 0
   enemiesToSpawn: []
