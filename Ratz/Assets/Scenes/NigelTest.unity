@@ -573,6 +573,30 @@ PrefabInstance:
       propertyPath: m_LocalPosition.y
       value: 6.9
       objectReference: {fileID: 0}
+    - target: {fileID: 4844203437845221433, guid: 4be761da4f680b744af8f05dc297fdb3, type: 3}
+      propertyPath: m_Size.y
+      value: 11.713136
+      objectReference: {fileID: 0}
+    - target: {fileID: 4844203437845221433, guid: 4be761da4f680b744af8f05dc297fdb3, type: 3}
+      propertyPath: m_Offset.x
+      value: 0.040308
+      objectReference: {fileID: 0}
+    - target: {fileID: 4844203437845221433, guid: 4be761da4f680b744af8f05dc297fdb3, type: 3}
+      propertyPath: m_Offset.y
+      value: 9.050791
+      objectReference: {fileID: 0}
+    - target: {fileID: 4844203437845221434, guid: 4be761da4f680b744af8f05dc297fdb3, type: 3}
+      propertyPath: m_Size.y
+      value: 11.713134
+      objectReference: {fileID: 0}
+    - target: {fileID: 4844203437845221434, guid: 4be761da4f680b744af8f05dc297fdb3, type: 3}
+      propertyPath: m_Offset.x
+      value: 0.040308
+      objectReference: {fileID: 0}
+    - target: {fileID: 4844203437845221434, guid: 4be761da4f680b744af8f05dc297fdb3, type: 3}
+      propertyPath: m_Offset.y
+      value: 9.050789
+      objectReference: {fileID: 0}
     - target: {fileID: 4962367021454143884, guid: 4be761da4f680b744af8f05dc297fdb3, type: 3}
       propertyPath: m_Name
       value: Nigel
@@ -819,7 +843,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1223007584}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 5cfbdc3f00e33624988659b5ea9ba656, type: 3}
   m_Name: 
