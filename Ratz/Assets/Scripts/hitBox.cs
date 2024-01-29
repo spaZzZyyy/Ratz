@@ -4,14 +4,17 @@ using UnityEngine;
 
 public class hitBox : MonoBehaviour
 {
-    [SerializeField] float windUpTime;
-    [SerializeField] float ParryTime;
-    [SerializeField] float hit;
+    [SerializeField] public float windUpTime;
+    [SerializeField] public float parryZone;
+    [SerializeField] public float hitTime;
     public bool parryTime;
+    public bool attackThrough;
     SpriteRenderer spriteRenderer;
     AttackPlayer attackPlayer;
     [SerializeField] GameObject player;
     private bool playerIn;
+    private HealthManager healthManager;
+    public Vector2 dir;
     // Start is called before the first frame update
     void Start()
     {
@@ -19,7 +22,9 @@ public class hitBox : MonoBehaviour
         spriteRenderer = GetComponent<SpriteRenderer>();
         spriteRenderer.color = new Color(.2f, .2f, 1f, .5f);
         parryTime = false;
+        attackThrough = false;
         player = GameObject.FindGameObjectWithTag("Player");
+        healthManager = GameObject.FindGameObjectWithTag("healthManager").GetComponent<HealthManager>();
     }
 
     // Update is called once per frame
@@ -30,23 +35,27 @@ public class hitBox : MonoBehaviour
         {
             spriteRenderer.color = new Color(1f, .7f, .2f, .5f);
             parryTime = true;
-            if (ParryTime <= 0)
+            if (parryZone <= 0)
             {
                 parryTime = false;
                 spriteRenderer.color = new Color(1f, .1f, .08f, .5f);
                 if(playerIn) {
-                    Debug.Log("Hit player");
+                    player.GetComponent<PlayerMovement>().Hit(dir);
+                    attackPlayer.attackThrough = true;
                     attackPlayer.attacking = false;
+                    healthManager.damage();
                     Destroy(gameObject);
+
                 }
-                else if(hit <= 0)
+                else if(hitTime <= 0)
                 {
+                    attackPlayer.attackThrough = true;
                     attackPlayer.attacking = false;
                     Destroy(gameObject);
                 }
-                hit -= Time.deltaTime;
+                hitTime -= Time.deltaTime;
             }
-            ParryTime -= Time.deltaTime;
+            parryZone -= Time.deltaTime;
         }
         windUpTime -= Time.deltaTime;
     }
