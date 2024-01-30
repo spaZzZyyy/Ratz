@@ -9,7 +9,7 @@ using UnityEngine.SceneManagement;
 
 public class SpawnEnemies : MonoBehaviour
 {
-    public List<Enemy> enemies = new List<Enemy>();
+    public List<Enemys> enemies = new List<Enemys>();
     public int currWave = 1;
     public int waveValue;
     public List<GameObject> enemiesToSpawn = new List<GameObject>();
@@ -129,7 +129,7 @@ public class SpawnEnemies : MonoBehaviour
 
 [System.Serializable]
 
-public class Enemy
+public class Enemys
 {
     public GameObject prefab;
     public int cost;

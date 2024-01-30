@@ -31,6 +31,9 @@ public class hitBoxPlayer : MonoBehaviour
         if (collision.gameObject.tag == "Enemy")
         {
             collision.GetComponent<healthManagerEnemy>().hit = true;
+        } else if (collision.gameObject.tag == "Boss")
+        {
+            Debug.Log("hit boss");
         }
     }
 }
