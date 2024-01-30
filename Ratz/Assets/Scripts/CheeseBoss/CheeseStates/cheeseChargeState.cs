@@ -5,6 +5,9 @@ using UnityEngine.UIElements;
 
 public class CheeseChargeState : CheeseState
 {
+
+    Vector2 dir;
+    Rigidbody2D rb;
     public CheeseChargeState(Enemy enemy, CheeseStateMachine cheeseStateMachine) : base(enemy, cheeseStateMachine)
     {
     }
@@ -12,6 +15,8 @@ public class CheeseChargeState : CheeseState
     public override void EnterState()
     {
         base.EnterState();
+        rb = GetCo
+        
     }
 
     public override void ExitState()
