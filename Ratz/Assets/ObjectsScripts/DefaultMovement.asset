@@ -12,15 +12,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 45caf86dd3778a34fb1af33989f46a90, type: 3}
   m_Name: DefaultMovement
   m_EditorClassIdentifier: 
-  gravityForce: 12.31
-  movementSpeed: 4.18
-  jumpForce: 32.5
+  gravityForce: 9
+  movementSpeed: 8
+  jumpForce: 35
   groundLayer:
     serializedVersion: 2
     m_Bits: 1024
   groundCheckDistance: 2.18
   minJumpHeight: 0.5
-  dashDistance: 4000
+  dashDistance: 600
   dashCoolDown: 0.92
   dashDuration: 0.12
   coyoteTime: 1.32
