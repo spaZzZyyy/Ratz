@@ -15,6 +15,7 @@ public class EnemyMovementFollow : MonoBehaviour
     [SerializeField] private float parriedYOffset;
     [SerializeField] private float parriedXOffset;
     [SerializeField] private float parriedWindDown;
+    private healthManagerEnemy healthManagerEnemyThis;
 
     [SerializeField] private Rigidbody2D rb;
     Vector2 dir;
@@ -26,6 +27,7 @@ public class EnemyMovementFollow : MonoBehaviour
         player = GameObject.FindGameObjectWithTag("Player");
         playerAttack = GetComponent<AttackPlayer>();
         rb = GetComponent<Rigidbody2D>();
+        healthManagerEnemyThis = GetComponent<healthManagerEnemy>();
     }
 
 
@@ -74,6 +76,7 @@ public class EnemyMovementFollow : MonoBehaviour
             rb.constraints = RigidbodyConstraints2D.FreezeRotation;
             rb.AddForce(-dir * rb.mass * rb.mass);
             playerAttack.windDownTime = parriedWindDown;
+            healthManagerEnemyThis.parriedWindow = parriedWindDown;
             playerAttack.parried = false;
 
 
