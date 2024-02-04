@@ -14,14 +14,14 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   gravityForce: 12
   movementSpeed: 7
-  jumpForce: 32
+  jumpForce: 32.3
   numJumps: 1
   groundLayer:
     serializedVersion: 2
     m_Bits: 1024
   groundCheckDistance: 0.1
-  minJumpHeight: 9.5
-  dashDistance: 500
+  minJumpHeight: 0.1
+  dashDistance: 200
   dashCoolDown: 1
   dashDuration: 0.2
   coyoteTime: 1

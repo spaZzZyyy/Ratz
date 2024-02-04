@@ -78,17 +78,17 @@ public class PlayerMovement : MonoBehaviour
             #endregion
 
         #region Jump
-            if ( (Input.GetKeyDown(_moveJumpButton) && IsGrounded() && jumpCount < scriptMovement.numJumps) || (Input.GetKeyDown(_moveJumpButton) && (scriptMovement.coyoteTime > _timeFromGround) && jumpCount < scriptMovement.numJumps))
+            if ( (Input.GetKeyDown(_moveJumpButton) && (IsGrounded() || (scriptMovement.coyoteTime > _timeFromGround)) && jumpCount < scriptMovement.numJumps))
             {
                 _playerRigidbody.velocity = new Vector2(_playerRigidbody.velocity.x, scriptMovement.jumpForce);
             }
 
-            if (Input.GetKeyUp(_moveJumpButton) && _playerRigidbody.velocity.y > 0f && jumpCount < scriptMovement.numJumps)
+            if (Input.GetKeyUp(_moveJumpButton) && _playerRigidbody.velocity.y > 0f)
             {
                 _playerRigidbody.velocity = new Vector2(_playerRigidbody.velocity.x, _playerRigidbody.velocity.y * scriptMovement.minJumpHeight);
             }
 
-            if (Input.GetKey(_moveJumpButton)){
+            if (Input.GetKeyDown(_moveJumpButton) || Input.GetKeyUp(_moveJumpButton)){
                 jumpCount++;
                 Actions.OnPlayerJump();
             }
