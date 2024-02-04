@@ -8,6 +8,7 @@ TagManager:
   - healthManager
   - Enemy
   - Bouncy
+  - Pillar
   layers:
   - Default
   - TransparentFX

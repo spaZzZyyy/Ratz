@@ -29,7 +29,6 @@ public class Attack : MonoBehaviour
 
         _moveRightButton = controls.moveRight;
         _moveLeftButton = controls.moveLeft;
-        attackButton = controls.attack;
 
     #endregion
         dir = Vector2.right;

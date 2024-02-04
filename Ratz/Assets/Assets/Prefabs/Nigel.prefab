@@ -103,8 +103,8 @@ MonoBehaviour:
   - {fileID: 2099211857015407964}
   - {fileID: 7854746262198893531}
   m_Bounds:
-    m_Center: {x: 0.0042600036, y: -0.0069395304, z: -0.040000003}
-    m_Extent: {x: 0.85074043, y: 1.5836539, z: 0.02}
+    m_Center: {x: 0.0042600036, y: -0.006940484, z: -0.040000003}
+    m_Extent: {x: 0.85074043, y: 1.583653, z: 0.02}
   m_UseBatching: 1
   m_AlwaysUpdate: 1
   m_AutoRebind: 0
@@ -211,8 +211,8 @@ MonoBehaviour:
   - {fileID: 1215329273108956317}
   - {fileID: 7287393421632591822}
   m_Bounds:
-    m_Center: {x: 0.0020250082, y: 0, z: 0.04}
-    m_Extent: {x: 1.0779753, y: 2.1150002, z: 0.020000001}
+    m_Center: {x: 0.0020290613, y: 0, z: 0.04}
+    m_Extent: {x: 1.0779755, y: 2.1150002, z: 0.020000001}
   m_UseBatching: 1
   m_AlwaysUpdate: 1
   m_AutoRebind: 0
@@ -414,8 +414,8 @@ MonoBehaviour:
   - {fileID: 7525307319328447469}
   - {fileID: 1299381107374208652}
   m_Bounds:
-    m_Center: {x: 0.0070943832, y: -0.00434947, z: 0.010000001}
-    m_Extent: {x: 2.4027843, y: 1.4506515, z: 0.010000001}
+    m_Center: {x: 0.007100582, y: -0.00434947, z: 0.010000001}
+    m_Extent: {x: 2.4027867, y: 1.4506515, z: 0.010000001}
   m_UseBatching: 1
   m_AlwaysUpdate: 1
   m_AutoRebind: 0
@@ -586,8 +586,8 @@ MonoBehaviour:
   - {fileID: 1562957105184955219}
   - {fileID: 1228182145541257631}
   m_Bounds:
-    m_Center: {x: -0.0046260357, y: -0.0003349781, z: 0}
-    m_Extent: {x: 2.9103749, y: 2.2267852, z: 0}
+    m_Center: {x: -0.004625082, y: -0.00033307076, z: 0}
+    m_Extent: {x: 2.9103787, y: 2.2267852, z: 0}
   m_UseBatching: 1
   m_AlwaysUpdate: 1
   m_AutoRebind: 0
@@ -791,8 +791,8 @@ MonoBehaviour:
   - {fileID: 5006464617216441107}
   - {fileID: 7497327317201858633}
   m_Bounds:
-    m_Center: {x: -0.0044454336, y: 0.0000011920929, z: 0.030000001}
-    m_Extent: {x: 1.4844449, y: 0.91499877, z: 0.010000001}
+    m_Center: {x: -0.004444957, y: 0.0000021457672, z: 0.030000001}
+    m_Extent: {x: 1.4844453, y: 0.9149997, z: 0.010000001}
   m_UseBatching: 1
   m_AlwaysUpdate: 1
   m_AutoRebind: 0
@@ -1249,7 +1249,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6058968052092398063}
-  - component: {fileID: 4844203437845221428}
   - component: {fileID: 4844203437845221430}
   - component: {fileID: 4844203437845221434}
   - component: {fileID: 4844203437845221433}
@@ -1290,25 +1289,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &4844203437845221428
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4962367021454143884}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fc37feca618e0ee44b38124823e937a7, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  controls: {fileID: 11400000, guid: 1364f0fd150daf449b0b62d939d65b92, type: 2}
-  parryTimeStart: 1
-  parryCooldownStart: 0.5
-  hitBoxes: []
-  _parryButton: 0
-  parriedWindDown: 0
-  inParry: 0
 --- !u!114 &4844203437845221430
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1327,6 +1307,8 @@ MonoBehaviour:
   groundLayer:
     serializedVersion: 2
     m_Bits: 1024
+  playerKnockbackX: 0
+  playerKnockbackY: 0
 --- !u!61 &4844203437845221434
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -1614,7 +1596,7 @@ MonoBehaviour:
   m_BoneTransforms:
   - {fileID: 976915022323831247}
   m_Bounds:
-    m_Center: {x: -0.0008200109, y: -0.0012199879, z: 0}
+    m_Center: {x: -0.0008200109, y: -0.0012190342, z: 0}
     m_Extent: {x: 0.38672, y: 0.60683, z: 0}
   m_UseBatching: 1
   m_AlwaysUpdate: 1
@@ -1721,8 +1703,8 @@ MonoBehaviour:
   - {fileID: 3696343305225711025}
   - {fileID: 477768425049625531}
   m_Bounds:
-    m_Center: {x: 0.0046339035, y: -0.0045764446, z: 0.030000001}
-    m_Extent: {x: 2.1546354, y: 2.8016953, z: 0.010000001}
+    m_Center: {x: 0.0046310425, y: -0.0045740604, z: 0.030000001}
+    m_Extent: {x: 2.1546354, y: 2.8016949, z: 0.010000001}
   m_UseBatching: 1
   m_AlwaysUpdate: 1
   m_AutoRebind: 0
@@ -1862,8 +1844,8 @@ MonoBehaviour:
   - {fileID: 4566579597369851400}
   - {fileID: 3054524489387919994}
   m_Bounds:
-    m_Center: {x: 0.008900404, y: 0.00016498566, z: 0}
-    m_Extent: {x: 2.0260997, y: 3.2951655, z: 0}
+    m_Center: {x: 0.008905649, y: 0.000166893, z: 0}
+    m_Extent: {x: 2.026102, y: 3.2951655, z: 0}
   m_UseBatching: 1
   m_AlwaysUpdate: 1
   m_AutoRebind: 0
@@ -2193,8 +2175,8 @@ MonoBehaviour:
   - {fileID: 8019891300513832645}
   - {fileID: 1938559554419929368}
   m_Bounds:
-    m_Center: {x: -0.00010192394, y: -0.0016508102, z: -0.030000001}
-    m_Extent: {x: 1.9351006, y: 2.3792415, z: 0.010000001}
+    m_Center: {x: -0.0000962019, y: -0.001648426, z: -0.030000001}
+    m_Extent: {x: 1.9351006, y: 2.379241, z: 0.010000001}
   m_UseBatching: 1
   m_AlwaysUpdate: 1
   m_AutoRebind: 0
@@ -2300,8 +2282,8 @@ MonoBehaviour:
   - {fileID: 2265291989294526151}
   - {fileID: 1299381107374208652}
   m_Bounds:
-    m_Center: {x: -0.0000010728836, y: -0.000970006, z: -0.030000001}
-    m_Extent: {x: 1.435, y: 0.62851995, z: 0.010000001}
+    m_Center: {x: -0.00000011920929, y: -0.0009690523, z: -0.030000001}
+    m_Extent: {x: 1.4349961, y: 0.628519, z: 0.010000001}
   m_UseBatching: 1
   m_AlwaysUpdate: 1
   m_AutoRebind: 0

@@ -80,10 +80,10 @@ public class PlayerMovement : MonoBehaviour
             if ( (Input.GetKeyDown(_moveJumpButton) && IsGrounded() && jumpCount > 0) || (Input.GetKeyDown(_moveJumpButton) && (scriptMovement.coyoteTime > _timeFromGround)) && jumpCount >0)
             {
 
-            jumpCount -= 1;
-            _playerRigidbody.velocity = new Vector2(_playerRigidbody.velocity.x, scriptMovement.jumpForce);
+                jumpCount -= 1;
+                _playerRigidbody.velocity = new Vector2(_playerRigidbody.velocity.x, scriptMovement.jumpForce);
                 Actions.OnPlayerJump();
-            }
+        }
 
             if (Input.GetKeyUp(_moveJumpButton) && _playerRigidbody.velocity.y > 0f)
             {
