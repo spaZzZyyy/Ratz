@@ -9,8 +9,7 @@ public class musicManager : MonoBehaviour
 {   
     [SerializeField] AudioSource track1;
     [SerializeField] AudioSource track2;
-    
-    [SerializeField] double musicTimer = 0;
+    double musicTimer = 0;
     List<AudioSource> trackList;
     int trackToPlay = 0;
     AudioSource audioSourceToPlay;
@@ -28,6 +27,7 @@ public class musicManager : MonoBehaviour
 
     void Update()
     {
+        /*Used for debugging
         if(audioSourceToPlay == trackList[0]){
             Debug.Log("track1");
         }
@@ -35,7 +35,7 @@ public class musicManager : MonoBehaviour
             Debug.Log("track2");
 
         }
-        
+        */
 
         if(Input.GetKeyDown(scriptControls.musicStartStop)){
             stopMusic();
