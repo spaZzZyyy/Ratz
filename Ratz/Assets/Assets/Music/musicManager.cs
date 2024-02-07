@@ -22,11 +22,21 @@ public class musicManager : MonoBehaviour
     void Start()
     {
         startMusicBox();
+        
         audioSourceToPlay = trackList[trackToPlay];
     }
 
     void Update()
     {
+        if(audioSourceToPlay == trackList[0]){
+            Debug.Log("track1");
+        }
+        if(audioSourceToPlay == trackList[1]){
+            Debug.Log("track2");
+
+        }
+        
+
         if(Input.GetKeyDown(scriptControls.musicStartStop)){
             stopMusic();
         }
@@ -49,7 +59,7 @@ public class musicManager : MonoBehaviour
     }
 
     void switchTracks(){
-        if (trackToPlay < numOfTracks-1){
+        if (trackToPlay < numOfTracks - 1){
             trackToPlay++;
         } else {
             trackToPlay = 0;
@@ -59,31 +69,32 @@ public class musicManager : MonoBehaviour
 
     void stopMusic(){
         musicIsPlaying = false;
-        audioSourceToPlay.Pause();
+        for (int i = 0; i < numOfTracks; i++){
+            trackList[i].Pause();
+            trackList[i].mute = true;
+        }
     }
 
     void startMusic(){
         musicIsPlaying = true;
-        audioSourceToPlay.PlayScheduled(musicTimer);
+        for (int i = 0; i < numOfTracks; i++){
+            trackList[i].UnPause();
+        }
+        audioSourceToPlay.mute = false;
     }
 
     void startMusicBox(){
-        
         trackList = new List<AudioSource>();
         trackList.Add(track1);
         trackList.Add(track2);
         numOfTracks = trackList.Count;
-        for (int i = 1; i < numOfTracks; i++){
+        for (int i = 0; i < numOfTracks; i++){
             trackList[i].Play();
+            trackList[i].mute = true;
             trackList[i].Pause();
         }
-        
-        /*
-        track1.Play();
-        track2.Play();
-        track1.Pause();
-        track2.Pause();
-        */
+    //Puts all tracks in a pause state.
+
     }
 
 }
