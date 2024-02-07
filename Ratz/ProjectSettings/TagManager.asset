@@ -9,6 +9,9 @@ TagManager:
   - Enemy
   - Bouncy
   - Pillar
+  - spear
+  - platform
+  - wall
   layers:
   - Default
   - TransparentFX
