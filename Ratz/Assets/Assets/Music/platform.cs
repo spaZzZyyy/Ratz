@@ -21,15 +21,15 @@ public class platform : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if(startBox.musicPlaying){
-            move();
-        }
+        
+        move();
+        
     }
 
     private void move(){
         if (startBox.musicTimer < 1)
         {
-            platformRb.velocity = new Vector2(0, startBox.musicTimer);
+            platformRb.velocity = new Vector2(0, 6);
         }
         else{
             platformRb.velocity = new Vector2(0, 0);

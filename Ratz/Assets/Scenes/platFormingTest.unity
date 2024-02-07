@@ -134,6 +134,8 @@ GameObject:
   - component: {fileID: 67060584}
   - component: {fileID: 67060583}
   - component: {fileID: 67060582}
+  - component: {fileID: 67060585}
+  - component: {fileID: 67060586}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -207,6 +209,55 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &67060585
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 67060581}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a79441f348de89743a2939f4d699eac1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_RenderShadows: 1
+  m_RequiresDepthTextureOption: 2
+  m_RequiresOpaqueTextureOption: 2
+  m_CameraType: 0
+  m_Cameras: []
+  m_RendererIndex: -1
+  m_VolumeLayerMask:
+    serializedVersion: 2
+    m_Bits: 1
+  m_VolumeTrigger: {fileID: 0}
+  m_VolumeFrameworkUpdateModeOption: 2
+  m_RenderPostProcessing: 0
+  m_Antialiasing: 0
+  m_AntialiasingQuality: 2
+  m_StopNaN: 0
+  m_Dithering: 0
+  m_ClearDepth: 1
+  m_AllowXRRendering: 1
+  m_RequiresDepthTexture: 0
+  m_RequiresColorTexture: 0
+  m_Version: 2
+--- !u!114 &67060586
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 67060581}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 32f2a396c26a659419195b246c707628, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  offset: {x: 0, y: 0, z: -10}
+  ease: 0.25
+  cam: {fileID: 67060583}
+  target: {fileID: 445866755}
 --- !u!1 &267152553
 GameObject:
   m_ObjectHideFlags: 0
@@ -327,6 +378,11 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 1
   m_Constraints: 0
+--- !u!4 &445866755 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 6058968052092398063, guid: 4be761da4f680b744af8f05dc297fdb3, type: 3}
+  m_PrefabInstance: {fileID: 589300338}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &589300338
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -963,15 +1019,15 @@ AudioSource:
   m_Enabled: 1
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
-  m_audioClip: {fileID: 8300000, guid: f1fed7cffe9695a43be6faad1d5e4e2b, type: 3}
+  m_audioClip: {fileID: 8300000, guid: d05bc68e1979dc64da627808ab534228, type: 3}
   m_PlayOnAwake: 0
-  m_Volume: 0.712
+  m_Volume: 0.364
   m_Pitch: 1
   Loop: 0
   Mute: 0
   Spatialize: 0
   SpatializePostEffects: 0
-  Priority: 128
+  Priority: 98
   DopplerLevel: 1
   MinDistance: 1
   MaxDistance: 500
@@ -1061,10 +1117,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c41e9ec2d36b2294c93ed8f61617e980, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  music: {fileID: 8300000, guid: f1fed7cffe9695a43be6faad1d5e4e2b, type: 3}
-  musicBox: {fileID: 1835348926}
+  audioSource: {fileID: 1835348926}
+  muTrackOne: {fileID: 8300000, guid: d05bc68e1979dc64da627808ab534228, type: 3}
+  muTrackTwo: {fileID: 8300000, guid: f1fed7cffe9695a43be6faad1d5e4e2b, type: 3}
   musicTimer: 0
-  musicPlaying: 0
+  scriptControls: {fileID: 11400000, guid: 1364f0fd150daf449b0b62d939d65b92, type: 2}
 --- !u!4 &1835348929
 Transform:
   m_ObjectHideFlags: 0
@@ -1073,7 +1130,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1835348925}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 9.45, y: -3.06, z: -1.5687785}
+  m_LocalPosition: {x: -3.53, y: -2.07, z: -1.5687785}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -1184,8 +1241,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2072781821}
   m_LocalRotation: {x: -0, y: -0, z: -0.70770335, w: 0.7065097}
-  m_LocalPosition: {x: -8.6619, y: -4.868, z: 0}
-  m_LocalScale: {x: 8.324747, y: 3.2324, z: 1}
+  m_LocalPosition: {x: -8.6619, y: -5.663, z: 0}
+  m_LocalScale: {x: 6.735553, y: 3.2324, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
