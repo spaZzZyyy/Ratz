@@ -11,19 +11,16 @@ public class startBox : MonoBehaviour
     [SerializeField] AudioClip muTrackOne;
     [SerializeField] AudioClip muTrackTwo;
     
-    public double musicTimer = 0;
-    int trackPointer = 1;
+    [SerializeField] double musicTimer = 0;
+    int trackPointer = 0;
     int trackMax;
+    AudioClip audioClipToPlay;
     List<AudioClip> musicToPlay;
     [SerializeField] ScriptControls scriptControls;
 
     void Start()
     {
-        List<AudioClip> musicToPlay = new List<AudioClip>();
-        musicToPlay.Add(muTrackOne);
-        musicToPlay.Add(muTrackTwo);
-        
-        trackMax = musicToPlay.Count;
+        //setTrack();
     }
     private void OnCollisionEnter2D(Collision2D other) {
         //StartCoroutine("playMusic");
@@ -31,7 +28,6 @@ public class startBox : MonoBehaviour
 
     void Update()
     {
-        
         if(Input.GetKeyDown(scriptControls.musicStartStop)){
             stopMusic();
         }
@@ -49,14 +45,14 @@ public class startBox : MonoBehaviour
 
     void switchTracks(){
 
-        if (trackPointer < trackMax){
+        if (trackPointer < trackMax-1){
             trackPointer++;
         }
         else {
             trackPointer = 0;
         }
 
-        audioSource.clip = musicToPlay[trackPointer];
+        //setTrack();
     }
 
     void stopMusic(){
@@ -65,7 +61,18 @@ public class startBox : MonoBehaviour
     }
 
     void startMusic(){
-        audioSource.clip = musicToPlay[trackPointer];
+        audioSource.clip = audioClipToPlay;
         audioSource.PlayScheduled(musicTimer);
     }
+
+/*Depricated , switched to using seperate audio sources for tracks. 
+    void setTrack(){
+        List<AudioClip> musicToPlay = new List<AudioClip>();
+        musicToPlay.Add(muTrackOne);
+        musicToPlay.Add(muTrackTwo);
+        
+        trackMax = musicToPlay.Count;
+        audioClipToPlay = musicToPlay[trackPointer];
+    }
+    */
 }

@@ -22,10 +22,10 @@ public class platform : MonoBehaviour
     void Update()
     {
         
-        move();
+        //move();
         
     }
-
+/*
     private void move(){
         if (startBox.musicTimer < 1)
         {
@@ -35,4 +35,6 @@ public class platform : MonoBehaviour
             platformRb.velocity = new Vector2(0, 0);
         }
     }
+
+    */
 }
