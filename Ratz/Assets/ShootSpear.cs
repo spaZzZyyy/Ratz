@@ -8,27 +8,49 @@ public class ShootSpear : MonoBehaviour
     [SerializeField] public GameObject wall;
     [SerializeField] public bool boolShoot;
     [SerializeField] public float startingSpeed;
+    [SerializeField] public float destroyTime = 10;
+    private float fadeTimer;
     // Start is called before the first frame update
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
-        rb.velocity = new Vector2(startingSpeed, 0);
+        
+        Physics2D.IgnoreCollision(GetComponent<Collider2D>(), wall.GetComponent<Collider2D>());
 
     }
 
     // Update is called once per frame
     void Update()
     {
-        if (this.gameObject.tag == "spear")
+        if (boolShoot)
         {
+            boolShoot = false;
+            rb.velocity = new Vector2(startingSpeed, 0);
+        }
+        if (this.gameObject.tag == "platform")
+        {
+            
             rb.velocity = Vector2.zero;
             rb.gravityScale = 0;
+
+            fadeTimer -= Time.deltaTime;    
+            if (fadeTimer < 0)
+            {
+                Destroy(gameObject);
+            }
         }
     }
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
+        
         if (collision.gameObject.tag == "wall")
-            this.gameObject.tag = "platform";
+        {
+            gameObject.tag = "platform";
+            gameObject.GetComponent<Rigidbody2D>().constraints =  RigidbodyConstraints2D.FreezePositionY;
+            transform.Rotate(0,0,0);
+            fadeTimer = destroyTime;
+            
+        }
     }
 }

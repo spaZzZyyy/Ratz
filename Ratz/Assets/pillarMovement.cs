@@ -1,4 +1,3 @@
-using EZCameraShake;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -65,7 +64,6 @@ public class pillarMovement : MonoBehaviour
         
         if (collision.gameObject.name == "Floor")
         {
-            m_Camera.GetComponent<shakeCamera>().shakecamera(1f);
             boolRetract = true;
             boolFall= false;
         }
