@@ -12,11 +12,12 @@ public class CheeseMovement : MonoBehaviour
     private float curSpeed = 0.0f;
     private float attackDur = 0.0f;
     [SerializeField] public int attackChoice;
-    public int projectileCount;
+    [SerializeField] public int projectileCount;
     [SerializeField] GameObject projectile;
     [SerializeField] private float maxAttackDur;
     [SerializeField] public int projMoveSpeed;
     [SerializeField] public float radius;
+    [SerializeField] private GameObject miniCheese;
     float delayTime;
 
     [SerializeField] private float startAngle = 90f, endAngle = 270f;
@@ -43,6 +44,10 @@ public class CheeseMovement : MonoBehaviour
                     break;
                 case 2:
                     spreadShot();
+                    break;
+
+                case 3:
+                    miniSlimes();
                     break;
                 default:
                     Debug.Log("somehow here");
@@ -96,7 +101,7 @@ public class CheeseMovement : MonoBehaviour
             //When at center and time out, fire
             if (delayTime < 0)
             {
-                delayTime = 1f;
+                delayTime = 1.5f;
                 Vector2 startpoint = this.transform.position;
                 spawnProjectiles(projectileCount, startpoint);
                 if(startAngle == -90)
@@ -121,7 +126,7 @@ public class CheeseMovement : MonoBehaviour
         float angleStep = Mathf.Abs((endAngle-startAngle)) / numOfProjectiles;
         float angle = startAngle;
 
-        for (int i =0; i < numOfProjectiles+1; i++)
+        for (int i =0; i <= numOfProjectiles; i++)
           {
               float bulDirX = transform.position.x +Mathf.Sin( (angle*Mathf.PI)/180f)*radius;
               float bulDirY = transform.position.y + Mathf.Cos((angle * Mathf.PI) / 180f)*radius;
@@ -138,6 +143,29 @@ public class CheeseMovement : MonoBehaviour
           }
 
        
+    }
+
+    private void miniSlimes()
+    {
+        curSpeed = 5;
+        //Go towards the middles of the arena
+        Vector2 newPosition = new Vector2(2, transform.position.y);
+        if (transform.position.x < 1.75 || transform.position.x > 2.25)
+        {
+            delayTime = 2;
+            curSpeed += acceleration * Time.deltaTime;
+            transform.position = Vector2.MoveTowards(transform.position, newPosition, curSpeed * Time.deltaTime);
+        }
+        else
+        {
+            if (delayTime < 0)
+            {
+                GameObject newCheese1 = Instantiate(miniCheese, transform.position, Quaternion.identity);
+                newCheese1.GetComponent<miniCheese>().attackTime = attackDur;
+                GameObject newCheese2 = Instantiate(miniCheese, transform.position, Quaternion.identity);
+               
+            }
+        }
     }
 }
 
