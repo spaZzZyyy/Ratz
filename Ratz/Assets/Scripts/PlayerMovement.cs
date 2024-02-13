@@ -16,7 +16,8 @@ public class PlayerMovement : MonoBehaviour
     private float _playerThickness;
     private bool _canDash = true;
     private bool _keepZLocked = true;
-    int jumpCount = 2;
+    private int jumpCount = 0;
+    [HideInInspector] public bool isFalling;
     BoxCollider2D box;
     private float _timeFromGround;
     [SerializeField] private LayerMask groundLayer;
@@ -77,17 +78,18 @@ public class PlayerMovement : MonoBehaviour
             #endregion
 
         #region Jump
-            if ( (Input.GetKeyDown(_moveJumpButton) && IsGrounded() && jumpCount > 0) || (Input.GetKeyDown(_moveJumpButton) && (scriptMovement.coyoteTime > _timeFromGround)) && jumpCount >0)
+            if ( (Input.GetKeyDown(_moveJumpButton) && (IsGrounded() || (scriptMovement.coyoteTime > _timeFromGround)) && jumpCount < scriptMovement.numJumps))
             {
-
-                jumpCount -= 1;
                 _playerRigidbody.velocity = new Vector2(_playerRigidbody.velocity.x, scriptMovement.jumpForce);
-                Actions.OnPlayerJump();
-        }
+            }
 
             if (Input.GetKeyUp(_moveJumpButton) && _playerRigidbody.velocity.y > 0f)
             {
                 _playerRigidbody.velocity = new Vector2(_playerRigidbody.velocity.x, _playerRigidbody.velocity.y * scriptMovement.minJumpHeight);
+            }
+
+            if (Input.GetKeyDown(_moveJumpButton) || Input.GetKeyUp(_moveJumpButton)){
+                jumpCount++;
                 Actions.OnPlayerJump();
             }
             
@@ -121,6 +123,7 @@ public class PlayerMovement : MonoBehaviour
         }
         else
         {
+            jumpCount = 0;
             _timeFromGround = 0;
         }
 
@@ -128,11 +131,16 @@ public class PlayerMovement : MonoBehaviour
             _playerRigidbody.constraints = RigidbodyConstraints2D.FreezeRotation;
         }
 
+        //to Fix mouse tail extending when sliding down slanted platforms
+        if (_playerRigidbody.velocity.y == 0){
+            isFalling = false;
+        } else {
+            isFalling = true;
+        }
     }
 
     public bool IsGrounded()
     {
-        jumpCount = 2;
         RaycastHit2D rayHit = Physics2D.BoxCast(box.bounds.center, box.bounds.size, 0, Vector2.down, 0.1f, groundLayer);
         return rayHit.collider != null;
     }
