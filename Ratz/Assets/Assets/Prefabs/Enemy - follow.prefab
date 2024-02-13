@@ -14,9 +14,10 @@ GameObject:
   - component: {fileID: 8648419074639638241}
   - component: {fileID: 8648419074639638242}
   - component: {fileID: 8648419074639638243}
+  - component: {fileID: 714365912944780803}
   m_Layer: 2
   m_Name: Enemy - follow
-  m_TagString: Untagged
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -78,7 +79,7 @@ SpriteRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_Sprite: {fileID: 7482667652216324306, guid: 311925a002f4447b3a28927169b83ea6, type: 3}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Color: {r: 0.9716981, g: 0.27959237, b: 0.949949, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -106,6 +107,11 @@ MonoBehaviour:
   hitBox: {fileID: 2200802340046810497, guid: 690066b5f9943744e93ed4387cdd1843, type: 3}
   startWindDownTime: 2
   parried: 0
+  attackThrough: 0
+  attackWindUp: 0.25
+  attackParryTime: 0.5
+  attackDamageTime: 1
+  attackOffset: 10
   windDownTime: 0
 --- !u!61 &8648419074639638241
 BoxCollider2D:
@@ -150,10 +156,10 @@ MonoBehaviour:
   playerAttack: {fileID: 0}
   rayCastOffset: 6
   debugDistance: 22
-  parriedForce: 20
-  parriedYOffset: 1
-  parriedXOffset: 1
-  parriedWindDown: 5
+  parriedForce: 200
+  parriedYOffset: 100
+  parriedXOffset: 50
+  parriedWindDown: 2
   rb: {fileID: 0}
 --- !u!50 &8648419074639638243
 Rigidbody2D:
@@ -167,7 +173,7 @@ Rigidbody2D:
   m_Simulated: 1
   m_UseFullKinematicContacts: 0
   m_UseAutoMass: 0
-  m_Mass: 1
+  m_Mass: 1000
   m_LinearDrag: 0
   m_AngularDrag: 0.05
   m_GravityScale: 10
@@ -175,4 +181,19 @@ Rigidbody2D:
   m_Interpolate: 0
   m_SleepingMode: 1
   m_CollisionDetection: 0
-  m_Constraints: 5
+  m_Constraints: 4
+--- !u!114 &714365912944780803
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8648419074639638244}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 60496bf22d1e6dd4b98b052a6d8de628, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  hit: 0
+  maxHealth: 6
+  parriedWindow: 0

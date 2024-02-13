@@ -15,6 +15,7 @@ public class enemyMovementStagnant : MonoBehaviour
     [SerializeField] private float parriedWindDown;
     [SerializeField] private Rigidbody2D rb;
     [SerializeField] private float moveWindDownStart;
+    private healthManagerEnemy healthManagerEnemyThis;
     private float moveWindDown;
     Vector2 dir;
 
@@ -27,6 +28,8 @@ public class enemyMovementStagnant : MonoBehaviour
         rb = GetComponent<Rigidbody2D>();
         dir = Vector2.right;
         moveWindDown = moveWindDownStart;
+        healthManagerEnemyThis = GetComponent<healthManagerEnemy>();
+
     }
 
 
@@ -52,14 +55,14 @@ public class enemyMovementStagnant : MonoBehaviour
         Debug.DrawRay(rayLeftOrigin, Vector3.down * debugDistance, Color.green);
         if (playerAttack.windDownTime <= 0)
         {
-            if (rayLeft.collider == null && dir == Vector2.left && moveWindDownStart <=0)
+            if ((rayLeft.collider == null || rayLeft.collider.gameObject.tag == "Enemy") && dir == Vector2.left && moveWindDownStart <=0)
             {
                 moveWindDown = moveWindDownStart;
                 dir = Vector2.right;
                 Debug.DrawRay(rayLeftOrigin, Vector3.down * debugDistance, Color.red);
 
             }
-            else if (rayRight.collider == null&&dir == Vector2.right && moveWindDownStart <= 0)
+            else if ((rayRight.collider == null || rayRight.collider.gameObject.tag == "Enemy" )&& dir == Vector2.right && moveWindDownStart <= 0)
             {
                 moveWindDown = moveWindDownStart;
                 dir = Vector2.left;
@@ -78,6 +81,7 @@ public class enemyMovementStagnant : MonoBehaviour
             rb.constraints = RigidbodyConstraints2D.FreezeRotation;
             rb.AddForce(-dir * rb.mass * rb.mass);
             playerAttack.windDownTime = parriedWindDown;
+            healthManagerEnemyThis.parriedWindow = parriedWindDown;
             playerAttack.parried = false;
         }
     }
