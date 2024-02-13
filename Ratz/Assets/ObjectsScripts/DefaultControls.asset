@@ -20,3 +20,5 @@ MonoBehaviour:
   parry: 101
   musicStartStop: 102
   switchTracks: 116
+  pitchUp: 273
+  pitchDown: 274

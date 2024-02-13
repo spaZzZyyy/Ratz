@@ -15,6 +15,8 @@ public class musicManager : MonoBehaviour
     AudioSource audioSourceToPlay;
     bool musicIsPlaying;
     int numOfTracks;
+    float trackSpeed;
+    const float pitchIncrements = 0.1f;
     const double musicPerSecond = 0.015;
     [SerializeField] ScriptControls scriptControls;
 
@@ -36,20 +38,31 @@ public class musicManager : MonoBehaviour
 
         }
         */
+        #region Control
+            //stop music
+            if(Input.GetKeyDown(scriptControls.musicStartStop)){ //Note since key down and up holding freezes music
+                stopMusic();
+            }
+            //start music
+            if(Input.GetKeyUp(scriptControls.musicStartStop)){ //and letting go resumes
+                startMusic();
+            }
 
-        if(Input.GetKeyDown(scriptControls.musicStartStop)){
-            stopMusic();
-        }
-        if(Input.GetKeyUp(scriptControls.musicStartStop)){
-            startMusic();
-        }
+            //switch tracks
+            if(Input.GetKeyDown(scriptControls.switchTracks)){
+                stopMusic();
+                switchTracks();
+                startMusic();
+            }
+            
+            if(Input.GetKeyDown(scriptControls.pitchUp)){
+                changePitch(true);
+            }
+            if(Input.GetKeyDown(scriptControls.pitchDown)){
+                changePitch(false);
+            }
 
-        if(Input.GetKeyDown(scriptControls.switchTracks)){
-            stopMusic();
-            switchTracks();
-            startMusic();
-        }
-        
+        #endregion
     }
 
     private void FixedUpdate() {
@@ -92,9 +105,28 @@ public class musicManager : MonoBehaviour
             trackList[i].Play();
             trackList[i].mute = true;
             trackList[i].Pause();
+            trackList[i].pitch = 1;
         }
     //Puts all tracks in a pause state.
 
+    trackSpeed = 1;
     }
 
+
+    void setMusicSpeed(){
+        for (int i = 0; i < numOfTracks; i++)
+        {
+            trackList[i].pitch = trackSpeed;
+        }
+    }
+
+    void changePitch(bool upDown){ // true for up false for down
+        if(upDown == true){
+            trackSpeed += pitchIncrements;
+        }
+        if (upDown == false){
+            trackSpeed -= pitchIncrements;
+        }
+        setMusicSpeed();
+    }
 }
