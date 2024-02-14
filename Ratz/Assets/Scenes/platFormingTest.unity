@@ -1920,7 +1920,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5c01c5441b82b174ea0f1a8077129127, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  scriptControls: {fileID: 0}
+  scriptControls: {fileID: 11400000, guid: 1364f0fd150daf449b0b62d939d65b92, type: 2}
+  musicManager: {fileID: 1835348927}
 --- !u!95 &1201247298
 Animator:
   serializedVersion: 4
