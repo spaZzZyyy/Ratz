@@ -59,21 +59,23 @@ public class PlayerMovement : MonoBehaviour
         #region Run Input
             _movementPlayer = 0f;
 
-            if (Input.GetKey(_moveLeftButton))
-            {
-                _movementPlayer = -1f;
-                Vector2 localScale = transform.localScale;
-                localScale.x = -_playerThickness;
-                transform.localScale = localScale;
-            }
+            #region FlipSprite
+                if (Input.GetKey(_moveLeftButton))
+                {
+                    _movementPlayer = -1f;
+                    Vector2 localScale = transform.localScale;
+                    localScale.x = -_playerThickness;
+                    transform.localScale = localScale;
+                }
 
-            if (Input.GetKey(_moveRightButton))
-            {
-                _movementPlayer = 1f;
-                Vector2 localScale = transform.localScale;
-                localScale.x = _playerThickness;
-                transform.localScale = localScale;
-            }
+                if (Input.GetKey(_moveRightButton))
+                {
+                    _movementPlayer = 1f;
+                    Vector2 localScale = transform.localScale;
+                    localScale.x = _playerThickness;
+                    transform.localScale = localScale;
+                }
+            #endregion
 
             #endregion
 
