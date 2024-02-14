@@ -1,26 +1,28 @@
 using System.Collections;
 using System.Collections.Generic;
+using UnityEditor.Animations;
 using UnityEngine;
 
 public class mapControl : MonoBehaviour
 {
-    Animator ani;
-    [SerializeField] ScriptControls scriptControls;
-    [SerializeField] musicManager musicManager;
-    float trackSpeed;
-    int trackTime;
-    //bool canChangeSpeed = true;
-    bool musicPaused = false;
-    int trackSpeedMax = 5;
-    int trackSpeedMin = 1;
-    int trackPlaying;
+    #region Variables
+        Animator ani;
+        [SerializeField] ScriptControls scriptControls;
+        [SerializeField] musicManager musicManager;
+        float trackSpeed;
+        int trackTime;
+        //bool canChangeSpeed = true;
+        bool musicPaused = false;
+        int trackSpeedMax = 5;
+        int trackSpeedMin = 1;
+        int trackPlaying;
+    #endregion
 
     // Start is called before the first frame update
     void Start()
     {
         ani = GetComponent<Animator>();
         trackTime = 3;
-        trackSpeed = 2;
     }
 
     // Update is called once per frame
@@ -30,6 +32,18 @@ public class mapControl : MonoBehaviour
         //Debug.Log("Track time: " + trackTime);
 
         #region Speed Control
+            speedControl();
+            checkControls();
+        #endregion
+
+        #region Track Control
+        //Debug.Log(musicManager.trackToPlay);
+            updateTrack();
+        #endregion
+    }
+
+
+    void speedControl(){
         if (musicPaused == false){
             ani.speed = trackSpeed;
         }
@@ -51,8 +65,9 @@ public class mapControl : MonoBehaviour
                 trackSpeed = 0.1f;
             break;
         }
-        
+    }
 
+    void checkControls(){
         if (Input.GetKeyDown(scriptControls.musicStartStop)){ // Pause Music
             ani.speed = 0;
             musicPaused = true;
@@ -73,10 +88,9 @@ public class mapControl : MonoBehaviour
                 trackTime -= 1;
             }
         }
-        #endregion
+    }
 
-        #region Track Control
-        Debug.Log(musicManager.trackToPlay);
+    void updateTrack(){
         if(musicManager.trackToPlay == 0 && trackPlaying != 0){ // first track
             ani.SetTrigger("SwitchToTrack1");
             trackPlaying = 0;
@@ -85,6 +99,5 @@ public class mapControl : MonoBehaviour
             ani.SetTrigger("SwitchToTrack2");
             trackPlaying = 1;
         }
-        #endregion
     }
 }
