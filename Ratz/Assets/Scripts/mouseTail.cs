@@ -29,9 +29,15 @@ public class mouseTail : MonoBehaviour
     public float tailEndHeight;
     private Transform tarDirTransform;
     private LineRenderer tail;
+    private bool playerMoving;
+    [SerializeField] Transform playerTransform;
+    [SerializeField] Transform recordPlayerTransform;
+    bool match = false;
+    bool firstTime = false;
     // Start is called before the first frame update
     void Start()
     {
+        recordPlayerTransform.position = playerTransform.position;
         tail = GetComponent<LineRenderer>();
         tail.enabled = true;
         _playerThickness = transform.localScale.x;
@@ -45,7 +51,49 @@ public class mouseTail : MonoBehaviour
         ResetTail();
     }
 
-    // Update is called once per frame
+    /// <summary>
+    /// Update is called every frame, if the MonoBehaviour is enabled.
+    /// </summary>
+    void Update()
+    {
+        if(playerTransform.position == recordPlayerTransform.position){
+            match = true;
+        } else{
+            match = false;
+        }
+        if(Input.GetKey(scriptControls.moveLeft) || Input.GetKey(scriptControls.moveRight)){
+            playerMoving = true;
+            recordPlayerTransform.position = playerTransform.position;
+        }
+        else{
+            playerMoving = false;
+        }
+
+        if(player_movement.IsGrounded() && firstTime == true){
+            StartCoroutine("JustLanded");
+        }
+
+        if(playerMoving == false){
+            if(match == false){
+                ResetTail();
+            }
+
+            if(player_movement.isFalling){
+                ResetTail();
+            }
+        }
+
+        if(player_movement.IsGrounded() == false){
+            firstTime = true;
+        }
+    }
+
+    IEnumerator JustLanded(){
+        yield return new WaitForSeconds(0.3f);
+        recordPlayerTransform.position = playerTransform.position;
+        firstTime = false;
+    }
+
     void FixedUpdate()
     {
         #region ->Used BlackThornProd trail design
@@ -61,9 +109,11 @@ public class mouseTail : MonoBehaviour
 
         FlipTail();
 
-        if (player_movement.IsGrounded() == false || player_movement.isFalling){
+/*
+        if(player_movement.isFalling || player_movement.IsGrounded()){
             ResetTail();
         }
+        */
 
     }
     void FlipTail(){
@@ -80,16 +130,17 @@ public class mouseTail : MonoBehaviour
     }
 
     void ResetTail(){
-        wigFactor = jumpWig;
-        trailSpeedFactor = jumpTailSpeed;
+        if(match == false){
+            wigFactor = jumpWig;
+            trailSpeedFactor = jumpTailSpeed;
 
-        segmentPoses[0] = targetDir.position;
+            segmentPoses[0] = targetDir.position;
 
-        for (int i = 1; i < length; i++){
-            segmentPoses[i] = segmentPoses[i - 1] + targetDir.right * targetDistance;
+            for (int i = 1; i < length; i++){
+                segmentPoses[i] = segmentPoses[i - 1] + targetDir.right * targetDistance;
+            }
+            lineRend.SetPositions(segmentPoses);
         }
-        lineRend.SetPositions(segmentPoses);
-
     }
     void FlipTailLeft(){
         Vector2 localScale = transform.localScale;

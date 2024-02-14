@@ -13,11 +13,13 @@ public class musicManager : MonoBehaviour
     List<AudioSource> trackList;
     int trackToPlay = 0;
     AudioSource audioSourceToPlay;
-    bool musicIsPlaying;
+    [HideInInspector] public bool musicIsPlaying;
     int numOfTracks;
-    float trackSpeed;
+    public float trackSpeed;
     const float pitchIncrements = 0.1f;
     const double musicPerSecond = 0.015;
+    const float pitchMax = 1.2f;
+    const float pitchMin = 0.8f;
     [SerializeField] ScriptControls scriptControls;
 
     void Start()
@@ -69,6 +71,8 @@ public class musicManager : MonoBehaviour
         if(musicIsPlaying){
             musicTimer += musicPerSecond;
         }
+
+        
     }
 
     void switchTracks(){
@@ -121,10 +125,10 @@ public class musicManager : MonoBehaviour
     }
 
     void changePitch(bool upDown){ // true for up false for down
-        if(upDown == true){
+        if(upDown == true && trackSpeed < pitchMax){
             trackSpeed += pitchIncrements;
         }
-        if (upDown == false){
+        if (upDown == false && trackSpeed > pitchMin){
             trackSpeed -= pitchIncrements;
         }
         setMusicSpeed();
