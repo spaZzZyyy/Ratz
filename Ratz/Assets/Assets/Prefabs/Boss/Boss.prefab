@@ -28,7 +28,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4784444171497962715}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 13.43, y: -4.32, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 3.4, y: 2, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -150,8 +150,9 @@ MonoBehaviour:
   attackChoice: 0
   projectileCount: 10
   projectile: {fileID: 324083478218477001, guid: 0f63a0817c1453c4f98d50b3ef2221a3, type: 3}
-  maxAttackDur: 1000
+  maxAttackDur: 50
   projMoveSpeed: 5
   radius: 10
-  startAngle: 0
-  endAngle: 180
+  miniCheese: {fileID: 5008560575853412548, guid: dd3bd7fac078c6e429a819d268848ed6, type: 3}
+  startAngle: -90
+  endAngle: 90

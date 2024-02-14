@@ -45,7 +45,6 @@ public class CheeseMovement : MonoBehaviour
                 case 2:
                     spreadShot();
                     break;
-
                 case 3:
                     miniSlimes();
                     break;
@@ -69,7 +68,7 @@ public class CheeseMovement : MonoBehaviour
 
     private int selectAttack()
     {
-        int rand = Random.Range(1, 3);
+        int rand = Random.Range(1, 4);
         attackDur = maxAttackDur;
         return rand;
     }
@@ -155,17 +154,25 @@ public class CheeseMovement : MonoBehaviour
             delayTime = 2;
             curSpeed += acceleration * Time.deltaTime;
             transform.position = Vector2.MoveTowards(transform.position, newPosition, curSpeed * Time.deltaTime);
+
         }
         else
         {
             if (delayTime < 0)
             {
+                Debug.Log("spawn time");
                 GameObject newCheese1 = Instantiate(miniCheese, transform.position, Quaternion.identity);
                 newCheese1.GetComponent<miniCheese>().attackTime = attackDur;
-                GameObject newCheese2 = Instantiate(miniCheese, transform.position, Quaternion.identity);
-               
+                newCheese1.GetComponent<miniCheese>().startDir =  Vector2.left;
+                newCheese1.tag = "mainCheese";
+                GameObject newCheese2 = Instantiate(miniCheese, new Vector2(this.transform.position.x+1, this.transform.position.y+3), Quaternion.identity);
+                newCheese2.GetComponent<miniCheese>().attackTime = attackDur;
+                newCheese2.GetComponent<miniCheese>().startDir = Vector2.right;
+                Destroy(this.gameObject);
+
             }
         }
+        delayTime-= Time.deltaTime;
     }
 }
 

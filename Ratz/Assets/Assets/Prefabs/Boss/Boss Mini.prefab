@@ -28,7 +28,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5008560575853412548}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 4.91, y: -4.15, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 2.08, y: 1.2235293, z: 0.61176467}
   m_ConstrainProportionsScale: 1
   m_Children: []
@@ -125,15 +125,15 @@ Rigidbody2D:
   m_Simulated: 1
   m_UseFullKinematicContacts: 0
   m_UseAutoMass: 0
-  m_Mass: 100000
+  m_Mass: 100
   m_LinearDrag: 0
   m_AngularDrag: 0.05
-  m_GravityScale: 1
+  m_GravityScale: 2
   m_Material: {fileID: 0}
   m_Interpolate: 0
   m_SleepingMode: 1
   m_CollisionDetection: 0
-  m_Constraints: 0
+  m_Constraints: 4
 --- !u!114 &6894883151268031255
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -147,7 +147,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   attackTime: 0
-  startDur: {x: 0, y: 0}
+  startDir: {x: 0, y: 0}
   groundLayer:
     serializedVersion: 2
     m_Bits: 1024
+  bigCheese: {fileID: 4784444171497962715, guid: 6082d1c184f72c843b73ed9fab1b6217, type: 3}
+  jumpForce: 18
+  curSpeed: 10
