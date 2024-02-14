@@ -11,7 +11,7 @@ public class musicManager : MonoBehaviour
     [SerializeField] AudioSource track2;
     double musicTimer = 0;
     List<AudioSource> trackList;
-    int trackToPlay = 0;
+    [HideInInspector] public int trackToPlay = 0;
     AudioSource audioSourceToPlay;
     [HideInInspector] public bool musicIsPlaying;
     int numOfTracks;
@@ -100,7 +100,7 @@ public class musicManager : MonoBehaviour
         audioSourceToPlay.mute = false;
     }
 
-    void startMusicBox(){
+    void startMusicBox(){ // Creates a list to iterate through all the tracks and prime them to a ready state
         trackList = new List<AudioSource>();
         trackList.Add(track1);
         trackList.Add(track2);

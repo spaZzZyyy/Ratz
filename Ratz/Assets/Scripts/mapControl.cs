@@ -13,6 +13,7 @@ public class mapControl : MonoBehaviour
     bool musicPaused = false;
     int trackSpeedMax = 5;
     int trackSpeedMin = 1;
+    int trackPlaying;
 
     // Start is called before the first frame update
     void Start()
@@ -25,8 +26,10 @@ public class mapControl : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        Debug.Log("Track Speed: " + trackSpeed);
-        Debug.Log("Track time: " + trackTime);
+        //Debug.Log("Track Speed: " + trackSpeed);
+        //Debug.Log("Track time: " + trackTime);
+
+        #region Speed Control
         if (musicPaused == false){
             ani.speed = trackSpeed;
         }
@@ -70,5 +73,18 @@ public class mapControl : MonoBehaviour
                 trackTime -= 1;
             }
         }
+        #endregion
+
+        #region Track Control
+        Debug.Log(musicManager.trackToPlay);
+        if(musicManager.trackToPlay == 0 && trackPlaying != 0){ // first track
+            ani.SetTrigger("SwitchToTrack1");
+            trackPlaying = 0;
+        }
+        if(musicManager.trackToPlay == 1 && trackPlaying != 1){ // Second track
+            ani.SetTrigger("SwitchToTrack2");
+            trackPlaying = 1;
+        }
+        #endregion
     }
 }
