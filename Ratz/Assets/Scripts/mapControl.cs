@@ -9,57 +9,82 @@ public class mapControl : MonoBehaviour
     [SerializeField] musicManager musicManager;
     float trackSpeed;
     int trackTime;
-    bool canChangeSpeed = true;
+    //bool canChangeSpeed = true;
+    bool musicPaused = false;
+    int trackSpeedMax = 5;
+    int trackSpeedMin = 1;
+    int trackPlaying;
 
     // Start is called before the first frame update
     void Start()
     {
         ani = GetComponent<Animator>();
         trackTime = 3;
+        trackSpeed = 2;
     }
 
     // Update is called once per frame
     void Update()
     {
+        //Debug.Log("Track Speed: " + trackSpeed);
+        //Debug.Log("Track time: " + trackTime);
+
+        #region Speed Control
+        if (musicPaused == false){
+            ani.speed = trackSpeed;
+        }
         switch(trackTime){
             case 5:
-                trackSpeed = 6;
+                trackSpeed = 5f;
             break;
             case 4:
-                trackSpeed = 3;
+                trackSpeed = 3f;
             break;
             case 3:
-                trackSpeed = 1;
+                trackSpeed = 1f;
             break;
             case 2:
-                trackSpeed = 0.2f;
+                trackSpeed = 0.5f;
             break;
 
             default: // case 1
-                trackSpeed = 0f;
+                trackSpeed = 0.1f;
             break;
         }
-        ani.speed = trackSpeed;
+        
 
         if (Input.GetKeyDown(scriptControls.musicStartStop)){ // Pause Music
             ani.speed = 0;
+            musicPaused = true;
         }
         if (Input.GetKeyUp(scriptControls.musicStartStop)){ // UnPause Music
             ani.speed = trackSpeed;
+            musicPaused = false;
         }
 
-        if(trackTime > 1 && trackTime < 5){
-            canChangeSpeed = true;
-        }else {
-            canChangeSpeed = false;
+        if(Input.GetKeyDown(scriptControls.pitchUp)){
+            if(trackTime < trackSpeedMax){
+                trackTime += 1;
+            }
         }
 
-        if(Input.GetKeyDown(scriptControls.pitchUp) && canChangeSpeed == true){
-            trackTime += 1;
+        if(Input.GetKeyDown(scriptControls.pitchDown)){
+            if(trackTime > trackSpeedMin){
+                trackTime -= 1;
+            }
         }
+        #endregion
 
-        if(Input.GetKeyDown(scriptControls.pitchDown) && canChangeSpeed == true){
-            trackTime -= 1;
+        #region Track Control
+        Debug.Log(musicManager.trackToPlay);
+        if(musicManager.trackToPlay == 0 && trackPlaying != 0){ // first track
+            ani.SetTrigger("SwitchToTrack1");
+            trackPlaying = 0;
         }
+        if(musicManager.trackToPlay == 1 && trackPlaying != 1){ // Second track
+            ani.SetTrigger("SwitchToTrack2");
+            trackPlaying = 1;
+        }
+        #endregion
     }
 }
