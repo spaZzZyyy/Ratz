@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class test : MonoBehaviour
 {
-    [SerializeField] bool turnOn;
+    [SerializeField]public bool turnOn;
     [SerializeField] private float timer;
     bool fall1 = false;
     bool fall2 = false;
