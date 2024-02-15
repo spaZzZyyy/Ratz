@@ -18,7 +18,7 @@ MonoBehaviour:
   moveCrouch: 115
   dash: 32
   parry: 101
-  musicStartStop: 102
-  switchTracks: 116
-  pitchUp: 273
-  pitchDown: 274
+  musicStartStop: 107
+  switchTracks: 105
+  pitchUp: 108
+  pitchDown: 106

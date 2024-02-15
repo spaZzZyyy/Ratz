@@ -16,6 +16,8 @@ public class mapControl : MonoBehaviour
         int trackSpeedMax = 5;
         int trackSpeedMin = 1;
         int trackPlaying;
+        [HideInInspector] public bool initiate = false;
+        bool initiated = false;
     #endregion
 
     // Start is called before the first frame update
@@ -23,6 +25,8 @@ public class mapControl : MonoBehaviour
     {
         ani = GetComponent<Animator>();
         trackTime = 3;
+        ani.speed = 0;
+        musicPaused = true;
     }
 
     // Update is called once per frame
@@ -31,9 +35,16 @@ public class mapControl : MonoBehaviour
         //Debug.Log("Track Speed: " + trackSpeed);
         //Debug.Log("Track time: " + trackTime);
 
+        if(initiate == true && initiated == false){
+            musicPaused = false;
+            initiated = true;
+        }
+
         #region Speed Control
+        if(initiated == true){
             speedControl();
             checkControls();
+        }
         #endregion
 
         #region Track Control
