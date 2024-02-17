@@ -9,21 +9,26 @@ public class musicManager : MonoBehaviour
 {   
     [SerializeField] AudioSource track1;
     [SerializeField] AudioSource track2;
+    [SerializeField] AudioSource stopTime;
     double musicTimer = 0;
     List<AudioSource> trackList;
-    int trackToPlay = 0;
+    [HideInInspector] public int trackToPlay = 0;
     AudioSource audioSourceToPlay;
-    bool musicIsPlaying;
+    [HideInInspector] public bool musicIsPlaying;
     int numOfTracks;
-    float trackSpeed;
+    public float trackSpeed;
     const float pitchIncrements = 0.1f;
     const double musicPerSecond = 0.015;
+    const float pitchMax = 1.2f;
+    const float pitchMin = 0.8f;
+    [HideInInspector] public bool startGame = false;
+    bool gameStarted = false;
+    bool stopTimePlaying = false;
     [SerializeField] ScriptControls scriptControls;
 
     void Start()
     {
         startMusicBox();
-        
         audioSourceToPlay = trackList[trackToPlay];
     }
 
@@ -38,13 +43,22 @@ public class musicManager : MonoBehaviour
 
         }
         */
+
+        if (startGame == true && gameStarted == false){
+            startMusic();
+            stopTime.Play();
+            stopTime.Pause();
+            gameStarted = true;
+            Debug.Log("Game start");
+        }
+
         #region Control
             //stop music
             if(Input.GetKeyDown(scriptControls.musicStartStop)){ //Note since key down and up holding freezes music
                 stopMusic();
             }
             //start music
-            if(Input.GetKeyUp(scriptControls.musicStartStop)){ //and letting go resumes
+            if(Input.GetKeyUp(scriptControls.musicStartStop) && startGame == true){ //and letting go resumes
                 startMusic();
             }
 
@@ -61,14 +75,26 @@ public class musicManager : MonoBehaviour
             if(Input.GetKeyDown(scriptControls.pitchDown)){
                 changePitch(false);
             }
-
         #endregion
+
+        #region StopTime
+            if (musicIsPlaying == false && stopTimePlaying == false){
+                stopTimePlaying = true;
+                stopTime.UnPause();
+            } else if (musicIsPlaying == true){
+                stopTime.Pause();
+                stopTimePlaying = false;
+            }
+        #endregion
+
     }
 
     private void FixedUpdate() {
         if(musicIsPlaying){
             musicTimer += musicPerSecond;
         }
+
+        
     }
 
     void switchTracks(){
@@ -96,7 +122,7 @@ public class musicManager : MonoBehaviour
         audioSourceToPlay.mute = false;
     }
 
-    void startMusicBox(){
+    void startMusicBox(){ // Creates a list to iterate through all the tracks and prime them to a ready state
         trackList = new List<AudioSource>();
         trackList.Add(track1);
         trackList.Add(track2);
@@ -121,10 +147,10 @@ public class musicManager : MonoBehaviour
     }
 
     void changePitch(bool upDown){ // true for up false for down
-        if(upDown == true){
+        if(upDown == true && trackSpeed < pitchMax){
             trackSpeed += pitchIncrements;
         }
-        if (upDown == false){
+        if (upDown == false && trackSpeed > pitchMin){
             trackSpeed -= pitchIncrements;
         }
         setMusicSpeed();

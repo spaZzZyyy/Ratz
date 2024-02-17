@@ -19,6 +19,7 @@ public class mapMaker : EditorWindow {
 
     ScriptMovement scriptMovement;
     Editor sm;
+    
     private void OnGUI() {
         GameObject player = GameObject.FindGameObjectWithTag("Player");
         ToolMovement TM = player.GetComponentInChildren<ToolMovement>();
