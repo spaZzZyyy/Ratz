@@ -10,4 +10,5 @@ public static class Actions
     public static Action OnCameraSwitchTrigger;
     public static Action OnParry;
     public static Action NotParry;
+    public static Action PlayerTookDamage;
 }

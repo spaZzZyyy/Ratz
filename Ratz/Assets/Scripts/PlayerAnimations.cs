@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 using UnityEngine.iOS;
+using UnityEngine.U2D.Animation;
 
 public class PlayerAnimations : MonoBehaviour
 {
@@ -12,12 +13,14 @@ public class PlayerAnimations : MonoBehaviour
     PlayerMovement player_movement;
     Animator playerAni;
     bool onGround;
+    //Material material;
 
     private void OnEnable() {
         Actions.OnPlayerJump += PlayerJumped;
         Actions.OnPlayerDashed += PlayerDashed;
         Actions.OnParry += PlayerParried;
         Actions.NotParry += PlayerNotParried;
+        Actions.PlayerTookDamage += TakeDamage;
     }
 
     private void OnDisable() {
@@ -25,6 +28,7 @@ public class PlayerAnimations : MonoBehaviour
         Actions.OnPlayerDashed -= PlayerDashed;
         Actions.OnParry -= PlayerParried;
         Actions.NotParry -= PlayerNotParried;
+        Actions.PlayerTookDamage -= TakeDamage;
     }
 
     // Start is called before the first frame update
@@ -32,6 +36,14 @@ public class PlayerAnimations : MonoBehaviour
     {
         playerAni = GetComponent<Animator>();
         player_movement = GetComponent<PlayerMovement>();
+        //material = GetComponent<SpriteRenderer>().material;
+
+    }
+
+    void TakeDamage(){
+        playerAni.SetTrigger("gotHurt");
+        // material.SetInt("_OnOff", 1); //sets onOff to true
+        // material.SetColor("_Color", new Color(1,0,0,2));
     }
 
     private void FixedUpdate() {

@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -16,18 +17,21 @@ public class healthManager : MonoBehaviour
     
     bool canTakeDamage = true;
     float secondsOfIframes = 1; // After damage taken how long is the player immune for
-    int health;
+    int health = 20;
     
 
     public void takeDamage(int damageToTake){
         if(canTakeDamage == true){
             health -= damageToTake;
             StartCoroutine("OnGiveIFrames");
+            Actions.PlayerTookDamage();
         }
+        Debug.Log(health);
     }
 
     public void gainHealth(int heal){
         health += heal;
+        Debug.Log(health);
     }
 
     IEnumerator OnGiveIFrames(){
