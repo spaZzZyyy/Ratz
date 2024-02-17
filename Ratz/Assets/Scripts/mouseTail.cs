@@ -86,6 +86,8 @@ public class mouseTail : MonoBehaviour
         if(player_movement.IsGrounded() == false){
             firstTime = true;
         }
+
+        //Debug.Log(match);
     }
 
     IEnumerator JustLanded(){
