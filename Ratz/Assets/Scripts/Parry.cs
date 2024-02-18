@@ -18,7 +18,6 @@ public class Parry : MonoBehaviour
     private void Start()
     {
         parryTime = parryTimeStart;
-        _parryButton = controls.parry;
         parryCooldown = 0;
         inParry = false;
     }

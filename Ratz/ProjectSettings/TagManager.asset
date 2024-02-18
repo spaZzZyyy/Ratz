@@ -8,6 +8,11 @@ TagManager:
   - healthManager
   - Enemy
   - Bouncy
+  - Pillar
+  - spear
+  - platform
+  - wall
+  - mainCheese
   layers:
   - Default
   - TransparentFX
@@ -15,9 +20,9 @@ TagManager:
   - 
   - Water
   - UI
+  - boss
   - 
-  - 
-  - 
+  - Projectile
   - 
   - Ground
   - Background

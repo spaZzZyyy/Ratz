@@ -9,6 +9,7 @@ public class ScriptMovement : ScriptableObject
     public float gravityForce;
     public float movementSpeed;
     public float jumpForce;
+    public int numJumps;
     public LayerMask groundLayer;
     public float groundCheckDistance;
     public float minJumpHeight;
