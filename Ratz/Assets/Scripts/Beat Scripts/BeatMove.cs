@@ -15,6 +15,7 @@ public class BeatMove : MonoBehaviour
     private float distance;
 
     void Start() {
+        i = 1;
         transform.position = points[startingPoint].position;
     }
     void Update() {
@@ -23,6 +24,15 @@ public class BeatMove : MonoBehaviour
         interval = (60f / beatManager._bpm) / beatCount;
         speed = distance / interval;
     }
+
+    // TODO make player stay on platform (prob gonna have to raycast)
+    // private void OnCollisionEnter2D(Collision2D collision) {
+    //     collision.transform.SetParent(transform);
+    // }
+
+    // private void OnCollisionExit2D(Collision2D collision) {
+    //     collision.transform.SetParent(null);
+    // }
    
 
     public void Move() {
