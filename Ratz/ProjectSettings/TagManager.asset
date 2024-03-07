@@ -12,6 +12,7 @@ TagManager:
   - spear
   - platform
   - wall
+  - mainCheese
   layers:
   - Default
   - TransparentFX
