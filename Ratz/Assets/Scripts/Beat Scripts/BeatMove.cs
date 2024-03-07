@@ -14,6 +14,8 @@ public class BeatMove : MonoBehaviour
     private float interval;
     private float distance;
 
+
+
     void Start() {
         i = 1;
         transform.position = points[startingPoint].position;
@@ -25,14 +27,18 @@ public class BeatMove : MonoBehaviour
         speed = distance / interval;
     }
 
-    // TODO make player stay on platform (prob gonna have to raycast)
-    // private void OnCollisionEnter2D(Collision2D collision) {
-    //     collision.transform.SetParent(transform);
-    // }
+    // TODO make player stay on platform (prob gonna have to raycast) 
+    private void OnCollisionEnter2D(Collision2D collision) {
 
-    // private void OnCollisionExit2D(Collision2D collision) {
-    //     collision.transform.SetParent(null);
-    // }
+        if((this.transform.position.y - collision.collider.transform.position.y) < 0) {
+            collision.transform.SetParent(transform);
+        }
+        
+    }
+
+    private void OnCollisionExit2D(Collision2D collision) {
+        collision.transform.SetParent(null);
+    }
    
 
     public void Move() {
