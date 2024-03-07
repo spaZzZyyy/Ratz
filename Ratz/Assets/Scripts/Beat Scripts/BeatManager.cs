@@ -7,8 +7,9 @@ public class BeatManager : MonoBehaviour
 {
 
     public float _bpm;
-    [SerializeField] private AudioSource _audioSource;
+    public AudioSource _audioSource;
     [SerializeField] private Intervals[] _intervals;
+    public float hiThere;
 
     private void Update() {
         foreach (Intervals interval in _intervals) {

@@ -602,6 +602,8 @@ MonoBehaviour:
   wiggleDir: {fileID: 285110467}
   wigRun: 6.38
   tailEndHeight: 5.71
+  playerTransform: {fileID: 0}
+  recordPlayerTransform: {fileID: 0}
 --- !u!120 &139231732
 LineRenderer:
   m_ObjectHideFlags: 0
@@ -1375,6 +1377,7 @@ MonoBehaviour:
   scriptMovement: {fileID: 11400000, guid: f2a2996a35770b248981884aa783ccc8, type: 2}
   controls: {fileID: 11400000, guid: 1364f0fd150daf449b0b62d939d65b92, type: 2}
   groundCheck: {fileID: 1396941015}
+  isFalling: 0
   groundLayer:
     serializedVersion: 2
     m_Bits: 1024
@@ -3315,6 +3318,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   offset: {x: 0, y: 0, z: -200}
   ease: 0.25
+  cam: {fileID: 0}
   target: {fileID: 392296828}
 --- !u!1 &1358285109
 GameObject:
