@@ -12,4 +12,5 @@ public static class Actions
     public static Action NotParry;
     public static Action PlayerTookDamage;
     public static Action PlayerHealed;
+    public static Action OnPlayerSwitchTrack;
 }

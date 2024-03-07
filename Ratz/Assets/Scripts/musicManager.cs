@@ -67,6 +67,7 @@ public class musicManager : MonoBehaviour
             //switch tracks
             if(Input.GetKeyDown(scriptControls.switchTracks)){
                 stopMusic();
+                Actions.OnPlayerSwitchTrack();
                 switchTracks();
                 startMusic();
             }

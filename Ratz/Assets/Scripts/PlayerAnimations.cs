@@ -21,6 +21,7 @@ public class PlayerAnimations : MonoBehaviour
         Actions.OnParry += PlayerParried;
         Actions.NotParry += PlayerNotParried;
         Actions.PlayerTookDamage += TakeDamage;
+        Actions.OnPlayerSwitchTrack += switchTracks;
     }
 
     private void OnDisable() {
@@ -29,6 +30,7 @@ public class PlayerAnimations : MonoBehaviour
         Actions.OnParry -= PlayerParried;
         Actions.NotParry -= PlayerNotParried;
         Actions.PlayerTookDamage -= TakeDamage;
+        Actions.OnPlayerSwitchTrack += switchTracks;
     }
 
     // Start is called before the first frame update
@@ -38,6 +40,10 @@ public class PlayerAnimations : MonoBehaviour
         player_movement = GetComponent<PlayerMovement>();
         //material = GetComponent<SpriteRenderer>().material;
 
+    }
+
+    void switchTracks(){
+        playerAni.SetTrigger("SwitchTrack");
     }
 
     void TakeDamage(){
