@@ -7,6 +7,7 @@ using UnityEngine.Events;
 
 public class musicManager : MonoBehaviour
 {   
+    #region Variables
     [SerializeField] AudioSource track1;
     [SerializeField] AudioSource track2;
     [SerializeField] AudioSource stopTime;
@@ -25,6 +26,7 @@ public class musicManager : MonoBehaviour
     bool gameStarted = false;
     bool stopTimePlaying = false;
     [SerializeField] ScriptControls scriptControls;
+    #endregion
 
     void Start()
     {
@@ -65,6 +67,7 @@ public class musicManager : MonoBehaviour
             //switch tracks
             if(Input.GetKeyDown(scriptControls.switchTracks)){
                 stopMusic();
+                Actions.OnPlayerSwitchTrack();
                 switchTracks();
                 startMusic();
             }
