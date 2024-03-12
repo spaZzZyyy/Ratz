@@ -182,7 +182,7 @@ public class PlayerMovement : MonoBehaviour
         if (ctx.performed && _canDash && _playerRigidbody.velocity.x !=0)
             {
             Debug.Log("dashed");
-                Actions.OnPlayerDashed();
+                //Actions.OnPlayerDashed();
                 //_playerRigidbody.constraints = RigidbodyConstraints2D.FreezePositionY;
                 _playerRigidbody.AddForce(new Vector2(scriptMovement.dashDistance * _movementPlayer, -30));
                 StartCoroutine(OnDash());
