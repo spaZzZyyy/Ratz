@@ -12,6 +12,6 @@ EditorBuildSettings:
     path: Assets/Scenes/platFormingTest.unity
     guid: d72589d0c5a3d814a86c17962c404484
   - enabled: 1
-    path: Assets/Scenes/CharlieTest.unity
+    path: Assets/Scenes/RhythmBoss.unity
     guid: 9a7e75c58be99004786cf4ce4ab002c1
   m_configObjects: {}

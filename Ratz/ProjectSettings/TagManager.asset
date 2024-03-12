@@ -13,7 +13,6 @@ TagManager:
   - platform
   - wall
   - mainCheese
-  - musicManager
   layers:
   - Default
   - TransparentFX

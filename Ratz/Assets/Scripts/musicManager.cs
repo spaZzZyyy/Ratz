@@ -27,20 +27,16 @@ public class musicManager : MonoBehaviour
     bool gameStarted = false;
     bool stopTimePlaying = false;
     [SerializeField] ScriptControls scriptControls;
-    public bool musicChanged;
     #endregion
 
     //! eliCode
     [SerializeField] BeatManager beatManager;
     //!
 
-
-
     void Start()
     {
         startMusicBox();
         audioSourceToPlay = trackList[trackToPlay];
-        musicChanged = false;
     }
 
     void Update()
@@ -112,10 +108,8 @@ public class musicManager : MonoBehaviour
     void switchTracks(){
         if (trackToPlay < numOfTracks - 1){
             trackToPlay++;
-            musicChanged = true;
         } else {
             trackToPlay = 0;
-            musicChanged = true;
         }
         audioSourceToPlay = trackList[trackToPlay];
         //! eliCode

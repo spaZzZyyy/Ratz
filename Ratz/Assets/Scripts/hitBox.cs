@@ -26,7 +26,7 @@ public class hitBox : MonoBehaviour
         player = GameObject.FindGameObjectWithTag("Player");
         healthManager = GameObject.FindGameObjectWithTag("healthManager").GetComponent<HealthManager>();
     }
-    /*
+
     // Update is called once per frame
     void Update()
     {
@@ -74,5 +74,5 @@ public class hitBox : MonoBehaviour
         {
             playerIn = false;
         }
-    }*/
+    }
 }

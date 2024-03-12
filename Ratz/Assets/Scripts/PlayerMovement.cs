@@ -3,7 +3,8 @@ using System.Collections.Generic;
 using System.Security;
 using UnityEngine;
 using System;
-using UnityEngine.InputSystem;
+using UnityEngine.UIElements;
+
 public class PlayerMovement : MonoBehaviour
 {
 
@@ -23,54 +24,15 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] private float playerKnockbackX;
 
     [SerializeField] private float playerKnockbackY;
-    public PlayerControls playerContols;
-
-
-
 
 
     #region Assigning Controls
 
-    private InputAction jump;
-    private bool heldJump;
-    private InputAction MoveLeft;
-    private bool heldLeft;
-    private InputAction MoveRight;
-    private bool heldRight;
-    private InputAction DashButton;
-
-    private void OnEnable()
-    {
-        jump = playerContols.Gameplay.Jump;
-        jump.Enable();
-        jump.performed += Jump;
-
-        MoveLeft = playerContols.Gameplay.MoveLeft;
-        MoveLeft.Enable();
-        MoveLeft.performed += RunLeft;
-
-        MoveRight = playerContols.Gameplay.MoveRight;
-        MoveRight.Enable();
-        MoveRight.performed += RunRight;
-
-        DashButton = playerContols.Gameplay.Dash;
-        DashButton.Enable();
-        DashButton.performed += Dash;
-
-    }
-
-    private void OnDisable()
-    {
-        jump.Disable();
-        MoveLeft.Disable();
-        MoveRight.Disable();
-        DashButton.Disable();
-    }
-
-    private void Awake()
-    {
-        playerContols = new PlayerControls();
-    }
+    private KeyCode _moveRightButton;
+    private KeyCode _moveLeftButton;
+    private KeyCode _moveJumpButton;
+    private KeyCode _moveCrouchButton;
+    private KeyCode _moveDashButton;
 
     #endregion
 
@@ -80,25 +42,72 @@ public class PlayerMovement : MonoBehaviour
         _playerRigidbody = GetComponent<Rigidbody2D>();
         _playerThickness = transform.localScale.x;
         box = GetComponent<BoxCollider2D>();   
+        #region Assigning Controls
+
+            _moveRightButton = controls.moveRight;
+            _moveLeftButton = controls.moveLeft;
+            _moveJumpButton = controls.moveJump;
+            _moveCrouchButton = controls.moveCrouch;
+            _moveDashButton = controls.dash;
+
+        #endregion
+
     }
 
     private void Update()
     {
-        heldJump = playerContols.Gameplay.Jump.ReadValue<float>() > 0;
-        heldLeft = playerContols.Gameplay.MoveLeft.ReadValue<float>() > 0;
-        heldRight = playerContols.Gameplay.MoveRight.ReadValue<float>() > 0;
+        #region Run Input
+            _movementPlayer = 0f;
 
-        if (!heldLeft && !heldRight){
-            _movementPlayer = 0;
-        }
+            #region FlipSprite
+                if (Input.GetKey(_moveLeftButton))
+                {
+                    _movementPlayer = -1f;
+                    Vector2 localScale = transform.localScale;
+                    localScale.x = -_playerThickness;
+                    transform.localScale = localScale;
+                }
 
-        if ((!heldJump) && _playerRigidbody.velocity.y > 0f)
+                if (Input.GetKey(_moveRightButton))
+                {
+                    _movementPlayer = 1f;
+                    Vector2 localScale = transform.localScale;
+                    localScale.x = _playerThickness;
+                    transform.localScale = localScale;
+                }
+            #endregion
+
+            #endregion
+
+        #region Jump
+            if ( (Input.GetKeyDown(_moveJumpButton) && (IsGrounded() || (scriptMovement.coyoteTime > _timeFromGround)) && jumpCount < scriptMovement.numJumps))
+            {
+                _playerRigidbody.velocity = new Vector2(_playerRigidbody.velocity.x, scriptMovement.jumpForce);
+            }
+
+            if (Input.GetKeyUp(_moveJumpButton) && _playerRigidbody.velocity.y > 0f)
+            {
+                _playerRigidbody.velocity = new Vector2(_playerRigidbody.velocity.x, _playerRigidbody.velocity.y * scriptMovement.minJumpHeight);
+            }
+
+            if (Input.GetKeyDown(_moveJumpButton) || Input.GetKeyUp(_moveJumpButton)){
+                jumpCount++;
+                Actions.OnPlayerJump();
+            }
+            
+        #endregion
+        
+        #region Dash
+        
+        if (Input.GetKey(_moveDashButton))
         {
-            _playerRigidbody.velocity = new Vector2(_playerRigidbody.velocity.x, _playerRigidbody.velocity.y * scriptMovement.minJumpHeight);
+            Dash();
         }
+
+        #endregion
+
+    
     }
-
-
 
     private void FixedUpdate()
     {
@@ -138,54 +147,12 @@ public class PlayerMovement : MonoBehaviour
         return rayHit.collider != null;
     }
 
-    public void Jump(InputAction.CallbackContext ctx)
-    {
-        if ((ctx.performed && (IsGrounded() || (scriptMovement.coyoteTime > _timeFromGround)) && jumpCount < scriptMovement.numJumps))
-        {
 
-            _playerRigidbody.velocity = new Vector2(_playerRigidbody.velocity.x, scriptMovement.jumpForce);
-        }
-
-       
-
-        if (ctx.performed)
-        {
-            jumpCount++;
-            Actions.OnPlayerJump();
-        }
-    }
-
-    public void RunLeft(InputAction.CallbackContext ctx)
-    {
-        if (ctx.performed || heldLeft)
-        {
-            
-            _movementPlayer = -1f;
-            Vector2 localScale = transform.localScale;
-            localScale.x = -_playerThickness;
-            transform.localScale = localScale;
-        }
-    }
-
-    public void RunRight(InputAction.CallbackContext ctx)
-    {
-        if (ctx.performed || heldRight)
-        {
-            _movementPlayer = 1f;
-            Vector2 localScale = transform.localScale;
-            localScale.x = _playerThickness;
-            transform.localScale = localScale;
-        } 
-    }
-
-
-
-    public void Dash(InputAction.CallbackContext ctx)
-    {
-        
-        if (ctx.performed && _canDash && _playerRigidbody.velocity.x !=0)
+    
+    void Dash(){
+        if (_canDash && _playerRigidbody.velocity.x !=0)
             {
-            Actions.OnPlayerDashed();
+                Actions.OnPlayerDashed();
                 //_playerRigidbody.constraints = RigidbodyConstraints2D.FreezePositionY;
                 _playerRigidbody.AddForce(new Vector2(scriptMovement.dashDistance * _movementPlayer, -30));
                 StartCoroutine(OnDash());

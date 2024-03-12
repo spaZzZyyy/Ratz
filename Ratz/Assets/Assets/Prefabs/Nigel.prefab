@@ -5982,8 +5982,6 @@ MonoBehaviour:
   wiggleDir: {fileID: 4844203437847366947}
   wigRun: 6.38
   tailEndHeight: 5.71
-  playerTransform: {fileID: 0}
-  recordPlayerTransform: {fileID: 0}
 --- !u!212 &4844203437559255907
 SpriteRenderer:
   m_ObjectHideFlags: 0
