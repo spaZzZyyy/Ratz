@@ -1194,6 +1194,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   offset: {x: 0, y: 0, z: -10}
   ease: 0.25
+  cam: {fileID: 0}
   target: {fileID: 926018504}
 --- !u!1 &277913321
 GameObject:
@@ -1549,7 +1550,7 @@ BoxCollider2D:
   m_GameObject: {fileID: 528453842}
   m_Enabled: 1
   m_Density: 1
-  m_Material: {fileID: 0}
+  m_Material: {fileID: 6200000, guid: fc380380377b19a4e89ca17e65bbd7b5, type: 2}
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
@@ -1908,6 +1909,7 @@ MonoBehaviour:
   scriptMovement: {fileID: 11400000, guid: f2a2996a35770b248981884aa783ccc8, type: 2}
   controls: {fileID: 11400000, guid: 1364f0fd150daf449b0b62d939d65b92, type: 2}
   groundCheck: {fileID: 1761718133}
+  isFalling: 0
   groundLayer:
     serializedVersion: 2
     m_Bits: 1024
@@ -2029,14 +2031,8 @@ MonoBehaviour:
   degrees:
   - 40
   - 320
-  i: 0
   beatManager: {fileID: 27447843}
   beatCount: 0.25
-  speed: 0
-  interval: 0
-  degreeDiff: 0
-  distance: 0
-  diameter: 0
 --- !u!61 &973554314
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -2660,7 +2656,7 @@ BoxCollider2D:
   m_GameObject: {fileID: 1241491141}
   m_Enabled: 1
   m_Density: 1
-  m_Material: {fileID: 0}
+  m_Material: {fileID: 6200000, guid: fc380380377b19a4e89ca17e65bbd7b5, type: 2}
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
@@ -3476,6 +3472,8 @@ MonoBehaviour:
   wiggleDir: {fileID: 1744209703}
   wigRun: 6.38
   tailEndHeight: 5.71
+  playerTransform: {fileID: 0}
+  recordPlayerTransform: {fileID: 0}
 --- !u!120 &1604390903
 LineRenderer:
   m_ObjectHideFlags: 0
@@ -4547,14 +4545,8 @@ MonoBehaviour:
   degrees:
   - 60
   - 300
-  i: 0
   beatManager: {fileID: 27447843}
   beatCount: 0.5
-  speed: 0
-  interval: 0
-  degreeDiff: 0
-  distance: 0
-  diameter: 0
 --- !u!61 &2134009749
 BoxCollider2D:
   m_ObjectHideFlags: 0

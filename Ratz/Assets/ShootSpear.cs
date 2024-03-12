@@ -47,7 +47,7 @@ public class ShootSpear : MonoBehaviour
         if (collision.gameObject.tag == "wall")
         {
             gameObject.tag = "platform";
-            gameObject.GetComponent<Rigidbody2D>().constraints =  RigidbodyConstraints2D.FreezePositionY;
+            rb.isKinematic = true;
             transform.Rotate(0,0,0);
             fadeTimer = destroyTime;
             
