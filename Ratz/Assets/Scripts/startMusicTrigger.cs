@@ -13,9 +13,7 @@ public class startMusicTrigger : MonoBehaviour
             musicManager.startGame = true;
             mapControl.initiate = true;
         }
-    }
+    }    
 
-
-    
 
 }

@@ -7,9 +7,11 @@ using UnityEngine.Events;
 
 public class musicManager : MonoBehaviour
 {   
+    #region Variables
     [SerializeField] AudioSource track1;
     [SerializeField] AudioSource track2;
     [SerializeField] AudioSource stopTime;
+    
     double musicTimer = 0;
     List<AudioSource> trackList;
     [HideInInspector] public int trackToPlay = 0;
@@ -25,11 +27,20 @@ public class musicManager : MonoBehaviour
     bool gameStarted = false;
     bool stopTimePlaying = false;
     [SerializeField] ScriptControls scriptControls;
+    public bool musicChanged;
+    #endregion
+
+    //! eliCode
+    [SerializeField] BeatManager beatManager;
+    //!
+
+
 
     void Start()
     {
         startMusicBox();
         audioSourceToPlay = trackList[trackToPlay];
+        musicChanged = false;
     }
 
     void Update()
@@ -65,6 +76,7 @@ public class musicManager : MonoBehaviour
             //switch tracks
             if(Input.GetKeyDown(scriptControls.switchTracks)){
                 stopMusic();
+                Actions.OnPlayerSwitchTrack();
                 switchTracks();
                 startMusic();
             }
@@ -100,10 +112,19 @@ public class musicManager : MonoBehaviour
     void switchTracks(){
         if (trackToPlay < numOfTracks - 1){
             trackToPlay++;
+            musicChanged = true;
         } else {
             trackToPlay = 0;
+            musicChanged = true;
         }
         audioSourceToPlay = trackList[trackToPlay];
+        //! eliCode
+        beatManager._audioSource = trackList[trackToPlay];
+        if(trackToPlay == 1) {
+            beatManager._bpm = beatManager._bpm / 2;
+        } else {
+            beatManager._bpm = beatManager._bpm * 2;
+        }
     }
 
     void stopMusic(){

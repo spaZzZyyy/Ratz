@@ -56,6 +56,7 @@ Material:
     m_Ints: []
     m_Floats:
     - _BPM: 0.4
+    - _Flash: 0
     - _OnOff: 1
     - _QueueControl: 0
     - _QueueOffset: 0
