@@ -23,7 +23,7 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] private float playerKnockbackX;
 
     [SerializeField] private float playerKnockbackY;
-    public PlayerControls playerContols;
+    public PlayerControls playerControls;
 
 
 
@@ -41,19 +41,19 @@ public class PlayerMovement : MonoBehaviour
 
     private void OnEnable()
     {
-        jump = playerContols.Gameplay.Jump;
+        jump = playerControls.Gameplay.Jump;
         jump.Enable();
         jump.performed += Jump;
 
-        MoveLeft = playerContols.Gameplay.MoveLeft;
+        MoveLeft = playerControls.Gameplay.MoveLeft;
         MoveLeft.Enable();
         MoveLeft.performed += RunLeft;
 
-        MoveRight = playerContols.Gameplay.MoveRight;
+        MoveRight = playerControls.Gameplay.MoveRight;
         MoveRight.Enable();
         MoveRight.performed += RunRight;
 
-        DashButton = playerContols.Gameplay.Dash;
+        DashButton = playerControls.Gameplay.Dash;
         DashButton.Enable();
         DashButton.performed += Dash;
 
@@ -69,7 +69,7 @@ public class PlayerMovement : MonoBehaviour
 
     private void Awake()
     {
-        playerContols = new PlayerControls();
+        playerControls = new PlayerControls();
     }
 
     #endregion
@@ -84,9 +84,9 @@ public class PlayerMovement : MonoBehaviour
 
     private void Update()
     {
-        heldJump = playerContols.Gameplay.Jump.ReadValue<float>() > 0;
-        heldLeft = playerContols.Gameplay.MoveLeft.ReadValue<float>() > 0;
-        heldRight = playerContols.Gameplay.MoveRight.ReadValue<float>() > 0;
+        heldJump = playerControls.Gameplay.Jump.ReadValue<float>() > 0;
+        heldLeft = playerControls.Gameplay.MoveLeft.ReadValue<float>() > 0;
+        heldRight = playerControls.Gameplay.MoveRight.ReadValue<float>() > 0;
 
         if (!heldLeft && !heldRight){
             _movementPlayer = 0;
@@ -142,16 +142,12 @@ public class PlayerMovement : MonoBehaviour
     {
         if ((ctx.performed && (IsGrounded() || (scriptMovement.coyoteTime > _timeFromGround)) && jumpCount < scriptMovement.numJumps))
         {
-
             _playerRigidbody.velocity = new Vector2(_playerRigidbody.velocity.x, scriptMovement.jumpForce);
         }
-
-       
-
         if (ctx.performed)
         {
             jumpCount++;
-            Actions.OnPlayerJump();
+            /*Actions.OnPlayerJump();*/
         }
     }
 
@@ -185,7 +181,8 @@ public class PlayerMovement : MonoBehaviour
         
         if (ctx.performed && _canDash && _playerRigidbody.velocity.x !=0)
             {
-            Actions.OnPlayerDashed();
+            Debug.Log("dashed");
+                Actions.OnPlayerDashed();
                 //_playerRigidbody.constraints = RigidbodyConstraints2D.FreezePositionY;
                 _playerRigidbody.AddForce(new Vector2(scriptMovement.dashDistance * _movementPlayer, -30));
                 StartCoroutine(OnDash());
