@@ -29,11 +29,12 @@ public class PlayerAnimations : MonoBehaviour
     }
 
 
-    private void OnEnable() {
-       /* Actions.OnPlayerJump += PlayerJumped;
-        Actions.OnPlayerDashed += PlayerDashed;
-        Actions.OnParry += PlayerParried;
-        Actions.NotParry += PlayerNotParried;*/
+    private void OnEnable()
+    {
+        /* Actions.OnPlayerJump += PlayerJumped;
+         Actions.OnPlayerDashed += PlayerDashed;
+         Actions.OnParry += PlayerParried;
+         Actions.NotParry += PlayerNotParried;*/
         Actions.PlayerTookDamage += TakeDamage;
         Actions.OnPlayerSwitchTrack += switchTracks;
 
@@ -55,13 +56,18 @@ public class PlayerAnimations : MonoBehaviour
 
     }
 
-    private void OnDisable() {
-      //  Actions.OnPlayerJump -= PlayerJumped;
-     /*   Actions.OnPlayerDashed -= PlayerDashed; */
+    private void OnDisable()
+    {
+        //  Actions.OnPlayerJump -= PlayerJumped;
+        /*   Actions.OnPlayerDashed -= PlayerDashed; */
         Actions.OnParry -= PlayerParried;
         Actions.NotParry -= PlayerNotParried;
         Actions.PlayerTookDamage -= TakeDamage;
         Actions.OnPlayerSwitchTrack += switchTracks;
+        jump.Disable();
+        MoveLeft.Disable();
+        MoveRight.Disable();
+        DashButton.Disable();
     }
 
     // Start is called before the first frame update
