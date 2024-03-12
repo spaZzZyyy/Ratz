@@ -94,12 +94,8 @@ public class PlayerMovement : MonoBehaviour
 
         if ((!heldJump) && _playerRigidbody.velocity.y > 0f)
         {
-            Debug.Log("HeldJump" + heldJump);
             _playerRigidbody.velocity = new Vector2(_playerRigidbody.velocity.x, _playerRigidbody.velocity.y * scriptMovement.minJumpHeight);
         }
-
-
-
     }
 
 
@@ -175,7 +171,6 @@ public class PlayerMovement : MonoBehaviour
     {
         if (ctx.performed || heldRight)
         {
-            Debug.Log("holding Right");
             _movementPlayer = 1f;
             Vector2 localScale = transform.localScale;
             localScale.x = _playerThickness;
@@ -187,10 +182,10 @@ public class PlayerMovement : MonoBehaviour
 
     public void Dash(InputAction.CallbackContext ctx)
     {
-        Debug.Log("Dashing");
-        if (_canDash && _playerRigidbody.velocity.x !=0)
+        
+        if (ctx.performed && _canDash && _playerRigidbody.velocity.x !=0)
             {
-                Actions.OnPlayerDashed();
+            Actions.OnPlayerDashed();
                 //_playerRigidbody.constraints = RigidbodyConstraints2D.FreezePositionY;
                 _playerRigidbody.AddForce(new Vector2(scriptMovement.dashDistance * _movementPlayer, -30));
                 StartCoroutine(OnDash());
