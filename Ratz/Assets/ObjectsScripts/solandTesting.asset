@@ -23,5 +23,5 @@ MonoBehaviour:
   minJumpHeight: 0.1
   dashDistance: 300
   dashCoolDown: 1
-  dashDuration: 0.2
+  dashDuration: 0.4
   coyoteTime: 1
