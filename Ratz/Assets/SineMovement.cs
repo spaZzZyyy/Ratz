@@ -7,16 +7,16 @@ public class SineMovement : MonoBehaviour
 {
 
     [SerializeField]
-    float moveSpeed = 5f;
+    public float moveSpeed = 5f;
 
     [SerializeField]
-    float frequency = 20f;
+    public float frequency = 20f;
 
     [SerializeField]
-    float magnitude = 0.5f;
+    public float magnitude = 0.5f;
 
     [SerializeField]
-    bool musicManager;
+    public bool musicManager;
 
     float x;
 
