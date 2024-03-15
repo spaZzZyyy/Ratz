@@ -46,11 +46,11 @@ public class musicManager : MonoBehaviour
 
         changeSong = playerControls.Gameplay.ChangeSong;
         changeSong.Enable();
-        changeSong.performed += switchTrack;
+        changeSong.performed += switchTracksAction;
 
         slowSong = playerControls.Gameplay.Slow;
         slowSong.Enable();
-        slowSong.performed += slowDownTrack;
+        slowSong.performed += slowDownTrackAction;
     }
 
     private void OnDisable()
@@ -175,7 +175,7 @@ public class musicManager : MonoBehaviour
         trackSpeed = 1;
     }
 
-    void switchTrack(InputAction.CallbackContext ctx)
+    void switchTracksAction(InputAction.CallbackContext ctx)
     {
         //switch tracks
         if (ctx.performed)
@@ -187,7 +187,7 @@ public class musicManager : MonoBehaviour
         }
     }
 
-    void slowDownTrack(InputAction.CallbackContext ctx)
+    void slowDownTrackAction(InputAction.CallbackContext ctx)
     {
         if(ctx.performed)
         {
