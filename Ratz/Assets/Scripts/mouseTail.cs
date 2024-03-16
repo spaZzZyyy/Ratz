@@ -187,10 +187,6 @@ public class mouseTail : MonoBehaviour
             trailSpeedFactor = trailSpeedRun;
             wigFactor = wigRun;
             playerMoving = true;
-            
-        }
-        else
-        {
             recordPlayerTransform.position = playerTransform.position;
         }
     }
@@ -213,11 +209,6 @@ public class mouseTail : MonoBehaviour
             playerMoving = true;
             recordPlayerTransform.position = playerTransform.position;
         }
-        else
-        {
-            recordPlayerTransform.position = playerTransform.position;
-        }
-        
     }
 
 }
