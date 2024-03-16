@@ -14,7 +14,7 @@ public class PlayerMovement : MonoBehaviour
     private float _movementPlayer;
     private float _playerThickness;
     [HideInInspector] public bool _canDash = true; //Used in dash particles
-    public bool _dashing = false;
+    Vector2 dashForce;
     private bool _keepZLocked = true;
     private int jumpCount = 0;
     [HideInInspector] public bool isFalling;
@@ -97,6 +97,7 @@ public class PlayerMovement : MonoBehaviour
         {
             _playerRigidbody.velocity = new Vector2(_playerRigidbody.velocity.x, _playerRigidbody.velocity.y * scriptMovement.minJumpHeight);
         }
+
     }
 
 
@@ -115,7 +116,7 @@ public class PlayerMovement : MonoBehaviour
         {
             _timeFromGround+=Time.deltaTime;
         }
-        else
+        else //is on the ground
         {
             jumpCount = 0;
             _timeFromGround = 0;
@@ -135,21 +136,29 @@ public class PlayerMovement : MonoBehaviour
 
     public bool IsGrounded()
     {
-        RaycastHit2D rayHit = Physics2D.BoxCast(box.bounds.center, box.bounds.size, 0, Vector2.down, 0.1f, groundLayer);
+        RaycastHit2D rayHit = Physics2D.BoxCast(box.bounds.center, box.bounds.size, 0, Vector2.down, 0.01f, groundLayer);
         return rayHit.collider != null;
     }
 
     public void Jump(InputAction.CallbackContext ctx)
     {
-        if ((ctx.performed && (IsGrounded() || (scriptMovement.coyoteTime > _timeFromGround)) && jumpCount < scriptMovement.numJumps))
+                    //For Regular jump on ground                                                //for coyoteJump
+        if ((ctx.performed && IsGrounded() && jumpCount < scriptMovement.numJumps) || (ctx.performed && (scriptMovement.coyoteTime > _timeFromGround) && jumpCount < scriptMovement.numJumps))
         {
             _playerRigidbody.velocity = new Vector2(_playerRigidbody.velocity.x, scriptMovement.jumpForce);
-        }
-        if (ctx.performed)
-        {
+            Debug.Log("Jumped" + jumpCount);
             jumpCount++;
-            /*Actions.OnPlayerJump();*/
         }
+        //! player double jumps, Coyote jump works as intended but jumping from the ground allows for a double jump
+        //! Testing jump count is still 0 jumping up allowing for a coyote jump after, a double jump
+        //! removing the jump count reset allows for only a single jump confirming jump count does count up
+        //! my guess is ctx.performed only executes after it's completely finished?
+        
+        // if (ctx.performed)
+        // {
+        //     jumpCount++;
+        //     /*Actions.OnPlayerJump();*/
+        // }
     }
 
     public void RunLeft(InputAction.CallbackContext ctx)
@@ -179,13 +188,14 @@ public class PlayerMovement : MonoBehaviour
 
     public void Dash(InputAction.CallbackContext ctx)
     {
-        
         if (ctx.performed && _canDash && _playerRigidbody.velocity.x !=0)
             {
-            Debug.Log("dashed");
+            //Debug.Log("dashed");
                 
-                _playerRigidbody.constraints = RigidbodyConstraints2D.FreezePositionY;
-                _playerRigidbody.AddForce(new Vector2(scriptMovement.dashDistance * _movementPlayer, -30),ForceMode2D.Impulse);
+                //_playerRigidbody.constraints = RigidbodyConstraints2D.FreezePositionY;
+                //_movementplayer is for direction, -1 for left, 1 for right
+                dashForce = new Vector2(scriptMovement.dashDistance * _movementPlayer, 0);
+                _playerRigidbody.AddForce(dashForce,ForceMode2D.Impulse);
                 StartCoroutine(OnDash());
             }
     }
@@ -198,13 +208,10 @@ public class PlayerMovement : MonoBehaviour
 
     IEnumerator OnDash()
     {
-        
         yield return new WaitForSeconds(scriptMovement.dashDuration);
         _canDash = false;
-        _dashing = true;
         _playerRigidbody.constraints = RigidbodyConstraints2D.None;
         yield return new WaitForSeconds(scriptMovement.dashCoolDown);
         _canDash = true;
-        _dashing = false;
     }
 }
