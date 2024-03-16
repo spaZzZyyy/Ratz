@@ -13,7 +13,7 @@ public class PlayerMovement : MonoBehaviour
     private Rigidbody2D _playerRigidbody;
     private float _movementPlayer;
     private float _playerThickness;
-    private bool _canDash = true;
+    [HideInInspector] public bool _canDash = true; //Used in dash particles
     private bool _keepZLocked = true;
     private int jumpCount = 0;
     [HideInInspector] public bool isFalling;
