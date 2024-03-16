@@ -88,6 +88,7 @@ public class mouseTail : MonoBehaviour
     /// </summary>
     void Update()
     {
+
         if(playerTransform.position == recordPlayerTransform.position){
             match = true;
         } else{
@@ -99,6 +100,7 @@ public class mouseTail : MonoBehaviour
             playerMoving = false;
         }else
         {
+            recordPlayerTransform.position = playerTransform.position;
             ResetTail();
         }
 
