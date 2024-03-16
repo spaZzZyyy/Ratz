@@ -98,6 +98,11 @@ public class PlayerMovement : MonoBehaviour
             _playerRigidbody.velocity = new Vector2(_playerRigidbody.velocity.x, _playerRigidbody.velocity.y * scriptMovement.minJumpHeight);
         }
 
+        //Reset Jump
+        if(IsGrounded() == true && playerControls.Gameplay.Jump.ReadValue<float>() == 0){
+            jumpCount = 0;
+            _timeFromGround = 0;
+        }
     }
 
 
@@ -115,11 +120,6 @@ public class PlayerMovement : MonoBehaviour
         if (IsGrounded() == false)
         {
             _timeFromGround+=Time.deltaTime;
-        }
-        else //is on the ground
-        {
-            jumpCount = 0;
-            _timeFromGround = 0;
         }
 
         if (_keepZLocked){
@@ -142,23 +142,35 @@ public class PlayerMovement : MonoBehaviour
 
     public void Jump(InputAction.CallbackContext ctx)
     {
-                    //For Regular jump on ground                                                //for coyoteJump
-        if ((ctx.performed && IsGrounded() && jumpCount < scriptMovement.numJumps) || (ctx.performed && (scriptMovement.coyoteTime > _timeFromGround) && jumpCount < scriptMovement.numJumps))
-        {
-            _playerRigidbody.velocity = new Vector2(_playerRigidbody.velocity.x, scriptMovement.jumpForce);
-            Debug.Log("Jumped" + jumpCount);
-            jumpCount++;
+        //Debug.Log("jump");
+        //for grounded jump
+        if(IsGrounded() == true){
+            Debug.Log("RegularJump");
+            if (jumpCount < scriptMovement.numJumps)
+            {
+                playerJump();
+            }
         }
-        //! player double jumps, Coyote jump works as intended but jumping from the ground allows for a double jump
-        //! Testing jump count is still 0 jumping up allowing for a coyote jump after, a double jump
-        //! removing the jump count reset allows for only a single jump confirming jump count does count up
-        //! my guess is ctx.performed only executes after it's completely finished?
+        else //coyote jump
+        {
+            Debug.Log("coyoteJump ");
+            Debug.Log(jumpCount);
+            if (scriptMovement.coyoteTime > _timeFromGround && jumpCount < scriptMovement.numJumps)
+            {
+                playerJump();
+            }
+        }
         
         // if (ctx.performed)
         // {
         //     jumpCount++;
         //     /*Actions.OnPlayerJump();*/
         // }
+    }
+
+    public void playerJump(){
+        _playerRigidbody.velocity = new Vector2(_playerRigidbody.velocity.x, scriptMovement.jumpForce);
+        jumpCount++;
     }
 
     public void RunLeft(InputAction.CallbackContext ctx)
