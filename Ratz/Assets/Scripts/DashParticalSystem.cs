@@ -12,6 +12,7 @@ public class DashParticalSystem : MonoBehaviour
     float dashThic;
     public PlayerControls playerControls;
     private InputAction DashButton;
+    private PlayerMovement playerMovement;
 
     private void Awake()
     {
@@ -33,12 +34,13 @@ public class DashParticalSystem : MonoBehaviour
     {
         dashPS = GetComponent<ParticleSystem>();
         dashThic = transform.localScale.y;
+        playerMovement = this.transform.parent.GetComponent<PlayerMovement>();
     }
 
     private void playDashedPart(InputAction.CallbackContext ctx)
     {
         flip();
-        if(ctx.performed){
+        if(ctx.performed && playerMovement._canDash){
             dashPS.Play();
         } 
     }

@@ -13,7 +13,8 @@ public class PlayerMovement : MonoBehaviour
     private Rigidbody2D _playerRigidbody;
     private float _movementPlayer;
     private float _playerThickness;
-    private bool _canDash = true;
+    public bool _canDash = true;
+    public bool _dashing = false;
     private bool _keepZLocked = true;
     private int jumpCount = 0;
     [HideInInspector] public bool isFalling;
@@ -182,9 +183,9 @@ public class PlayerMovement : MonoBehaviour
         if (ctx.performed && _canDash && _playerRigidbody.velocity.x !=0)
             {
             Debug.Log("dashed");
-                //Actions.OnPlayerDashed();
-                //_playerRigidbody.constraints = RigidbodyConstraints2D.FreezePositionY;
-                _playerRigidbody.AddForce(new Vector2(scriptMovement.dashDistance * _movementPlayer, -30));
+                
+                _playerRigidbody.constraints = RigidbodyConstraints2D.FreezePositionY;
+                _playerRigidbody.AddForce(new Vector2(scriptMovement.dashDistance * _movementPlayer, -30),ForceMode2D.Impulse);
                 StartCoroutine(OnDash());
             }
     }
@@ -200,8 +201,10 @@ public class PlayerMovement : MonoBehaviour
         
         yield return new WaitForSeconds(scriptMovement.dashDuration);
         _canDash = false;
+        _dashing = true;
         _playerRigidbody.constraints = RigidbodyConstraints2D.None;
         yield return new WaitForSeconds(scriptMovement.dashCoolDown);
         _canDash = true;
+        _dashing = false;
     }
 }

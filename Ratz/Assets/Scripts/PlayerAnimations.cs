@@ -114,7 +114,7 @@ public class PlayerAnimations : MonoBehaviour
 
     private void PlayerDashed(InputAction.CallbackContext ctx)
     {
-        if (ctx.performed)
+        if (ctx.performed && GetComponent<PlayerMovement>()._canDash)
         {
             playerAni.SetBool("Dashed", true);
             StartCoroutine(OnDashed());
