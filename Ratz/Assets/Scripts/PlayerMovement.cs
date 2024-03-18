@@ -22,7 +22,7 @@ public class PlayerMovement : MonoBehaviour
     private float _timeFromGround;
     [SerializeField] private LayerMask groundLayer;
     [SerializeField] private float playerKnockbackX;
-
+    bool dashing = false;
     [SerializeField] private float playerKnockbackY;
     public PlayerControls playerControls;
 
@@ -93,7 +93,7 @@ public class PlayerMovement : MonoBehaviour
             _movementPlayer = 0;
         }
 
-        if ((!heldJump) && _playerRigidbody.velocity.y > 0f)
+        if ((!heldJump) && _playerRigidbody.velocity.y > 0f && _canDash)
         {
             _playerRigidbody.velocity = new Vector2(_playerRigidbody.velocity.x, _playerRigidbody.velocity.y * scriptMovement.minJumpHeight);
         }
@@ -103,17 +103,26 @@ public class PlayerMovement : MonoBehaviour
             jumpCount = 0;
             _timeFromGround = 0;
         }
+
+        if (dashing)
+        {
+            _playerRigidbody.gravityScale = 0;
+        } else
+        {
+            _playerRigidbody.gravityScale = scriptMovement.gravityForce;
+        }
     }
 
 
 
     private void FixedUpdate()
     {
-        _playerRigidbody.gravityScale = scriptMovement.gravityForce;
         #region Movement
         //Run
+        if (!dashing)
+        {
             _playerRigidbody.velocity = new Vector2(_movementPlayer * scriptMovement.movementSpeed, _playerRigidbody.velocity.y);
-            
+        }
         #endregion
 
         //Coyote time
@@ -204,10 +213,11 @@ public class PlayerMovement : MonoBehaviour
             {
             //Debug.Log("dashed");
                 
-                //_playerRigidbody.constraints = RigidbodyConstraints2D.FreezePositionY;
-                //_movementplayer is for direction, -1 for left, 1 for right
+                _playerRigidbody.constraints = RigidbodyConstraints2D.None;
+            //_movementplayer is for direction, -1 for left, 1 for right
+            _playerRigidbody.velocity = Vector2.zero;
                 dashForce = new Vector2(scriptMovement.dashDistance * _movementPlayer, 0);
-                _playerRigidbody.AddForce(dashForce,ForceMode2D.Impulse);
+            _playerRigidbody.AddForce(dashForce, ForceMode2D.Impulse);
                 StartCoroutine(OnDash());
             }
     }
@@ -220,8 +230,10 @@ public class PlayerMovement : MonoBehaviour
 
     IEnumerator OnDash()
     {
+        dashing = true;
         yield return new WaitForSeconds(scriptMovement.dashDuration);
         _canDash = false;
+        dashing = false;
         _playerRigidbody.constraints = RigidbodyConstraints2D.None;
         yield return new WaitForSeconds(scriptMovement.dashCoolDown);
         _canDash = true;

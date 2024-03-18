@@ -21,7 +21,7 @@ MonoBehaviour:
     m_Bits: 1024
   groundCheckDistance: 0.1
   minJumpHeight: 0.1
-  dashDistance: 300
+  dashDistance: 3
   dashCoolDown: 1
   dashDuration: 0.4
   coyoteTime: 1

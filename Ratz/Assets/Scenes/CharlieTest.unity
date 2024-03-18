@@ -4959,6 +4959,7 @@ MonoBehaviour:
   scriptMovement: {fileID: 11400000, guid: 0c22e9be8dbb3cd42bf3f11acb0a88de, type: 2}
   controls: {fileID: 11400000, guid: 1364f0fd150daf449b0b62d939d65b92, type: 2}
   groundCheck: {fileID: 4166061083783994644}
+  _canDash: 1
   isFalling: 0
   groundLayer:
     serializedVersion: 2
