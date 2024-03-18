@@ -154,7 +154,6 @@ public class PlayerMovement : MonoBehaviour
         //Debug.Log("jump");
         //for grounded jump
         if(IsGrounded() == true){
-            Debug.Log("RegularJump");
             if (jumpCount < scriptMovement.numJumps)
             {
                 playerJump();
@@ -162,8 +161,7 @@ public class PlayerMovement : MonoBehaviour
         }
         else //coyote jump
         {
-            Debug.Log("coyoteJump ");
-            Debug.Log(jumpCount);
+
             if (scriptMovement.coyoteTime > _timeFromGround && jumpCount < scriptMovement.numJumps)
             {
                 playerJump();
