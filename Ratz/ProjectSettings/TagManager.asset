@@ -16,6 +16,8 @@ TagManager:
   - musicManager
   - sineSpawn
   - endSine
+  - spearSpawn
+  - sineSpawnUp
   layers:
   - Default
   - TransparentFX
