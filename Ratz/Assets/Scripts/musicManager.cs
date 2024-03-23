@@ -10,14 +10,21 @@ public class musicManager : MonoBehaviour
     #region Variables
     [SerializeField] AudioSource track1;
     [SerializeField] AudioSource track2;
+    [SerializeField] AudioSource track3;
+    [SerializeField] AudioSource track4;
     [SerializeField] AudioSource stopTime;
-
+    /*
+    track1 = normal
+    track2 = halftime
+    track3 = madness
+    track4 = madness halftime
+    */
     double musicTimer = 0;
     List<AudioSource> trackList;
     [HideInInspector] public int trackToPlay = 0;
     AudioSource audioSourceToPlay;
     [HideInInspector] public bool musicIsPlaying;
-    int numOfTracks;
+    public int numOfTracks;
     public float trackSpeed;
     const float pitchIncrements = 0.1f;
     const double musicPerSecond = 0.015;
@@ -35,6 +42,7 @@ public class musicManager : MonoBehaviour
 
     //! eliCode
     [SerializeField] BeatManager beatManager;
+    [SerializeField] ResourceManager resourceManager;
     //!
     private void Awake()
     {
@@ -64,8 +72,6 @@ public class musicManager : MonoBehaviour
     {
         startMusicBox();
         audioSourceToPlay = trackList[trackToPlay];
-        musicChanged = false;
-        startMusic();
     }
 
     void Update()
@@ -126,8 +132,8 @@ public class musicManager : MonoBehaviour
         }
     }
 
-    void switchTracks() {
-        if (trackToPlay < numOfTracks - 1) {
+    void switchTracks(){
+        if (trackToPlay < numOfTracks){
             trackToPlay++;
             musicChanged = true;
         } else {
@@ -135,6 +141,7 @@ public class musicManager : MonoBehaviour
             musicChanged = true;
         }
         audioSourceToPlay = trackList[trackToPlay];
+        
         //! eliCode
         beatManager._audioSource = trackList[trackToPlay];
         if (trackToPlay == 1) {

@@ -4,8 +4,10 @@ using UnityEngine;
 
 public class squishDetection : MonoBehaviour
 {
+    [SerializeField] healthManager healthManager;
+
+    
      private void OnCollisionEnter2D(Collision2D collision) {
-        
-        Debug.Log("I'm getting squished");
+        healthManager.takeDamage(1);
     }
 }

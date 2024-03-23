@@ -18,6 +18,12 @@ TagManager:
   - endSine
   - spearSpawn
   - sineSpawnUp
+<<<<<<< Updated upstream
+=======
+  - musicManager
+  - respawn
+  - mainRespawn
+>>>>>>> Stashed changes
   layers:
   - Default
   - TransparentFX
