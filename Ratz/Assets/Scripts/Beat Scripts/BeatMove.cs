@@ -37,11 +37,9 @@ public class BeatMove : MonoBehaviour
 
     // TODO Breaks if player gets squished at all 
     private void OnCollisionEnter2D(Collision2D collision) {
-
-        if((this.transform.position.y - collision.collider.transform.position.y) < 0) {
+        if((transform.gameObject.CompareTag("spear") == false)) {
             collision.transform.SetParent(transform);
         }
-        
     }
 
     private void OnCollisionExit2D(Collision2D collision) {

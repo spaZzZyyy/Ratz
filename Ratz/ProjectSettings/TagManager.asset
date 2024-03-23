@@ -13,6 +13,12 @@ TagManager:
   - platform
   - wall
   - mainCheese
+<<<<<<< Updated upstream
+=======
+  - musicManager
+  - respawn
+  - mainRespawn
+>>>>>>> Stashed changes
   layers:
   - Default
   - TransparentFX
