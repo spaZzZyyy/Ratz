@@ -13,6 +13,11 @@ TagManager:
   - platform
   - wall
   - mainCheese
+  - musicManager
+  - sineSpawn
+  - endSine
+  - spearSpawn
+  - sineSpawnUp
 <<<<<<< Updated upstream
 =======
   - musicManager
@@ -34,8 +39,8 @@ TagManager:
   - Background
   - 
   - 
-  - 
-  - 
+  - GreyBox
+  - art
   - 
   - 
   - 

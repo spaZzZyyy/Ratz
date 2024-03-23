@@ -32,6 +32,4 @@ public class startMusicTrigger : MonoBehaviour
 >>>>>>> Stashed changes
 
 
-    
-
 }

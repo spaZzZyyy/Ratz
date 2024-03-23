@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class testSpears : MonoBehaviour
 {
-    [SerializeField] public bool turnOn;
+  /*  [SerializeField] public bool turnOn;
     [SerializeField] private float timer;
     bool fall1 = false;
     bool fall2 = false;
@@ -39,5 +39,5 @@ public class testSpears : MonoBehaviour
         //     fall3 = false;
         //     transform.GetChild(2).gameObject.GetComponent<ShootSpear>().boolShoot = true;
         // }
-    }
+    }*/
 }

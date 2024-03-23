@@ -3,8 +3,7 @@ using System.Collections.Generic;
 using System.Security;
 using UnityEngine;
 using System;
-using UnityEngine.UIElements;
-
+using UnityEngine.InputSystem;
 public class PlayerMovement : MonoBehaviour
 {
 
@@ -14,7 +13,8 @@ public class PlayerMovement : MonoBehaviour
     private Rigidbody2D _playerRigidbody;
     private float _movementPlayer;
     private float _playerThickness;
-    private bool _canDash = true;
+    [HideInInspector] public bool _canDash = true; //Used in dash particles
+    Vector2 dashForce;
     private bool _keepZLocked = true;
     private int jumpCount = 0;
     [HideInInspector] public bool isFalling;
@@ -22,17 +22,56 @@ public class PlayerMovement : MonoBehaviour
     private float _timeFromGround;
     [SerializeField] private LayerMask groundLayer;
     [SerializeField] private float playerKnockbackX;
-
+    bool dashing = false;
     [SerializeField] private float playerKnockbackY;
+    public PlayerControls playerControls;
+
+
+
 
 
     #region Assigning Controls
 
-    private KeyCode _moveRightButton;
-    private KeyCode _moveLeftButton;
-    private KeyCode _moveJumpButton;
-    private KeyCode _moveCrouchButton;
-    private KeyCode _moveDashButton;
+    private InputAction jump;
+    private bool heldJump;
+    private InputAction MoveLeft;
+    private bool heldLeft;
+    private InputAction MoveRight;
+    private bool heldRight;
+    private InputAction DashButton;
+
+    private void OnEnable()
+    {
+        jump = playerControls.Gameplay.Jump;
+        jump.Enable();
+        jump.performed += Jump;
+
+        MoveLeft = playerControls.Gameplay.MoveLeft;
+        MoveLeft.Enable();
+        MoveLeft.performed += RunLeft;
+
+        MoveRight = playerControls.Gameplay.MoveRight;
+        MoveRight.Enable();
+        MoveRight.performed += RunRight;
+
+        DashButton = playerControls.Gameplay.Dash;
+        DashButton.Enable();
+        DashButton.performed += Dash;
+
+    }
+
+    private void OnDisable()
+    {
+        jump.Disable();
+        MoveLeft.Disable();
+        MoveRight.Disable();
+        DashButton.Disable();
+    }
+
+    private void Awake()
+    {
+        playerControls = new PlayerControls();
+    }
 
     #endregion
 
@@ -42,91 +81,54 @@ public class PlayerMovement : MonoBehaviour
         _playerRigidbody = GetComponent<Rigidbody2D>();
         _playerThickness = transform.localScale.x;
         box = GetComponent<BoxCollider2D>();   
-        #region Assigning Controls
-
-            _moveRightButton = controls.moveRight;
-            _moveLeftButton = controls.moveLeft;
-            _moveJumpButton = controls.moveJump;
-            _moveCrouchButton = controls.moveCrouch;
-            _moveDashButton = controls.dash;
-
-        #endregion
-
     }
 
     private void Update()
     {
-        #region Run Input
-            _movementPlayer = 0f;
+        heldJump = playerControls.Gameplay.Jump.ReadValue<float>() > 0;
+        heldLeft = playerControls.Gameplay.MoveLeft.ReadValue<float>() > 0;
+        heldRight = playerControls.Gameplay.MoveRight.ReadValue<float>() > 0;
 
-            #region FlipSprite
-                if (Input.GetKey(_moveLeftButton))
-                {
-                    _movementPlayer = -1f;
-                    Vector2 localScale = transform.localScale;
-                    localScale.x = -_playerThickness;
-                    transform.localScale = localScale;
-                }
-
-                if (Input.GetKey(_moveRightButton))
-                {
-                    _movementPlayer = 1f;
-                    Vector2 localScale = transform.localScale;
-                    localScale.x = _playerThickness;
-                    transform.localScale = localScale;
-                }
-            #endregion
-
-            #endregion
-
-        #region Jump
-            if ( (Input.GetKeyDown(_moveJumpButton) && (IsGrounded() || (scriptMovement.coyoteTime > _timeFromGround)) && jumpCount < scriptMovement.numJumps))
-            {
-                _playerRigidbody.velocity = new Vector2(_playerRigidbody.velocity.x, scriptMovement.jumpForce);
-            }
-
-            if (Input.GetKeyUp(_moveJumpButton) && _playerRigidbody.velocity.y > 0f)
-            {
-                _playerRigidbody.velocity = new Vector2(_playerRigidbody.velocity.x, _playerRigidbody.velocity.y * scriptMovement.minJumpHeight);
-            }
-
-            if (Input.GetKeyDown(_moveJumpButton) || Input.GetKeyUp(_moveJumpButton)){
-                jumpCount++;
-                Actions.OnPlayerJump();
-            }
-            
-        #endregion
-        
-        #region Dash
-        
-        if (Input.GetKey(_moveDashButton))
-        {
-            Dash();
+        if (!heldLeft && !heldRight){
+            _movementPlayer = 0;
         }
 
-        #endregion
+        if ((!heldJump) && _playerRigidbody.velocity.y > 0f && _canDash)
+        {
+            _playerRigidbody.velocity = new Vector2(_playerRigidbody.velocity.x, _playerRigidbody.velocity.y * scriptMovement.minJumpHeight);
+        }
 
-    
+        //Reset Jump
+        if(IsGrounded() == true && playerControls.Gameplay.Jump.ReadValue<float>() == 0){
+            jumpCount = 0;
+            _timeFromGround = 0;
+        }
+
+        if (dashing)
+        {
+            _playerRigidbody.gravityScale = 0;
+        } else
+        {
+            _playerRigidbody.gravityScale = scriptMovement.gravityForce;
+        }
     }
+
+
 
     private void FixedUpdate()
     {
-        _playerRigidbody.gravityScale = scriptMovement.gravityForce;
         #region Movement
         //Run
+        if (!dashing)
+        {
             _playerRigidbody.velocity = new Vector2(_movementPlayer * scriptMovement.movementSpeed, _playerRigidbody.velocity.y);
-            
+        }
         #endregion
 
         //Coyote time
         if (IsGrounded() == false)
         {
             _timeFromGround+=Time.deltaTime;
-        }
-        else
-        {
-            jumpCount = 0;
-            _timeFromGround = 0;
         }
 
         if (_keepZLocked){
@@ -143,18 +145,77 @@ public class PlayerMovement : MonoBehaviour
 
     public bool IsGrounded()
     {
-        RaycastHit2D rayHit = Physics2D.BoxCast(box.bounds.center, box.bounds.size, 0, Vector2.down, 0.1f, groundLayer);
+        RaycastHit2D rayHit = Physics2D.BoxCast(box.bounds.center, box.bounds.size, 0, Vector2.down, 0.01f, groundLayer);
         return rayHit.collider != null;
     }
 
-
-    
-    void Dash(){
-        if (_canDash && _playerRigidbody.velocity.x !=0)
+    public void Jump(InputAction.CallbackContext ctx)
+    {
+        //Debug.Log("jump");
+        //for grounded jump
+        if(IsGrounded() == true){
+            if (jumpCount < scriptMovement.numJumps)
             {
-                Actions.OnPlayerDashed();
-                //_playerRigidbody.constraints = RigidbodyConstraints2D.FreezePositionY;
-                _playerRigidbody.AddForce(new Vector2(scriptMovement.dashDistance * _movementPlayer, -30));
+                playerJump();
+            }
+        }
+        else //coyote jump
+        {
+
+            if (scriptMovement.coyoteTime > _timeFromGround && jumpCount < scriptMovement.numJumps)
+            {
+                playerJump();
+            }
+        }
+        
+        // if (ctx.performed)
+        // {
+        //     jumpCount++;
+        //     /*Actions.OnPlayerJump();*/
+        // }
+    }
+
+    public void playerJump(){
+        _playerRigidbody.velocity = new Vector2(_playerRigidbody.velocity.x, scriptMovement.jumpForce);
+        jumpCount++;
+    }
+
+    public void RunLeft(InputAction.CallbackContext ctx)
+    {
+        if (ctx.performed || heldLeft)
+        {
+            
+            _movementPlayer = -1f;
+            Vector2 localScale = transform.localScale;
+            localScale.x = -_playerThickness;
+            transform.localScale = localScale;
+        }
+    }
+
+    public void RunRight(InputAction.CallbackContext ctx)
+    {
+        if (ctx.performed || heldRight)
+        {
+            _movementPlayer = 1f;
+            Vector2 localScale = transform.localScale;
+            localScale.x = _playerThickness;
+            transform.localScale = localScale;
+        } 
+    }
+
+
+
+    public void Dash(InputAction.CallbackContext ctx)
+    {
+        if (ctx.performed && _canDash && _playerRigidbody.velocity.x !=0)
+            {
+            //Debug.Log("dashed");
+                
+                _playerRigidbody.constraints = RigidbodyConstraints2D.None;
+            //_movementplayer is for direction, -1 for left, 1 for right
+            _playerRigidbody.velocity = Vector2.zero;
+                dashForce = new Vector2(scriptMovement.dashDistance * _movementPlayer, 0);
+            _playerRigidbody.AddForce(dashForce, ForceMode2D.Impulse);
                 StartCoroutine(OnDash());
             }
     }
@@ -167,9 +228,10 @@ public class PlayerMovement : MonoBehaviour
 
     IEnumerator OnDash()
     {
-        
+        dashing = true;
         yield return new WaitForSeconds(scriptMovement.dashDuration);
         _canDash = false;
+        dashing = false;
         _playerRigidbody.constraints = RigidbodyConstraints2D.None;
         yield return new WaitForSeconds(scriptMovement.dashCoolDown);
         _canDash = true;

@@ -2,11 +2,12 @@ using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
-using UnityEngine.Events;
+using UnityEngine.InputSystem;
 
 
 public class musicManager : MonoBehaviour
-{   
+{
+    #region Variables
     [SerializeField] AudioSource track1;
     [SerializeField] AudioSource track2;
     [SerializeField] AudioSource track3;
@@ -33,21 +34,44 @@ public class musicManager : MonoBehaviour
     bool gameStarted = false;
     bool stopTimePlaying = false;
     [SerializeField] ScriptControls scriptControls;
+    public bool musicChanged;
+    public PlayerControls playerControls;
+    private InputAction changeSong;
+    private InputAction slowSong;
+    #endregion
 
     //! eliCode
     [SerializeField] BeatManager beatManager;
     [SerializeField] ResourceManager resourceManager;
     //!
+    private void Awake()
+    {
+        playerControls = new PlayerControls();
+    }
+
+    private void OnEnable()
+    {
+
+        changeSong = playerControls.Gameplay.ChangeSong;
+        changeSong.Enable();
+        changeSong.performed += switchTracksAction;
+
+        slowSong = playerControls.Gameplay.Slow;
+        slowSong.Enable();
+        slowSong.performed += slowDownTrackAction;
+    }
+
+    private void OnDisable()
+    {
+        changeSong.Disable();
+        slowSong.Disable();
+    }
+
 
     void Start()
     {
         startMusicBox();
         audioSourceToPlay = trackList[trackToPlay];
-<<<<<<< Updated upstream
-=======
-        musicChanged = false;
-        numOfTracks = 1;
->>>>>>> Stashed changes
     }
 
     void Update()
@@ -62,7 +86,7 @@ public class musicManager : MonoBehaviour
         }
         */
 
-        if (startGame == true && gameStarted == false){
+        if (startGame == true && gameStarted == false) {
             startMusic();
             stopTime.Play();
             stopTime.Pause();
@@ -71,100 +95,115 @@ public class musicManager : MonoBehaviour
         }
 
         #region Control
-            //stop music
-            if(Input.GetKeyDown(scriptControls.musicStartStop)){ //Note since key down and up holding freezes music
-                stopMusic();
-            }
-            //start music
-            if(Input.GetKeyUp(scriptControls.musicStartStop) && startGame == true){ //and letting go resumes
-                startMusic();
-            }
+        //stop music
+        /*if(Input.GetKeyDown(scriptControls.musicStartStop)){ //Note since key down and up holding freezes music
+            stopMusic();
+        }
+        //start music
+        if(Input.GetKeyUp(scriptControls.musicStartStop) && startGame == true){ //and letting go resumes
+            startMusic();
+        }*/
 
-            //switch tracks
-            if(Input.GetKeyDown(scriptControls.switchTracks)){
-                stopMusic();
-                switchTracks();
-                startMusic();
-            }
-            
-            if(Input.GetKeyDown(scriptControls.pitchUp)){
-                changePitch(true);
-            }
-            if(Input.GetKeyDown(scriptControls.pitchDown)){
-                changePitch(false);
-            }
+
+
+        /*  if(Input.GetKeyDown(scriptControls.pitchUp)){
+              changePitch(true);
+          }
+          if(Input.GetKeyDown(scriptControls.pitchDown)){
+              changePitch(false);
+          }*/
         #endregion
 
         #region StopTime
-            if (musicIsPlaying == false && stopTimePlaying == false){
-                stopTimePlaying = true;
-                stopTime.UnPause();
-            } else if (musicIsPlaying == true){
-                stopTime.Pause();
-                stopTimePlaying = false;
-            }
+        if (musicIsPlaying == false && stopTimePlaying == false) {
+            stopTimePlaying = true;
+            stopTime.UnPause();
+        } else if (musicIsPlaying == true) {
+            stopTime.Pause();
+            stopTimePlaying = false;
+        }
         #endregion
 
     }
 
     private void FixedUpdate() {
-        if(musicIsPlaying){
+        if (musicIsPlaying) {
             musicTimer += musicPerSecond;
         }
-
-        
     }
 
     void switchTracks(){
         if (trackToPlay < numOfTracks){
             trackToPlay++;
+            musicChanged = true;
         } else {
             trackToPlay = 0;
+            musicChanged = true;
         }
         audioSourceToPlay = trackList[trackToPlay];
         
         //! eliCode
         beatManager._audioSource = trackList[trackToPlay];
-        if(trackToPlay == 1) {
+        if (trackToPlay == 1) {
             beatManager._bpm = beatManager._bpm / 2;
         } else {
             beatManager._bpm = beatManager._bpm * 2;
         }
     }
 
-    void stopMusic(){
+    void stopMusic() {
         musicIsPlaying = false;
-        for (int i = 0; i < numOfTracks; i++){
+        for (int i = 0; i < numOfTracks; i++) {
             trackList[i].Pause();
             trackList[i].mute = true;
         }
     }
 
-    void startMusic(){
+    void startMusic() {
         musicIsPlaying = true;
-        for (int i = 0; i < numOfTracks; i++){
+        for (int i = 0; i < numOfTracks; i++) {
             trackList[i].UnPause();
         }
         audioSourceToPlay.mute = false;
     }
 
-    void startMusicBox(){ // Creates a list to iterate through all the tracks and prime them to a ready state
+    void startMusicBox() { // Creates a list to iterate through all the tracks and prime them to a ready state
         trackList = new List<AudioSource>();
         trackList.Add(track1);
         trackList.Add(track2);
         numOfTracks = trackList.Count;
-        for (int i = 0; i < numOfTracks; i++){
+        for (int i = 0; i < numOfTracks; i++) {
             trackList[i].Play();
             trackList[i].mute = true;
             trackList[i].Pause();
             trackList[i].pitch = 1;
         }
-    //Puts all tracks in a pause state.
-
-    trackSpeed = 1;
+        //Puts all tracks in a pause state.
+        trackSpeed = 1;
     }
 
+    void switchTracksAction(InputAction.CallbackContext ctx)
+    {
+        //switch tracks
+        if (ctx.performed)
+        {
+            stopMusic();
+            Actions.OnPlayerSwitchTrack();
+            switchTracks();
+            startMusic();
+        }
+    }
 
+    void slowDownTrackAction(InputAction.CallbackContext ctx)
+    {
+        if(ctx.performed)
+        {
+            //For the slow song, put all code in here.  Everything else should be set up when the button is pressed.
+            Debug.Log("THIS IS WHERE CHANGING TO SLOW SONG NEEDS TO BE PUT");
+        }
+    }
+
+    /*
     void setMusicSpeed(){
         for (int i = 0; i < numOfTracks; i++)
         {
@@ -172,6 +211,7 @@ public class musicManager : MonoBehaviour
         }
     }
 
+    
     void changePitch(bool upDown){ // true for up false for down
         if(upDown == true && trackSpeed < pitchMax){
             trackSpeed += pitchIncrements;
@@ -181,4 +221,5 @@ public class musicManager : MonoBehaviour
         }
         setMusicSpeed();
     }
+    */
 }
