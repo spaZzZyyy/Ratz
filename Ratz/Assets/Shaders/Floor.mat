@@ -7,7 +7,7 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: block 4
+  m_Name: Floor
   m_Shader: {fileID: -6465566751694194690, guid: c8ec54e75f470144fb609e47c0a62774, type: 3}
   m_ValidKeywords: []
   m_InvalidKeywords: []
@@ -38,11 +38,11 @@ Material:
         m_Offset: {x: 0, y: 0}
     m_Ints: []
     m_Floats:
-    - _DitherStrength: -0.4
+    - _DitherStrength: 1.08
     - _QueueControl: 0
     - _QueueOffset: 0
     m_Colors:
-    - _Color: {r: 0, g: 0.30980393, b: 0.039215688, a: 0}
+    - _Color: {r: 0.084905684, g: 0.084905684, b: 0.084905684, a: 0}
   m_BuildTextureStacks: []
 --- !u!114 &9199749698850490604
 MonoBehaviour:

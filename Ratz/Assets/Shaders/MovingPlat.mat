@@ -7,8 +7,8 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: block 4
-  m_Shader: {fileID: -6465566751694194690, guid: c8ec54e75f470144fb609e47c0a62774, type: 3}
+  m_Name: MovingPlat
+  m_Shader: {fileID: -6465566751694194690, guid: 7789177b8142d2748a30b545594b5176, type: 3}
   m_ValidKeywords: []
   m_InvalidKeywords: []
   m_LightmapFlags: 2
@@ -38,13 +38,23 @@ Material:
         m_Offset: {x: 0, y: 0}
     m_Ints: []
     m_Floats:
-    - _DitherStrength: -0.4
+    - _Boolean: 0
+    - _Dither: 1.1
+    - _Interpolate: 0.96
+    - _IsActive: 1
+    - _OpacityActive: 0
     - _QueueControl: 0
     - _QueueOffset: 0
+    - _TransMax: 0.73
+    - _TransMin: 0.58
+    - _Transparency: 1.16
     m_Colors:
-    - _Color: {r: 0, g: 0.30980393, b: 0.039215688, a: 0}
+    - _Color: {r: 0.6226415, g: 0.032306872, b: 0.22027415, a: 0}
+    - _Color2: {r: 0.4433962, g: 0.07320219, b: 0.31999815, a: 0}
+    - _RegColor: {r: 0.09433961, g: 0.014211929, b: 0.0031149888, a: 0}
+    - _TransColor: {r: 0.0051745414, g: 0.0051745414, b: 0.020698166, a: 0}
   m_BuildTextureStacks: []
---- !u!114 &9199749698850490604
+--- !u!114 &5529944398070812352
 MonoBehaviour:
   m_ObjectHideFlags: 11
   m_CorrespondingSourceObject: {fileID: 0}

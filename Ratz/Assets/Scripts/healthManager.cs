@@ -18,7 +18,7 @@ public class healthManager : MonoBehaviour
     bool canTakeDamage = true;
     float secondsOfIframes = 1; // After damage taken how long is the player immune for
     public int health = 0;
-    public int maxHealth = 20;
+    public int maxHealth = 6;
     
 
     public void takeDamage(int damageToTake){
