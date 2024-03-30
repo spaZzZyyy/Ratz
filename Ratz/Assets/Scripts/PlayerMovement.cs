@@ -13,7 +13,8 @@ public class PlayerMovement : MonoBehaviour
     private Rigidbody2D _playerRigidbody;
     private float _movementPlayer;
     private float _playerThickness;
-    private bool _canDash = true;
+    [HideInInspector] public bool _canDash = true; //Used in dash particles
+    Vector2 dashForce;
     private bool _keepZLocked = true;
     private int jumpCount = 0;
     [HideInInspector] public bool isFalling;
@@ -21,9 +22,9 @@ public class PlayerMovement : MonoBehaviour
     private float _timeFromGround;
     [SerializeField] private LayerMask groundLayer;
     [SerializeField] private float playerKnockbackX;
-
+    bool dashing = false;
     [SerializeField] private float playerKnockbackY;
-    public PlayerControls playerContols;
+    public PlayerControls playerControls;
 
 
 
@@ -41,19 +42,19 @@ public class PlayerMovement : MonoBehaviour
 
     private void OnEnable()
     {
-        jump = playerContols.Gameplay.Jump;
+        jump = playerControls.Gameplay.Jump;
         jump.Enable();
         jump.performed += Jump;
 
-        MoveLeft = playerContols.Gameplay.MoveLeft;
+        MoveLeft = playerControls.Gameplay.MoveLeft;
         MoveLeft.Enable();
         MoveLeft.performed += RunLeft;
 
-        MoveRight = playerContols.Gameplay.MoveRight;
+        MoveRight = playerControls.Gameplay.MoveRight;
         MoveRight.Enable();
         MoveRight.performed += RunRight;
 
-        DashButton = playerContols.Gameplay.Dash;
+        DashButton = playerControls.Gameplay.Dash;
         DashButton.Enable();
         DashButton.performed += Dash;
 
@@ -69,7 +70,7 @@ public class PlayerMovement : MonoBehaviour
 
     private void Awake()
     {
-        playerContols = new PlayerControls();
+        playerControls = new PlayerControls();
     }
 
     #endregion
@@ -84,17 +85,31 @@ public class PlayerMovement : MonoBehaviour
 
     private void Update()
     {
-        heldJump = playerContols.Gameplay.Jump.ReadValue<float>() > 0;
-        heldLeft = playerContols.Gameplay.MoveLeft.ReadValue<float>() > 0;
-        heldRight = playerContols.Gameplay.MoveRight.ReadValue<float>() > 0;
+        heldJump = playerControls.Gameplay.Jump.ReadValue<float>() > 0;
+        heldLeft = playerControls.Gameplay.MoveLeft.ReadValue<float>() > 0;
+        heldRight = playerControls.Gameplay.MoveRight.ReadValue<float>() > 0;
 
         if (!heldLeft && !heldRight){
             _movementPlayer = 0;
         }
 
-        if ((!heldJump) && _playerRigidbody.velocity.y > 0f)
+        if ((!heldJump) && _playerRigidbody.velocity.y > 0f && _canDash)
         {
             _playerRigidbody.velocity = new Vector2(_playerRigidbody.velocity.x, _playerRigidbody.velocity.y * scriptMovement.minJumpHeight);
+        }
+
+        //Reset Jump
+        if(IsGrounded() == true && playerControls.Gameplay.Jump.ReadValue<float>() == 0){
+            jumpCount = 0;
+            _timeFromGround = 0;
+        }
+
+        if (dashing)
+        {
+            _playerRigidbody.gravityScale = 0;
+        } else
+        {
+            _playerRigidbody.gravityScale = scriptMovement.gravityForce;
         }
     }
 
@@ -102,22 +117,18 @@ public class PlayerMovement : MonoBehaviour
 
     private void FixedUpdate()
     {
-        _playerRigidbody.gravityScale = scriptMovement.gravityForce;
         #region Movement
         //Run
+        if (!dashing)
+        {
             _playerRigidbody.velocity = new Vector2(_movementPlayer * scriptMovement.movementSpeed, _playerRigidbody.velocity.y);
-            
+        }
         #endregion
 
         //Coyote time
         if (IsGrounded() == false)
         {
             _timeFromGround+=Time.deltaTime;
-        }
-        else
-        {
-            jumpCount = 0;
-            _timeFromGround = 0;
         }
 
         if (_keepZLocked){
@@ -134,25 +145,39 @@ public class PlayerMovement : MonoBehaviour
 
     public bool IsGrounded()
     {
-        RaycastHit2D rayHit = Physics2D.BoxCast(box.bounds.center, box.bounds.size, 0, Vector2.down, 0.1f, groundLayer);
+        RaycastHit2D rayHit = Physics2D.BoxCast(box.bounds.center, box.bounds.size, 0, Vector2.down, 0.01f, groundLayer);
         return rayHit.collider != null;
     }
 
     public void Jump(InputAction.CallbackContext ctx)
     {
-        if ((ctx.performed && (IsGrounded() || (scriptMovement.coyoteTime > _timeFromGround)) && jumpCount < scriptMovement.numJumps))
+        //Debug.Log("jump");
+        //for grounded jump
+        if(IsGrounded() == true){
+            if (jumpCount < scriptMovement.numJumps)
+            {
+                playerJump();
+            }
+        }
+        else //coyote jump
         {
 
-            _playerRigidbody.velocity = new Vector2(_playerRigidbody.velocity.x, scriptMovement.jumpForce);
+            if (scriptMovement.coyoteTime > _timeFromGround && jumpCount < scriptMovement.numJumps)
+            {
+                playerJump();
+            }
         }
+        
+        // if (ctx.performed)
+        // {
+        //     jumpCount++;
+        //     /*Actions.OnPlayerJump();*/
+        // }
+    }
 
-       
-
-        if (ctx.performed)
-        {
-            jumpCount++;
-            Actions.OnPlayerJump();
-        }
+    public void playerJump(){
+        _playerRigidbody.velocity = new Vector2(_playerRigidbody.velocity.x, scriptMovement.jumpForce);
+        jumpCount++;
     }
 
     public void RunLeft(InputAction.CallbackContext ctx)
@@ -182,12 +207,15 @@ public class PlayerMovement : MonoBehaviour
 
     public void Dash(InputAction.CallbackContext ctx)
     {
-        
         if (ctx.performed && _canDash && _playerRigidbody.velocity.x !=0)
             {
-            Actions.OnPlayerDashed();
-                //_playerRigidbody.constraints = RigidbodyConstraints2D.FreezePositionY;
-                _playerRigidbody.AddForce(new Vector2(scriptMovement.dashDistance * _movementPlayer, -30));
+            //Debug.Log("dashed");
+                
+                _playerRigidbody.constraints = RigidbodyConstraints2D.None;
+            //_movementplayer is for direction, -1 for left, 1 for right
+            _playerRigidbody.velocity = Vector2.zero;
+                dashForce = new Vector2(scriptMovement.dashDistance * _movementPlayer, 0);
+            _playerRigidbody.AddForce(dashForce, ForceMode2D.Impulse);
                 StartCoroutine(OnDash());
             }
     }
@@ -200,9 +228,10 @@ public class PlayerMovement : MonoBehaviour
 
     IEnumerator OnDash()
     {
-        
+        dashing = true;
         yield return new WaitForSeconds(scriptMovement.dashDuration);
         _canDash = false;
+        dashing = false;
         _playerRigidbody.constraints = RigidbodyConstraints2D.None;
         yield return new WaitForSeconds(scriptMovement.dashCoolDown);
         _canDash = true;

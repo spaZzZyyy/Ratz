@@ -14,12 +14,32 @@ public class healthManager : MonoBehaviour
         -healthManager.gainHealth(PUT HEAL NUMBER HERE);
     */
 
+    [SerializeField] RespawnScript respawnScript;
+    public bool respawn = false;
     
     bool canTakeDamage = true;
     float secondsOfIframes = 1; // After damage taken how long is the player immune for
-    public int health = 0;
-    public int maxHealth = 20;
+    public int health = 6;
+    public int maxHealth = 6;
     
+    void Update()
+    {
+        if(health < 1) {
+            respawn = true;
+        }
+
+        if(respawn == true) {
+            if(health < 1) {
+                health = maxHealth;
+                respawnScript.respawnPoint = respawnScript.mainRespawnPoint;
+                respawnScript.Respawn();
+                respawn = false;
+            } else {
+                respawnScript.Respawn();
+                respawn = false;
+            }
+        }
+    }
 
     public void takeDamage(int damageToTake){
         if(canTakeDamage == true){

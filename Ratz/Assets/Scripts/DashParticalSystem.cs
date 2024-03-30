@@ -3,44 +3,58 @@ using System.Collections;
 using System.Collections.Generic;
 using Unity.Mathematics;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 public class DashParticalSystem : MonoBehaviour
 {
     ParticleSystem dashPS;
     [SerializeField] ScriptControls scriptControls;
     float dashThic;
-    void OnEnable()
+    public PlayerControls playerControls;
+    private InputAction DashButton;
+    private PlayerMovement playerMovement;
+
+    private void Awake()
     {
-        Actions.OnPlayerDashed += playDashedPart;
+        playerControls = new PlayerControls();
+    }
+
+    void OnEnable()
+    {       
+
+        DashButton = playerControls.Gameplay.Dash;
+        DashButton.Enable();
+        DashButton.performed += playDashedPart;
     }
     void OnDisable() {
-        Actions.OnPlayerDashed -= playDashedPart;
+        DashButton.Disable();
     }
 
     void Start()
     {
         dashPS = GetComponent<ParticleSystem>();
         dashThic = transform.localScale.y;
+        playerMovement = this.transform.parent.GetComponent<PlayerMovement>();
     }
 
-    private void playDashedPart()
+    private void playDashedPart(InputAction.CallbackContext ctx)
     {
         flip();
-        if(Input.GetKey(scriptControls.moveLeft) || Input.GetKey(scriptControls.moveRight)){
+        if(ctx.performed && playerMovement._canDash){
             dashPS.Play();
         } 
     }
 
     void flip(){
         #region FlipSprite
-                if (Input.GetKey(scriptControls.moveLeft))
+                if (playerControls.Gameplay.MoveLeft.ReadValue<float>() > 0)
                 {
                     Vector3 localScale = transform.localScale;
                     localScale.y = -dashThic;
                     transform.localScale = localScale;
                 }
 
-                if (Input.GetKey(scriptControls.moveRight))
+                if (playerControls.Gameplay.MoveRight.ReadValue<float>() > 0)
                 {
                     Vector3 localScale = transform.localScale;
                     localScale.y = dashThic;

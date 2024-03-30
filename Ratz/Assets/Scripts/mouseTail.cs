@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using Unity.Burst.Intrinsics;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 public class mouseTail : MonoBehaviour
 {
@@ -34,7 +35,38 @@ public class mouseTail : MonoBehaviour
     [SerializeField] Transform recordPlayerTransform;
     bool match = false;
     bool firstTime = false;
+    public PlayerControls playerControls;
+    private InputAction MoveLeft;
+    private bool heldLeft;
+    private InputAction MoveRight;
+    private bool heldRight;
+    bool playerRunning;
+
+
     // Start is called before the first frame update
+    private void Awake()
+    {
+        playerControls = new PlayerControls();
+    }
+
+    private void OnEnable()
+    {
+        MoveLeft = playerControls.Gameplay.MoveLeft;
+        MoveLeft.Enable();
+        MoveLeft.performed += FlipTailLeft;
+
+        MoveRight = playerControls.Gameplay.MoveRight;
+        MoveRight.Enable();
+        MoveRight.performed += FlipTailRight;
+    }
+
+    private void OnDisable()
+    {
+
+        MoveLeft.Disable();
+        MoveRight.Disable();
+    }
+
     void Start()
     {
         recordPlayerTransform.position = playerTransform.position;
@@ -56,17 +88,20 @@ public class mouseTail : MonoBehaviour
     /// </summary>
     void Update()
     {
+
         if(playerTransform.position == recordPlayerTransform.position){
             match = true;
         } else{
             match = false;
         }
-        if(Input.GetKey(scriptControls.moveLeft) || Input.GetKey(scriptControls.moveRight)){
-            playerMoving = true;
-            recordPlayerTransform.position = playerTransform.position;
-        }
-        else{
+        playerRunning = playerControls.Gameplay.MoveLeft.ReadValue<float>() > 0 || playerControls.Gameplay.MoveRight.ReadValue<float>() > 0;
+
+        if (playerRunning) { 
             playerMoving = false;
+        }else
+        {
+            recordPlayerTransform.position = playerTransform.position;
+            ResetTail();
         }
 
         if(player_movement.IsGrounded() && firstTime == true){
@@ -121,14 +156,6 @@ public class mouseTail : MonoBehaviour
     void FlipTail(){
         wigFactor = wiggleMagnitude;
         trailSpeedFactor = trailSpeed;
-        
-        if(Input.GetKey(scriptControls.moveLeft))
-        {
-            FlipTailLeft();
-        }
-        if(Input.GetKey(scriptControls.moveRight)){
-            FlipTailRight();
-        }
     }
 
     void ResetTail(){
@@ -144,34 +171,44 @@ public class mouseTail : MonoBehaviour
             lineRend.SetPositions(segmentPoses);
         }
     }
-    void FlipTailLeft(){
-        Vector2 localScale = transform.localScale;
-        localScale.x = _playerThickness;
-        transform.localScale = localScale;
+    void FlipTailLeft(InputAction.CallbackContext ctx){
+        if (ctx.performed)
+        {
+            Vector2 localScale = transform.localScale;
+            localScale.x = _playerThickness;
+            transform.localScale = localScale;
 
-        transform.localRotation = Quaternion.Euler(0, 180, 0);
+            transform.localRotation = Quaternion.Euler(0, 180, 0);
 
-        Vector2 childLocalScale = tarDirTransform.localScale;
-        childLocalScale.x = _playerThickness;
-        tarDirTransform.localScale = childLocalScale;
+            Vector2 childLocalScale = tarDirTransform.localScale;
+            childLocalScale.x = _playerThickness;
+            tarDirTransform.localScale = childLocalScale;
 
-        trailSpeedFactor = trailSpeedRun;
-        wigFactor = wigRun;
+            trailSpeedFactor = trailSpeedRun;
+            wigFactor = wigRun;
+            playerMoving = true;
+            recordPlayerTransform.position = playerTransform.position;
+        }
     }
 
-    void FlipTailRight(){
-        Vector2 localScale = transform.localScale;
-        localScale.x = -_playerThickness;
-        transform.localScale = localScale;
+    void FlipTailRight(InputAction.CallbackContext ctx){
+        if (ctx.performed)
+        {
+            Vector2 localScale = transform.localScale;
+            localScale.x = -_playerThickness;
+            transform.localScale = localScale;
 
-        transform.localRotation = Quaternion.Euler(0, 0, 0);
+            transform.localRotation = Quaternion.Euler(0, 0, 0);
 
-        Vector2 childLocalScale = tarDirTransform.localScale;
-        childLocalScale.x = -_playerThickness;
-        tarDirTransform.localScale = childLocalScale;
+            Vector2 childLocalScale = tarDirTransform.localScale;
+            childLocalScale.x = -_playerThickness;
+            tarDirTransform.localScale = childLocalScale;
 
-        trailSpeedFactor = trailSpeedRun;
-        wigFactor = wigRun;
+            trailSpeedFactor = trailSpeedRun;
+            wigFactor = wigRun;
+            playerMoving = true;
+            recordPlayerTransform.position = playerTransform.position;
+        }
     }
 
 }

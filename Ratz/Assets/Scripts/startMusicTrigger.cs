@@ -7,13 +7,17 @@ public class startMusicTrigger : MonoBehaviour
 {
     [SerializeField] musicManager musicManager;
     [SerializeField] mapControl mapControl;
+
     private void OnCollisionEnter2D(Collision2D collision) {
         Debug.Log("hit");
         if(collision.gameObject.tag == "Player"){
             musicManager.startGame = true;
             mapControl.initiate = true;
         }
-    }    
-
-
+    }
+    private void OnTriggerEnter2D(Collider2D other) {
+        Debug.Log("it's working!");
+        musicManager.startGame = true;
+        mapControl.initiate = true;
+    }
 }

@@ -9,12 +9,29 @@ public class BeatManager : MonoBehaviour
     public float _bpm;
     public AudioSource _audioSource;
     [SerializeField] private Intervals[] _intervals;
-    public float hiThere;
+    private int i;
+    private float staticBPM;
+
+    private void Start() {
+        staticBPM = _bpm;
+    }
 
     private void Update() {
-        foreach (Intervals interval in _intervals) {
-            float sampledTime = (_audioSource.timeSamples / (_audioSource.clip.frequency * interval.GetIntervalLength(_bpm)));
-            interval.CheckForNewInterval(sampledTime);
+        //! old version
+        // foreach (Intervals interval in _intervals) {
+        //     float sampledTime = (_audioSource.timeSamples / (_audioSource.clip.frequency * interval.GetIntervalLength(_bpm)));
+        //     interval.CheckForNewInterval(sampledTime);
+        // }
+
+        for(i = 0; i < _intervals.Length; i++) {
+            if(i > 4) {
+                float sampledTime = (_audioSource.timeSamples / (_audioSource.clip.frequency * _intervals[i].GetIntervalLength(staticBPM)));
+                _intervals[i].CheckForNewInterval(sampledTime);
+            } else {
+                float sampledTime = (_audioSource.timeSamples / (_audioSource.clip.frequency * _intervals[i].GetIntervalLength(_bpm)));
+                _intervals[i].CheckForNewInterval(sampledTime);
+            }
+            
         }
     }
 }

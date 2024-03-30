@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using UnityEngine.InputSystem;
 using UnityEngine.iOS;
 using UnityEngine.U2D.Animation;
 
@@ -13,24 +14,60 @@ public class PlayerAnimations : MonoBehaviour
     PlayerMovement player_movement;
     Animator playerAni;
     bool onGround;
+    bool playerRunning;
+    PlayerControls playerControls;
     //Material material;
 
-    private void OnEnable() {
-        Actions.OnPlayerJump += PlayerJumped;
-        Actions.OnPlayerDashed += PlayerDashed;
-        Actions.OnParry += PlayerParried;
-        Actions.NotParry += PlayerNotParried;
-        Actions.PlayerTookDamage += TakeDamage;
-        Actions.OnPlayerSwitchTrack += switchTracks;
+    private InputAction jump;
+    private InputAction MoveLeft;
+    private InputAction MoveRight;
+    private InputAction DashButton;
+
+    private void Awake()
+    {
+        playerControls = new PlayerControls();
     }
 
-    private void OnDisable() {
-        Actions.OnPlayerJump -= PlayerJumped;
-        Actions.OnPlayerDashed -= PlayerDashed;
+
+    private void OnEnable()
+    {
+        /* Actions.OnPlayerJump += PlayerJumped;
+         Actions.OnPlayerDashed += PlayerDashed;
+         Actions.OnParry += PlayerParried;
+         Actions.NotParry += PlayerNotParried;*/
+        Actions.PlayerTookDamage += TakeDamage;
+        Actions.OnPlayerSwitchTrack += switchTracks;
+
+        jump = playerControls.Gameplay.Jump;
+        jump.Enable();
+        jump.performed += PlayerJumped;
+
+        MoveLeft = playerControls.Gameplay.MoveLeft;
+        MoveLeft.Enable();
+        MoveLeft.performed += PlayerRun;
+
+        MoveRight = playerControls.Gameplay.MoveRight;
+        MoveRight.Enable();
+        MoveRight.performed += PlayerRun;
+
+        DashButton = playerControls.Gameplay.Dash;
+        DashButton.Enable();
+        DashButton.performed += PlayerDashed;
+
+    }
+
+    private void OnDisable()
+    {
+        //  Actions.OnPlayerJump -= PlayerJumped;
+        /*   Actions.OnPlayerDashed -= PlayerDashed; */
         Actions.OnParry -= PlayerParried;
         Actions.NotParry -= PlayerNotParried;
         Actions.PlayerTookDamage -= TakeDamage;
         Actions.OnPlayerSwitchTrack += switchTracks;
+        jump.Disable();
+        MoveLeft.Disable();
+        MoveRight.Disable();
+        DashButton.Disable();
     }
 
     // Start is called before the first frame update
@@ -62,27 +99,42 @@ public class PlayerAnimations : MonoBehaviour
         }
         #endregion
 
-        #region RunningAnimation
-        if((Input.GetKey(scriptControls.moveLeft) || Input.GetKey(scriptControls.moveRight)) && onGround){
-            playerAni.SetBool("isRunning", true);
-        }
-        else{
-            playerAni.SetBool("isRunning", false);
-        }
-        #endregion
     }
 
-    private void PlayerDashed()
+    private void Update()
     {
-        if(Input.GetKey(scriptControls.moveRight) || Input.GetKey(scriptControls.moveLeft)){
+        playerRunning = playerControls.Gameplay.MoveLeft.ReadValue<float>() > 0 || playerControls.Gameplay.MoveRight.ReadValue<float>() > 0;
+
+        if(!playerRunning)
+        {
+            playerAni.SetBool("isRunning", false);
+        }
+    }
+
+
+    private void PlayerDashed(InputAction.CallbackContext ctx)
+    {
+        if (ctx.performed && GetComponent<PlayerMovement>()._canDash)
+        {
             playerAni.SetBool("Dashed", true);
             StartCoroutine(OnDashed());
         }
     }
 
-    public void PlayerJumped(){
-        playerAni.SetTrigger("jumpKeyPressed");
-        StartCoroutine(OnJump());
+    private void PlayerRun(InputAction.CallbackContext ctx)
+    {
+        if (ctx.performed)
+        {
+            playerAni.SetBool("isRunning", true);
+        }
+    }
+
+    public void PlayerJumped(InputAction.CallbackContext ctx){
+        if (ctx.performed)
+        {
+            playerAni.SetTrigger("jumpKeyPressed");
+            StartCoroutine(OnJump());
+        }
     }
 
     IEnumerator OnDashed(){
@@ -105,5 +157,12 @@ public class PlayerAnimations : MonoBehaviour
         playerAni.SetBool("isParry", false);
     }
 
+    /*private void PlayerDashed()
+ {
+     if(Input.GetKey(scriptControls.moveRight) || Input.GetKey(scriptControls.moveLeft)){
+         playerAni.SetBool("Dashed", true);
+         StartCoroutine(OnDashed());
+     }
+ }*/
 
 }

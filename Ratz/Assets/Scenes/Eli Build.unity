@@ -184,7 +184,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _bpm: 120
-  _audioSource: {fileID: 1370719522}
+  _audioSource: {fileID: 1836358510}
   _intervals:
   - _beatCount: 1
     _trigger:
@@ -702,6 +702,7 @@ MonoBehaviour:
   - {fileID: 1532512613}
   beatManager: {fileID: 27447843}
   beatCount: 0.5
+  noHalftime: 0
 --- !u!4 &79323851
 Transform:
   m_ObjectHideFlags: 0
@@ -1636,6 +1637,7 @@ MonoBehaviour:
   - {fileID: 1080636678}
   beatManager: {fileID: 27447843}
   beatCount: 1
+  noHalftime: 0
 --- !u!1 &644199408
 GameObject:
   m_ObjectHideFlags: 0
@@ -2497,6 +2499,7 @@ MonoBehaviour:
   - {fileID: 1669963636}
   beatManager: {fileID: 27447843}
   beatCount: 1
+  noHalftime: 0
 --- !u!212 &1178941695
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -2632,6 +2635,7 @@ MonoBehaviour:
   - {fileID: 1876138504}
   beatManager: {fileID: 27447843}
   beatCount: 0.25
+  noHalftime: 0
 --- !u!4 &1241491143
 Transform:
   m_ObjectHideFlags: 0
@@ -4355,6 +4359,7 @@ MonoBehaviour:
   - {fileID: 813775305}
   beatManager: {fileID: 27447843}
   beatCount: 1
+  noHalftime: 0
 --- !u!61 &1976686525
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -4643,6 +4648,7 @@ MonoBehaviour:
   - {fileID: 1310315454}
   beatManager: {fileID: 27447843}
   beatCount: 0.5
+<<<<<<< HEAD
 --- !u!1 &2136374142
 GameObject:
   m_ObjectHideFlags: 0
@@ -4674,3 +4680,6 @@ Transform:
   m_Father: {fileID: 950345631}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+=======
+  noHalftime: 0
+>>>>>>> f69ea5c1403a02614b88426b7298fbb118f516b8
