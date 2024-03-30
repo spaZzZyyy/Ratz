@@ -3,7 +3,27 @@
 --- !u!78 &1
 TagManager:
   serializedVersion: 2
-  tags: []
+  tags:
+  - hitBox
+  - healthManager
+  - Enemy
+  - Bouncy
+  - Pillar
+  - spear
+  - platform
+  - wall
+  - mainCheese
+  - musicManager
+  - sineSpawn
+  - endSine
+  - spearSpawn
+  - sineSpawnUp
+<<<<<<< Updated upstream
+=======
+  - musicManager
+  - respawn
+  - mainRespawn
+>>>>>>> Stashed changes
   layers:
   - Default
   - TransparentFX
@@ -11,16 +31,16 @@ TagManager:
   - 
   - Water
   - UI
+  - boss
+  - 
+  - Projectile
+  - 
+  - Ground
+  - Background
   - 
   - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
+  - GreyBox
+  - art
   - 
   - 
   - 
