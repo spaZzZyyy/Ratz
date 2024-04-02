@@ -102,9 +102,8 @@ public class PlayerAnimations : MonoBehaviour
     }
 
     private void Update()
-    {
+    {        
         playerRunning = playerControls.Gameplay.MoveLeft.ReadValue<float>() > 0 || playerControls.Gameplay.MoveRight.ReadValue<float>() > 0;
-
         if(!playerRunning)
         {
             playerAni.SetBool("isRunning", false);
