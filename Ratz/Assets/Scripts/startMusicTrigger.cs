@@ -7,29 +7,17 @@ public class startMusicTrigger : MonoBehaviour
 {
     [SerializeField] musicManager musicManager;
     [SerializeField] mapControl mapControl;
-<<<<<<< Updated upstream
-    private void OnCollisionEnter2D(Collision2D collision) {
+    private bool isOn = false;
+
+    private void OnTriggerEnter2D(Collider2D collision) {
         Debug.Log("hit");
-        if(collision.gameObject.tag == "Player"){
-            musicManager.startGame = true;
-            mapControl.initiate = true;
+        if(isOn == false) {
+            if(collision.gameObject.CompareTag("Player")){
+                musicManager.startGame = true;
+                mapControl.initiate = true;
+                isOn = true;
+            }
         }
+        
     }
-=======
-    private void OnTriggerEnter2D(Collider2D other) {
-        Debug.Log("it's working!");
-        musicManager.startGame = true;
-        mapControl.initiate = true;
-    }
-    
-    // (Collision2D collision) {
-    //     Debug.Log("hit");
-    //     if(collision.gameObject.tag == "Player"){
-    //         musicManager.startGame = true;
-    //         mapControl.initiate = true;
-    //     }
-    // }    
->>>>>>> Stashed changes
-
-
 }

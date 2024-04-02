@@ -12,10 +12,12 @@ public class musicManager : MonoBehaviour
     [SerializeField] AudioSource track2;
     [SerializeField] AudioSource track3;
     [SerializeField] AudioSource track4;
-    [SerializeField] AudioSource stopTime;
+
+
+    //[SerializeField] AudioSource stopTime;
     /*
     track1 = normal
-    track2 = halftime
+    track2 = halfime
     track3 = madness
     track4 = madness halftime
     */
@@ -32,18 +34,23 @@ public class musicManager : MonoBehaviour
     const float pitchMin = 0.8f;
     [HideInInspector] public bool startGame = false;
     bool gameStarted = false;
-    bool stopTimePlaying = false;
+    //bool stopTimePlaying = false;
     [SerializeField] ScriptControls scriptControls;
     public bool musicChanged;
     public PlayerControls playerControls;
     private InputAction changeSong;
     private InputAction slowSong;
-    #endregion
-
     //! eliCode
     [SerializeField] BeatManager beatManager;
     [SerializeField] ResourceManager resourceManager;
+    public bool halfOut = false;
+    public bool madOut = false;
+    private bool halfIt;
+    public bool platformMad;
     //!
+    #endregion
+
+    
     private void Awake()
     {
         playerControls = new PlayerControls();
@@ -72,6 +79,7 @@ public class musicManager : MonoBehaviour
     {
         startMusicBox();
         audioSourceToPlay = trackList[trackToPlay];
+        platformMad = false;
     }
 
     void Update()
@@ -86,10 +94,23 @@ public class musicManager : MonoBehaviour
         }
         */
 
+
+
+        if(halfOut == true) {
+            if(trackToPlay == 1 || trackToPlay == 3) {
+                stopMusic();
+                halftimeTracks();
+                changeHalfTime();
+                startMusic();
+                resourceManager.halfOn = false;
+            }
+        }
+        
+
         if (startGame == true && gameStarted == false) {
             startMusic();
-            stopTime.Play();
-            stopTime.Pause();
+            // stopTime.Play();
+            // stopTime.Pause();
             gameStarted = true;
             Debug.Log("Game start");
         }
@@ -114,15 +135,15 @@ public class musicManager : MonoBehaviour
           }*/
         #endregion
 
-        #region StopTime
-        if (musicIsPlaying == false && stopTimePlaying == false) {
-            stopTimePlaying = true;
-            stopTime.UnPause();
-        } else if (musicIsPlaying == true) {
-            stopTime.Pause();
-            stopTimePlaying = false;
-        }
-        #endregion
+        // #region StopTime
+        // if (musicIsPlaying == false && stopTimePlaying == false) {
+        //     stopTimePlaying = true;
+        //     stopTime.UnPause();
+        // } else if (musicIsPlaying == true) {
+        //     stopTime.Pause();
+        //     stopTimePlaying = false;
+        // }
+        // #endregion
 
     }
 
@@ -132,23 +153,56 @@ public class musicManager : MonoBehaviour
         }
     }
 
-    void switchTracks(){
-        if (trackToPlay < numOfTracks){
+    void halftimeTracks(){
+        //going to halftime
+        if (trackToPlay == 0 || trackToPlay == 2){
             trackToPlay++;
             musicChanged = true;
+            //trackSpeed = .5f;
+            halfIt = true;
+            beatManager._bpm = beatManager._bpm / 2;
+            resourceManager.halfOn = true;
+
+        //leaving halftime
         } else {
-            trackToPlay = 0;
+            trackToPlay--;
             musicChanged = true;
+            //trackSpeed = 1;
+            halfIt = false;
+            beatManager._bpm = beatManager._bpm * 2;
+            resourceManager.halfOn = false;
         }
         audioSourceToPlay = trackList[trackToPlay];
-        
-        //! eliCode
         beatManager._audioSource = trackList[trackToPlay];
-        if (trackToPlay == 1) {
-            beatManager._bpm = beatManager._bpm / 2;
+        
+        
+        // beatManager._audioSource = trackList[trackToPlay];
+        // if (trackToPlay == 1) {
+        //     beatManager._bpm = beatManager._bpm / 2;
+        // } else {
+        //     beatManager._bpm = beatManager._bpm * 2;
+        // }
+    }
+
+    void madnessTracks(){
+        //entering madness
+        if (trackToPlay < 2){
+            trackToPlay = trackToPlay + 2;
+            musicChanged = true;
+            //!turning off boxCollider goes here
+            platformMad = true;
+            resourceManager.madOn = true;
+
+        //leaving madness
         } else {
-            beatManager._bpm = beatManager._bpm * 2;
+            trackToPlay = trackToPlay - 2;
+            musicChanged = true;
+            //!turning on boxCollider goes here
+            platformMad = false;
+            resourceManager.madOn = false;
         }
+        audioSourceToPlay = trackList[trackToPlay];
+        beatManager._audioSource = trackList[trackToPlay];
     }
 
     void stopMusic() {
@@ -171,6 +225,8 @@ public class musicManager : MonoBehaviour
         trackList = new List<AudioSource>();
         trackList.Add(track1);
         trackList.Add(track2);
+        trackList.Add(track3);
+        trackList.Add(track4);
         numOfTracks = trackList.Count;
         for (int i = 0; i < numOfTracks; i++) {
             trackList[i].Play();
@@ -182,15 +238,30 @@ public class musicManager : MonoBehaviour
         trackSpeed = 1;
     }
 
+   
     void switchTracksAction(InputAction.CallbackContext ctx)
     {
         //switch tracks
         if (ctx.performed)
         {
-            stopMusic();
-            Actions.OnPlayerSwitchTrack();
-            switchTracks();
-            startMusic();
+            //check for resources if entering halftime
+            if(trackToPlay == 0 || trackToPlay == 2) {
+                if(halfOut == false) {
+                    stopMusic();
+                    Actions.OnPlayerSwitchTrack();
+                    halftimeTracks();
+                    changeHalfTime();
+                    startMusic();
+                    //no more spamming, adds 10 everytime you start
+                    resourceManager.halfAmount = resourceManager.halfAmount + (resourceManager.halfMax / 10);
+                }
+            } else {
+                stopMusic();
+                Actions.OnPlayerSwitchTrack();
+                halftimeTracks();
+                changeHalfTime();
+                startMusic();
+            }   
         }
     }
 
@@ -198,10 +269,25 @@ public class musicManager : MonoBehaviour
     {
         if(ctx.performed)
         {
-            //For the slow song, put all code in here.  Everything else should be set up when the button is pressed.
-            Debug.Log("THIS IS WHERE CHANGING TO SLOW SONG NEEDS TO BE PUT");
+            stopMusic();
+            madnessTracks();
+            startMusic();
         }
     }
+
+    void changeHalfTime(){
+        for (int i = 0; i < numOfTracks; i++)
+        {
+            if(halfIt) {
+                trackList[i].timeSamples = trackList[i].timeSamples / 2;
+            } else {
+                trackList[i].timeSamples = trackList[i].timeSamples * 2;
+            }
+            
+        }
+    }
+
+    
 
     /*
     void setMusicSpeed(){
