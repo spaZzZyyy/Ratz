@@ -150,6 +150,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6e41f6ece967da741888abca8ab3439a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  respawnScript: {fileID: 0}
+  respawn: 0
   health: 20
   maxHealth: 20
 --- !u!1 &3795207
@@ -1092,17 +1094,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   healthManager: {fileID: 3795205}
---- !u!114 &1129009947 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 5152293337174152804, guid: fce9adc2e960711438250353840a4514, type: 3}
-  m_PrefabInstance: {fileID: 1245937042}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 771621ee34c3f784185c04905c55deeb, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1001 &1245937042
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1886,25 +1877,13 @@ MonoBehaviour:
     _trigger:
       m_PersistentCalls:
         m_Calls:
-        - m_Target: {fileID: 1129009947}
+        - m_Target: {fileID: 2079432560}
           m_TargetAssemblyTypeName: ShootSpear, Assembly-CSharp
           m_MethodName: spawnSpear
           m_Mode: 1
           m_Arguments:
             m_ObjectArgument: {fileID: 0}
             m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-            m_IntArgument: 0
-            m_FloatArgument: 0
-            m_StringArgument: 
-            m_BoolArgument: 0
-          m_CallState: 2
-        - m_Target: {fileID: 0}
-          m_TargetAssemblyTypeName: ShootSpear, Assembly-CSharp
-          m_MethodName: 
-          m_Mode: 1
-          m_Arguments:
-            m_ObjectArgument: {fileID: 0}
-            m_ObjectArgumentAssemblyTypeName: 
             m_IntArgument: 0
             m_FloatArgument: 0
             m_StringArgument: 
@@ -2021,7 +2000,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1924498082}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 13.71, y: -5.6431, z: 0}
+  m_LocalPosition: {x: 11.3, y: -5.6431, z: 0}
   m_LocalScale: {x: 5.3, y: 6.4635777, z: 5.3}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -2252,6 +2231,17 @@ MonoBehaviour:
   m_Offset: {x: 0, y: 6, z: 0}
   m_ApplyAfter: 0
   m_PreserveComposition: 0
+--- !u!114 &2079432560 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 5152293337174152804, guid: fce9adc2e960711438250353840a4514, type: 3}
+  m_PrefabInstance: {fileID: 5152293335197616404}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 771621ee34c3f784185c04905c55deeb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &2101628442
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5994,10 +5984,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 5152293337174152804, guid: fce9adc2e960711438250353840a4514, type: 3}
-      propertyPath: direction.x
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: 5152293337174152825, guid: fce9adc2e960711438250353840a4514, type: 3}
       propertyPath: m_Name
       value: SpearSpawn
@@ -9306,14 +9292,18 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   track1: {fileID: 8857106192813777402}
   track2: {fileID: 8857106192521293356}
+  track3: {fileID: 0}
+  track4: {fileID: 0}
   stopTime: {fileID: 8857106192955092136}
   trackToPlay: 0
   musicIsPlaying: 0
+  numOfTracks: 0
   trackSpeed: 0
   startGame: 0
   scriptControls: {fileID: 11400000, guid: 1364f0fd150daf449b0b62d939d65b92, type: 2}
   musicChanged: 0
   beatManager: {fileID: 1789571788}
+  resourceManager: {fileID: 0}
 --- !u!4 &8857106192748174063
 Transform:
   m_ObjectHideFlags: 0
