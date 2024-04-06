@@ -39,6 +39,7 @@ public class DashParticalSystem : MonoBehaviour
 
     private void playDashedPart(InputAction.CallbackContext ctx)
     {
+        Debug.Log("Dashed try");
         flip();
         if(ctx.performed && playerMovement._canDash){
             dashPS.Play();
@@ -47,8 +48,10 @@ public class DashParticalSystem : MonoBehaviour
 
     void flip(){
         #region FlipSprite
+
                 if (playerControls.Gameplay.MoveLeft.ReadValue<float>() > 0)
                 {
+                    Debug.Log("Left");
                     Vector3 localScale = transform.localScale;
                     localScale.y = -dashThic;
                     transform.localScale = localScale;
@@ -56,6 +59,7 @@ public class DashParticalSystem : MonoBehaviour
 
                 if (playerControls.Gameplay.MoveRight.ReadValue<float>() > 0)
                 {
+                    Debug.Log("right");
                     Vector3 localScale = transform.localScale;
                     localScale.y = dashThic;
                     transform.localScale = localScale;
