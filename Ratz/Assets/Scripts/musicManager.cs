@@ -189,6 +189,7 @@ public class musicManager : MonoBehaviour
         {
             stopMusic();
             Actions.OnPlayerSwitchTrack();
+            Debug.Log("PlayerSwitchedTrack");
             switchTracks();
             startMusic();
         }

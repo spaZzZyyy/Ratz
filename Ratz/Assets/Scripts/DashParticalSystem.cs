@@ -39,7 +39,7 @@ public class DashParticalSystem : MonoBehaviour
 
     private void playDashedPart(InputAction.CallbackContext ctx)
     {
-        Debug.Log("Dashed try");
+        //Debug.Log("Dashed try");
         flip();
         if(ctx.performed && playerMovement._canDash){
             dashPS.Play();
