@@ -12,6 +12,7 @@ public class CheckPoint : MonoBehaviour
     [SerializeField] GameObject lights2;
     Light2D lightScript;
     Light2D lightScript2;
+    GameObject respawnPoint;
     [SerializeField] float lightUpSpeed;
     float intensity;
     float intensity2;
@@ -35,10 +36,15 @@ public class CheckPoint : MonoBehaviour
         Actions.OnPlayerHitCheckPoint -= changeLights;
     }
 
-    void changeLights(){
-        if(lightsTriggered == false){
-            StartCoroutine("flickerLights");
-            lightsTriggered = true;
+    void changeLights(GameObject respawnPoint){
+        if (respawnPoint = this.gameObject){
+
+            if(lightsTriggered == false){
+
+                StartCoroutine("flickerLights");
+                lightsTriggered = true;
+
+            }
         }
     }
 

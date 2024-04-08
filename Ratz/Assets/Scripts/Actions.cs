@@ -13,5 +13,5 @@ public static class Actions
     public static Action PlayerTookDamage;
     public static Action PlayerHealed;
     public static Action OnPlayerSwitchTrack;
-    public static Action OnPlayerHitCheckPoint;
+    public static Action<GameObject> OnPlayerHitCheckPoint;
 }

@@ -34,6 +34,13 @@ public class testSpears : MonoBehaviour
             fall2 = false;
             transform.GetChild(1).gameObject.GetComponent<ShootSpear>().boolShoot = true;
         }
+        if (timer < 2.5f && fall3)
+        {
+            fall3 = false;
+            transform.GetChild(2).gameObject.GetComponent<ShootSpear>().boolShoot = true;
+        }
+    }
+
         // if (timer < 2.5f && fall3)
         // {
         //     fall3 = false;

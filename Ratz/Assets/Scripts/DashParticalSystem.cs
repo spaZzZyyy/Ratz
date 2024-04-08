@@ -13,6 +13,8 @@ public class DashParticalSystem : MonoBehaviour
     public PlayerControls playerControls;
     private InputAction DashButton;
     private PlayerMovement playerMovement;
+    private bool heldLeft;
+    private bool heldRight;
 
     private void Awake()
     {
@@ -25,6 +27,11 @@ public class DashParticalSystem : MonoBehaviour
         DashButton = playerControls.Gameplay.Dash;
         DashButton.Enable();
         DashButton.performed += playDashedPart;
+
+        playerControls.Gameplay.MoveLeft.Enable();
+        playerControls.Gameplay.MoveRight.Enable();
+
+
     }
     void OnDisable() {
         DashButton.Disable();
@@ -35,6 +42,12 @@ public class DashParticalSystem : MonoBehaviour
         dashPS = GetComponent<ParticleSystem>();
         dashThic = transform.localScale.y;
         playerMovement = this.transform.parent.GetComponent<PlayerMovement>();
+    }
+
+    private void Update()
+    {
+        heldLeft = playerControls.Gameplay.MoveLeft.ReadValue<float>() > 0;
+        heldRight = playerControls.Gameplay.MoveRight.ReadValue<float>() > 0;
     }
 
     private void playDashedPart(InputAction.CallbackContext ctx)
