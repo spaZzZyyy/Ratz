@@ -39,6 +39,9 @@ public class healthManager : MonoBehaviour
                 respawn = false;
             }
         }
+        if(health > maxHealth) {
+            health = maxHealth;
+        }
     }
 
     public void takeDamage(int damageToTake){
