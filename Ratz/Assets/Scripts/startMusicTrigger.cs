@@ -9,7 +9,7 @@ public class startMusicTrigger : MonoBehaviour
     [SerializeField] mapControl mapControl;
     private bool isOn = false;
 
-    private void OnCollisionEnter2D(Collision2D collision) {
+    private void OnTriggerEnter2D(Collider2D collision) {
         Debug.Log("hit");
         if(isOn == false) {
             if(collision.gameObject.CompareTag("Player")){

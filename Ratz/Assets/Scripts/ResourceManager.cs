@@ -80,7 +80,6 @@ public class ResourceManager : MonoBehaviour
             }
             Destroy(switchOn.gameObject);
         } if(switchOn.gameObject.CompareTag("cheese")) {
-            Debug.Log("CHEESE");
             healthManager.gainHealth(5);
             madAmount = 0; 
             Destroy(switchOn.gameObject);
