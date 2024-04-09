@@ -5,45 +5,51 @@ using UnityEngine;
 public class ResourceManager : MonoBehaviour
 {
     [SerializeField] musicManager musicManager;
+    [SerializeField] healthManager healthManager;
 
-    private int madMax = 100;
-    private int madAmount;
-    public bool madUnlock;
+
+    //set Max limits inside collision at bottom
+    public float madMax;
+    public float madAmount;
     public bool madOn;
+    private float madStartCap;
 
-    private int halfMax = 100;
-    private int halfAmount;
-    public bool halfUnlock;
+    public float halfMax;
+    public float halfAmount;
     public bool halfOn;
+    private float halfStartCap;
 
-    void Start()
-    {
-        madUnlock = false;
-        halfUnlock = false;   
-        madOn = false;
-        halfOn = false;
+    
+    void Start() {
+        madMax = 0;
         madAmount = 0;
-        halfAmount = 0;
-    }
+        madOn = false;
 
+        halfMax = 0;
+        halfAmount = 0;
+        halfOn = false;
+    }
+    
     void Update()
     {
         if(halfOn) {
             if(halfAmount < halfMax) {
                 halfAmount ++;
             } else {
-                if(musicManager.trackToPlay == 2){
-                    musicManager.trackToPlay = 1;
-                } else {
-                    musicManager.trackToPlay = 3;
-                }
-                halfOn = false;
+                musicManager.halfOut = true;
             }   
         } else {
-            if(halfAmount > 1) {
+            if(halfAmount > 0) {
                 halfAmount --;
+                if(halfAmount < halfStartCap) {
+                    musicManager.halfOut = false;
+                } else {
+                    musicManager.halfOut = true;
+                }
             }
         }
+
+
 
         if(madOn) {
             if(madAmount < madMax) {
@@ -62,16 +68,20 @@ public class ResourceManager : MonoBehaviour
             }
         }
     }
-
-    private void OnCollisionEnter2D(Collision2D switchOn){
+    //TODO change back max number to 1000
+    private void OnTriggerEnter2D(Collider2D switchOn){
         if(switchOn.gameObject.CompareTag("resourceSwitch")) {
-            if(halfUnlock == true){
-                madUnlock = true;
-                musicManager.numOfTracks = 4;
+            if(halfMax == 0){
+                halfMax = 100000;
+                halfStartCap = halfMax - ((halfMax / 10) * 2);
             } else {
-                halfUnlock = true;
-                musicManager.numOfTracks = 2;
+                madMax = 100000;
+                madStartCap = madMax - ((madMax / 10) * 2);
             }
+            Destroy(switchOn.gameObject);
+        } if(switchOn.gameObject.CompareTag("cheese")) {
+            healthManager.gainHealth(5);
+            madAmount = 0; 
             Destroy(switchOn.gameObject);
         }
     }

@@ -3,7 +3,16 @@
 --- !u!78 &1
 TagManager:
   serializedVersion: 2
-  tags: []
+  tags:
+  - respawn
+  - spear
+  - mainRespawn
+  - endSine
+  - sineSpawnUp
+  - sineSpawn
+  - spearSpawn
+  - resourceSwitch
+  - cheese
   layers:
   - Default
   - TransparentFX
@@ -15,7 +24,7 @@ TagManager:
   - 
   - 
   - 
-  - 
+  - ground
   - 
   - 
   - 

@@ -39,6 +39,9 @@ public class healthManager : MonoBehaviour
                 respawn = false;
             }
         }
+        if(health > maxHealth) {
+            health = maxHealth;
+        }
     }
 
     public void takeDamage(int damageToTake){
@@ -51,8 +54,12 @@ public class healthManager : MonoBehaviour
     }
 
     public void gainHealth(int heal){
-        health += heal;
-        Actions.PlayerHealed();
+        if((health + heal) > maxHealth) {
+            health = maxHealth;
+        } else {
+            health += heal;
+        }
+        ////Actions.PlayerHealed();
         Debug.Log(health);
     }
 

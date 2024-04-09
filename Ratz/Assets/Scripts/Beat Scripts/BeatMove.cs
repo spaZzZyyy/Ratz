@@ -6,20 +6,20 @@ public class BeatMove : MonoBehaviour
 {
     private int startingPoint = 0;
     public Transform[] points;
-    private int i;
+    public int i;
 
     public BeatManager beatManager;
     public float beatCount;
     private float speed;
     private float interval;
-    private float distance;
+    private float distance; 
     private float bpm;
     public bool noHalftime;
 
 
 
     void Start() {
-        i = 1;
+        i = 0;
         transform.position = points[startingPoint].position;
         bpm = beatManager._bpm;
 
@@ -48,12 +48,15 @@ public class BeatMove : MonoBehaviour
    
 
     public void Move() {
-        i++;
-        if(i == points.Length) {
-            i = 0;
-            distance = (points[points.Length - 1].position - points[i].position).magnitude;
-        } else {
-            distance = (points[i - 1].position - points[i].position).magnitude;
+        if(Vector2.Distance(transform.position, points[i].position) < 0.5f) {
+            i++;
+            if(i == points.Length) {
+                i = 0;
+                distance = (points[points.Length - 1].position - points[i].position).magnitude;
+            } else {
+                distance = (points[i - 1].position - points[i].position).magnitude;
+            }
         }
+        
     }    
 }

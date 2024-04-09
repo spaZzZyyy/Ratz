@@ -8,7 +8,7 @@ public class SpawnSinePlatforms : MonoBehaviour
     public void spawnPlatform()
     {
         var parent = GameObject.FindGameObjectWithTag("sineSpawn");
-        if (parent.transform.childCount < 3)
+        if (parent.transform.childCount < 15)
         {
             var newPlatform = Instantiate(Resources.Load("Prefabs/Platforms/SinePlatform"), parent.transform);
             newPlatform.GetComponent<SineMovement>().moveSpeed = Random.Range(2, 5);
