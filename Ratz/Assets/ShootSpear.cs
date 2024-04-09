@@ -22,10 +22,7 @@
 //             }
 //         }
         
-<<<<<<< Updated upstream
-    }
-}
-=======
+
 //         if (collision.gameObject.tag == "wall")
 //         {
 //             gameObject.tag = "platform";
@@ -36,4 +33,4 @@
 //         }
 //     }
 // }
->>>>>>> Stashed changes
+
