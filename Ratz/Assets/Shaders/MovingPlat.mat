@@ -45,7 +45,7 @@ Material:
     - _OpacityActive: 0
     - _QueueControl: 0
     - _QueueOffset: 0
-    - _TransMax: 0.5
+    - _TransMax: 0.62
     - _TransMin: 0.5
     - _Transparency: 2.12
     - _fresnel: 0.89

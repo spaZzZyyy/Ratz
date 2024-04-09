@@ -45,16 +45,16 @@ Material:
     - _OpacityActive: 1
     - _QueueControl: 0
     - _QueueOffset: 0
-    - _TransMax: 0.5
+    - _TransMax: 0.62
     - _TransMin: 0.5
     - _Transparency: 2.12
     - _fresnel: 0.89
     m_Colors:
     - _Color: {r: 0.6226415, g: 0.032306872, b: 0.22027415, a: 0}
     - _Color2: {r: 0.4433962, g: 0.07320219, b: 0.31999815, a: 0}
-    - _OutlineColorTrans: {r: 0.033102304, g: 0, b: 0, a: 0}
+    - _OutlineColorTrans: {r: 0.047551896, g: 0, b: 0, a: 0}
     - _RegColor: {r: 0.0003954844, g: 0.003746322, b: 0.003992509, a: 0}
-    - _TransColor: {r: 0.0051745414, g: 0.0051745414, b: 0.020698166, a: 0}
+    - _TransColor: {r: 0.0090094, g: 0.0090094, b: 0.045047, a: 0}
     - _offset: {r: 1.58, g: 1.29, b: 0, a: 0}
   m_BuildTextureStacks: []
 --- !u!114 &5529944398070812352
