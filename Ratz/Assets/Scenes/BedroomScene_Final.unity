@@ -1746,6 +1746,7 @@ MonoBehaviour:
   - {fileID: 1152253569}
   - {fileID: 1509988405}
   - {fileID: 1325158747}
+  i: 0
   beatManager: {fileID: 1932065885}
   beatCount: 0.25
   noHalftime: 0
@@ -4111,6 +4112,7 @@ MonoBehaviour:
   points:
   - {fileID: 1279983779}
   - {fileID: 355930506}
+  i: 0
   beatManager: {fileID: 1932065885}
   beatCount: 0.25
   noHalftime: 0
@@ -4644,6 +4646,7 @@ MonoBehaviour:
   points:
   - {fileID: 877169652}
   - {fileID: 546492756}
+  i: 0
   beatManager: {fileID: 1932065885}
   beatCount: 0.5
   noHalftime: 0
@@ -7179,6 +7182,7 @@ MonoBehaviour:
   - {fileID: 1944871758}
   - {fileID: 2067405814}
   - {fileID: 75166531}
+  i: 0
   beatManager: {fileID: 1932065885}
   beatCount: 0.5
   noHalftime: 0
@@ -7862,6 +7866,7 @@ MonoBehaviour:
   points:
   - {fileID: 2015977212}
   - {fileID: 649507618}
+  i: 0
   beatManager: {fileID: 1932065885}
   beatCount: 0.5
   noHalftime: 1
@@ -14382,6 +14387,7 @@ MonoBehaviour:
   - {fileID: 496502718}
   - {fileID: 209969732}
   - {fileID: 65048729}
+  i: 0
   beatManager: {fileID: 1932065885}
   beatCount: 0.25
   noHalftime: 0
@@ -17074,6 +17080,7 @@ MonoBehaviour:
   points:
   - {fileID: 180522539}
   - {fileID: 1944903834}
+  i: 0
   beatManager: {fileID: 1932065885}
   beatCount: 0.5
   noHalftime: 0
@@ -17307,6 +17314,7 @@ MonoBehaviour:
   points:
   - {fileID: 326764460}
   - {fileID: 1069793115}
+  i: 0
   beatManager: {fileID: 1932065885}
   beatCount: 0.125
   noHalftime: 0
@@ -18629,6 +18637,7 @@ MonoBehaviour:
   points:
   - {fileID: 676250454}
   - {fileID: 997343394}
+  i: 0
   beatManager: {fileID: 1932065885}
   beatCount: 0.5
   noHalftime: 0
@@ -19600,6 +19609,7 @@ MonoBehaviour:
   points:
   - {fileID: 649564317}
   - {fileID: 1051262970}
+  i: 0
   beatManager: {fileID: 1932065885}
   beatCount: 0.5
   noHalftime: 1
@@ -25386,7 +25396,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &1429423237
 Transform:
   m_ObjectHideFlags: 0
@@ -26582,6 +26592,11 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!82 &1552396143 stripped
+AudioSource:
+  m_CorrespondingSourceObject: {fileID: 1984076567527567459, guid: 5af8f6a4d804cdd4398baee994f5edde, type: 3}
+  m_PrefabInstance: {fileID: 3543998052747929157}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1562226043
 GameObject:
   m_ObjectHideFlags: 0
@@ -27353,6 +27368,7 @@ MonoBehaviour:
   points:
   - {fileID: 218378788}
   - {fileID: 177222147}
+  i: 0
   beatManager: {fileID: 1932065885}
   beatCount: 0.5
   noHalftime: 0
@@ -31586,6 +31602,7 @@ MonoBehaviour:
   points:
   - {fileID: 1680403517}
   - {fileID: 76650999}
+  i: 0
   beatManager: {fileID: 1932065885}
   beatCount: 0.125
   noHalftime: 0
@@ -32649,7 +32666,7 @@ GameObject:
   - component: {fileID: 959879311248902417}
   - component: {fileID: 959879311248902430}
   - component: {fileID: 959879311248902429}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Main Camera
   m_TagString: MainCamera
   m_Icon: {fileID: 0}
@@ -32872,6 +32889,14 @@ PrefabInstance:
       propertyPath: m_Name
       value: DashPS
       objectReference: {fileID: 0}
+    - target: {fileID: 1984076567233823907, guid: 5af8f6a4d804cdd4398baee994f5edde, type: 3}
+      propertyPath: track3
+      value: 
+      objectReference: {fileID: 959879310684947107}
+    - target: {fileID: 1984076567233823907, guid: 5af8f6a4d804cdd4398baee994f5edde, type: 3}
+      propertyPath: track4
+      value: 
+      objectReference: {fileID: 1552396143}
     - target: {fileID: 1984076567233823907, guid: 5af8f6a4d804cdd4398baee994f5edde, type: 3}
       propertyPath: beatManager
       value: 
