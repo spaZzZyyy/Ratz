@@ -23,7 +23,7 @@ public class musicManager : MonoBehaviour
     */
     double musicTimer = 0;
     List<AudioSource> trackList;
-    [HideInInspector] public int trackToPlay = 0;
+     public int trackToPlay = 0;
     AudioSource audioSourceToPlay;
     [HideInInspector] public bool musicIsPlaying;
     public int numOfTracks;
@@ -44,7 +44,7 @@ public class musicManager : MonoBehaviour
     [SerializeField] BeatManager beatManager;
     [SerializeField] ResourceManager resourceManager;
     public bool halfOut = false;
-    public bool madOut = false;
+    public bool madOut = true;
     private bool halfIt;
     public bool platformMad;
     //!
@@ -80,6 +80,7 @@ public class musicManager : MonoBehaviour
         startMusicBox();
         audioSourceToPlay = trackList[trackToPlay];
         platformMad = false;
+        madOut = true;
     }
 
     void Update()
@@ -260,7 +261,7 @@ public class musicManager : MonoBehaviour
                     halftimeTracks();
                     changeHalfTime();
                     startMusic();
-                    //no more spamming, adds 10 everytime you start
+                    //no more spamming, adds 10% everytime you start
                     resourceManager.halfAmount = resourceManager.halfAmount + (resourceManager.halfMax / 10);
                 }
             } else {
@@ -272,14 +273,23 @@ public class musicManager : MonoBehaviour
             }   
         }
     }
-
+    //NAMES ARE GOOFED, THIS IS FOR ENTERING MADNESS
     void slowDownTrackAction(InputAction.CallbackContext ctx)
     {
         if(ctx.performed)
         {
-            stopMusic();
-            madnessTracks();
-            startMusic();
+            if(trackToPlay == 0 || trackToPlay == 1) {
+                if(madOut == false) {
+                    stopMusic();
+                    madnessTracks();
+                    startMusic();
+                }
+            } else {
+                stopMusic();
+                madnessTracks();
+                startMusic();
+            }
+            
         }
     }
 
