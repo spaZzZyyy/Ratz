@@ -37,7 +37,8 @@ public class PlayerAnimations : MonoBehaviour
          Actions.NotParry += PlayerNotParried;*/
         Actions.PlayerTookDamage += TakeDamage;
         Actions.OnPlayerSwitchTrack += switchTracks;
-
+        Actions.OnPlayerEnterMadness += PlayerEnterMadness;
+        Actions.OnPlayerExitMadness += PlayerExitMadness;
         jump = playerControls.Gameplay.Jump;
         jump.Enable();
         jump.performed += PlayerJumped;
@@ -64,6 +65,8 @@ public class PlayerAnimations : MonoBehaviour
         Actions.NotParry -= PlayerNotParried;
         Actions.PlayerTookDamage -= TakeDamage;
         Actions.OnPlayerSwitchTrack += switchTracks;
+        Actions.OnPlayerEnterMadness -= PlayerEnterMadness;
+        Actions.OnPlayerExitMadness -= PlayerExitMadness;
         jump.Disable();
         MoveLeft.Disable();
         MoveRight.Disable();
@@ -77,6 +80,16 @@ public class PlayerAnimations : MonoBehaviour
         player_movement = GetComponent<PlayerMovement>();
         //material = GetComponent<SpriteRenderer>().material;
 
+    }
+
+    void PlayerEnterMadness(){
+        playerAni.SetTrigger("madSwitch");
+        playerAni.SetBool("isMad", true);
+    }
+
+    void PlayerExitMadness(){
+        playerAni.SetTrigger("madSwitch");
+        playerAni.SetBool("isMad", false);
     }
 
     void switchTracks(){
