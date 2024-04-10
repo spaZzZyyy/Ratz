@@ -75,6 +75,7 @@ public class ResourceManager : MonoBehaviour
                 halfMax = 100000;
                 halfStartCap = halfMax - ((halfMax / 10) * 2);
             } else {
+                musicManager.madOut = false;
                 madMax = 100000;
                 madStartCap = madMax - ((madMax / 10) * 2);
             }
