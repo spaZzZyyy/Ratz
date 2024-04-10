@@ -13,6 +13,9 @@ TagManager:
   - spearSpawn
   - resourceSwitch
   - cheese
+  - Enemy
+  - hitBox
+  - platform
   layers:
   - Default
   - TransparentFX
@@ -28,7 +31,7 @@ TagManager:
   - 
   - 
   - 
-  - 
+  - player
   - 
   - 
   - 
@@ -47,6 +50,9 @@ TagManager:
   - 
   - 
   m_SortingLayers:
+  - name: Player
+    uniqueID: 1171188131
+    locked: 0
   - name: Default
     uniqueID: 0
     locked: 0
