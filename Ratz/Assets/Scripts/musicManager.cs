@@ -192,6 +192,7 @@ public class musicManager : MonoBehaviour
             //!turning off boxCollider goes here
             platformMad = true;
             resourceManager.madOn = true;
+            Actions.OnPlayerEnterMadness();
 
         //leaving madness
         } else {
@@ -200,6 +201,7 @@ public class musicManager : MonoBehaviour
             //!turning on boxCollider goes here
             platformMad = false;
             resourceManager.madOn = false;
+            Actions.OnPlayerExitMadness();
         }
         audioSourceToPlay = trackList[trackToPlay];
         beatManager._audioSource = trackList[trackToPlay];
