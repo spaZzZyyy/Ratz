@@ -17,6 +17,8 @@ public class RespawnScript : MonoBehaviour
             mainRespawnPoint = respawn.gameObject;
             respawnPoint = mainRespawnPoint;
         }
+        //ForLights
+        Actions.OnPlayerHitCheckPoint(respawnPoint);
     }
 
     public void Respawn(){
