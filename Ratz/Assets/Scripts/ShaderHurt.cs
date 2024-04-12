@@ -25,13 +25,14 @@ public class ShaderHurt : MonoBehaviour
     void tookDamage(){
         material.SetInt("_OnOff", 0); //sets onOff to true
         material.SetColor("_Color", new Color(1,0,0,2));
-        //Debug.Log("Tried");
+        Debug.Log("Tried");
         StartCoroutine("tookDmg");
     }
 
     IEnumerator tookDmg(){
         yield return new WaitForSeconds(timeHurt);
         material.SetInt("_OnOff", 1); 
+        Debug.Log("PlayerTookDmg");
     }
     
 }
