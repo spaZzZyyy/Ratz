@@ -35,15 +35,31 @@ public class spears : MonoBehaviour
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        if(collision.gameObject.tag != "Player")
+        
+        if (collision.gameObject.tag != "Player" && collision.gameObject.tag != "Enemy" && collision.gameObject.tag != "mainCheese")
         {
-            rmSpear = true;
+            if (collision.gameObject.layer == 8)
+            {
+                if (collision.gameObject.GetComponent<Rigidbody2D>().velocity != Vector2.zero)
+                {
+                    Physics2D.IgnoreCollision(this.gameObject.GetComponent<Collider2D>(), collision.gameObject.GetComponent<Collider2D>());
+                }
+            }
+            else
+            {
+                rmSpear = true;
+            }
         }
         else
         {
-            if (!rmSpear)
+            if (!rmSpear && collision.gameObject.tag == "Player")
             {
-                Debug.Log("Damage Player");
+                GameObject.Find("HealthManager").GetComponent<healthManager>().takeDamage(1);
+                Destroy(gameObject);
+            }
+            else if (!rmSpear) 
+            {
+                GameObject.Find("BossManager").GetComponent<SceneManagerBoss>().DamageBoss();
                 Destroy(gameObject);
             }
         }

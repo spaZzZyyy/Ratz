@@ -16,6 +16,9 @@ TagManager:
   - Enemy
   - hitBox
   - platform
+  - wall
+  - mainCheese
+  - bossManager
   layers:
   - Default
   - TransparentFX
@@ -25,7 +28,7 @@ TagManager:
   - UI
   - camera
   - 
-  - 
+  - Projectile
   - 
   - ground
   - 

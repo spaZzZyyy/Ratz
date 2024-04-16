@@ -31,30 +31,21 @@ public class CheeseMovement : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (attackDur <= 0)
+        switch (attackChoice)
         {
-            attackChoice = selectAttack();
+            case 1:
+                charge();
+                break;
+            case 2:
+                spreadShot();
+                break;
+            case 3:
+                miniSlimes();
+                break;
+            default:
+               // Debug.Log("somehow here");
+                break;
         }
-        else
-        {
-            switch(attackChoice)
-            {
-                case 1:
-                    charge();
-                    break;
-                case 2:
-                    spreadShot();
-                    break;
-                case 3:
-                    miniSlimes();
-                    break;
-                default:
-                    Debug.Log("somehow here");
-                    break;
-            }
-            attackDur -=Time.deltaTime;
-        }
-
     }
 
     private void OnCollisionEnter2D(Collision2D collision)
@@ -64,14 +55,12 @@ public class CheeseMovement : MonoBehaviour
             dir = -dir;
             curSpeed /= 2;
         }
+        else if (collision.gameObject.tag == "Player")
+        {
+            GameObject.Find("HealthManager").GetComponent<healthManager>().takeDamage(1);
+        }
     }
 
-    private int selectAttack()
-    {
-        int rand = Random.Range(1, 4);
-        attackDur = maxAttackDur;
-        return rand;
-    }
 
     private void charge()
     {
@@ -139,9 +128,7 @@ public class CheeseMovement : MonoBehaviour
               bul.GetComponent<goop>().setMoveSpeed(projMoveSpeed);
 
             angle += angleStep;
-          }
-
-       
+        }
     }
 
     private void miniSlimes()
