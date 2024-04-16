@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Rendering;
+using UnityEngine.UI;
 
 public class healthManager : MonoBehaviour
 {
@@ -16,12 +17,18 @@ public class healthManager : MonoBehaviour
 
     [SerializeField] RespawnScript respawnScript;
     public bool respawn = false;
+    [SerializeField] Image healthWhiskers;
     
     bool canTakeDamage = true;
     float secondsOfIframes = 1; // After damage taken how long is the player immune for
     public int health = 6;
     public int maxHealth = 6;
-    
+
+    private void Start()
+    {
+        healthWhiskers = GameObject.Find("healthWhiskers").GetComponent<Image>();
+    }
+
     void Update()
     {
         if(health < 1) {
@@ -34,6 +41,7 @@ public class healthManager : MonoBehaviour
                 respawnScript.respawnPoint = respawnScript.mainRespawnPoint;
                 respawnScript.Respawn();
                 respawn = false;
+                healthWhiskers.sprite = Resources.Load<Sprite>("Sprites/health8");
             } else {
                 respawnScript.Respawn();
                 respawn = false;
@@ -49,8 +57,11 @@ public class healthManager : MonoBehaviour
             health -= damageToTake;
             StartCoroutine("OnGiveIFrames");
             Actions.PlayerTookDamage();
+            healthWhiskers.sprite = Resources.Load<Sprite>("Sprites/health" + health);
+            Debug.Log(healthWhiskers.sprite);
         }
         Debug.Log(health);
+
     }
 
     public void gainHealth(int heal){

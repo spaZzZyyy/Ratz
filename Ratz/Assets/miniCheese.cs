@@ -14,16 +14,19 @@ public class miniCheese : MonoBehaviour
     private Rigidbody2D rb;
     [SerializeField] private float jumpForce;
     [SerializeField] private float curSpeed;
+    [SerializeField] private SceneManagerBoss manager;
 
     private void Start()
     {
         box = GetComponent<BoxCollider2D>();
         rb = GetComponent<Rigidbody2D>();
+        manager = GameObject.FindGameObjectWithTag("bossManager").GetComponent<SceneManagerBoss>();
         
     }
     // Update is called once per frame
     void Update()
     {
+        attackTime = manager.attackBeats;
         if(attackTime > 0)
         {
 
@@ -49,9 +52,7 @@ public class miniCheese : MonoBehaviour
                 Destroy(this.gameObject);
             }
             
-        }
-        attackTime-= Time.deltaTime;
-        
+        }        
     }
     public bool IsGrounded()
     {
@@ -67,9 +68,13 @@ public class miniCheese : MonoBehaviour
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        if (collision.gameObject.tag == "wall" || collision.gameObject.tag == "Pillar")
+        if (collision.gameObject.tag == "wall" || collision.gameObject.tag == "Pillar" || collision.gameObject.tag == "spearSpawn")
         {
             startDir = -startDir;
+        }
+        else if (collision.gameObject.tag == "Player")
+        {
+            GameObject.Find("HealthManager").GetComponent<healthManager>().takeDamage(1);
         }
     }
 }
