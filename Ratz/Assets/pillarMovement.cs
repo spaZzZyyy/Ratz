@@ -8,12 +8,14 @@ public class pillarMovement : MonoBehaviour
 
     [SerializeField] private Rigidbody2D rb;
     [SerializeField] private GameObject ceiling;
-    [SerializeField] private GameObject floor;
+    [SerializeField] private float fallSpeedSlow;
+    [SerializeField] private float fallSpeedIncrease;
+    [SerializeField] private float fallSpeedIncStart;
+    [SerializeField] private float fallSpeedUp;
     [SerializeField] public bool boolFall;
     [SerializeField] bool boolRetract;
     private Vector3 startingPosition;
     [SerializeField] float timer;
-    [SerializeField] private Camera m_Camera;
     private void Start()
     {
         timer = 0;
@@ -21,7 +23,10 @@ public class pillarMovement : MonoBehaviour
         boolFall = false;
         boolRetract = false;
         rb = GetComponent<Rigidbody2D>();
+        ceiling = GameObject.Find("Ceiling");
         Physics2D.IgnoreCollision(GetComponent<Collider2D>(), ceiling.GetComponent<Collider2D>());
+        fallSpeedIncStart = fallSpeedIncrease;
+
     }
 
     private void Update()
@@ -30,27 +35,27 @@ public class pillarMovement : MonoBehaviour
         {
             boolFall = false;
             timer = 1.5f;
-            rb.gravityScale = .2f;           
+            rb.velocity = Vector2.down * fallSpeedSlow;         
         } else if (boolRetract)
         {
             if (this.transform.position.y < startingPosition.y)
             {
-                rb.gravityScale = -.5f;
+                rb.velocity = Vector2.up * fallSpeedUp;
             }
             else
-            {                
-                rb.gravityScale = 0;
+            {
+                fallSpeedIncrease = fallSpeedIncStart;
                 rb.velocity = Vector2.zero;
                 boolRetract = false;
             }
         } else if (timer > 0 && !boolRetract)
         {
             timer -= Time.deltaTime;
-            if (timer < 0)
-            {
-                rb.gravityScale += 3f;
-
-            }
+        }
+        if (timer < 0)
+        {
+            Debug.Log(rb.velocity);
+            rb.velocity += rb.velocity * fallSpeedIncrease;
         }
     }
 
@@ -62,8 +67,12 @@ public class pillarMovement : MonoBehaviour
     private void OnCollisionEnter2D(Collision2D collision)
     {
         
-        if (collision.gameObject.name == "Floor")
+        if (collision.gameObject.name == "Floor" || collision.gameObject.tag == "Enemy" || collision.gameObject.tag == "Player")
         {
+            if (collision.gameObject.tag == "Enemy" || collision.gameObject.tag != "mainCheese")
+            {
+                GameObject.Find("BossManager").GetComponent<SceneManagerBoss>().DamageBoss();
+            }
             boolRetract = true;
             boolFall= false;
         }
