@@ -33,9 +33,20 @@ public class goop : MonoBehaviour
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
+        if (collision.gameObject.tag == "spear")
+        {
+            if(collision.gameObject.GetComponent<Rigidbody2D>().velocity != Vector2.zero) {
+                Physics2D.IgnoreCollision(this.gameObject.GetComponent<Collider2D>(), collision.gameObject.GetComponent<Collider2D>());
+            }
+        }
         if (collision.gameObject.tag != "Enemy")
         {
+            if (collision.gameObject.tag == "Player")
+            {
+                GameObject.Find("HealthManager").GetComponent<healthManager>().takeDamage(1);
+            }
             Destroy(this.gameObject);
         }
+
     }
 }
