@@ -30,7 +30,11 @@ public class spears : MonoBehaviour
         {
             _rb.velocity = direction * speed;
         }
-        
+
+        if (transform.position.x > 50 || transform.position.x < -50) {
+            Destroy(this.gameObject);
+                }
+
     }
 
     private void OnCollisionEnter2D(Collision2D collision)
