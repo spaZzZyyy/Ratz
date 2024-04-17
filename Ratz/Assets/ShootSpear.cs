@@ -16,6 +16,8 @@ public class ShootSpear : MonoBehaviour
         wallLeft = GameObject.Find("Left");
         wallRight = GameObject.Find("Right");
     }
+
+   
     public void spawnSpears() 
     {
         var parents = GameObject.FindGameObjectsWithTag("spearSpawn");
@@ -33,6 +35,7 @@ public class ShootSpear : MonoBehaviour
                 {
                     spearParent = wallRight;
                 }
+                Debug.Log("spawning spears");
                 var newPlatform = Instantiate(Resources.Load("Prefabs/Platforms/spear"), parent.transform);
                 Physics2D.IgnoreCollision(newPlatform.GetComponent<Collider2D>(), spearParent.GetComponent<Collider2D>());
                 newPlatform.GetComponent<spears>().direction = parent.gameObject.GetComponent<ShootSpear>().direction;
