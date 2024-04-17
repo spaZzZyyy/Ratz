@@ -9,7 +9,7 @@ public class FallScript : MonoBehaviour
    
     private void OnCollisionEnter2D(Collision2D respawn){
         if(respawn.gameObject.CompareTag("Player")) {
-            healthManager.takeDamage(1);
+            healthManager.takeDamage(2);
             healthManager.respawn = true;
         }
     }
