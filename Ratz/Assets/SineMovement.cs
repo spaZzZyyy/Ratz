@@ -15,8 +15,7 @@ public class SineMovement : MonoBehaviour
     [SerializeField]
     public float magnitude = 0.5f;
 
-    [SerializeField]
-    public bool musicManager;
+    ResourceManager manager;
 
     float x;
 
@@ -24,7 +23,7 @@ public class SineMovement : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        musicManager = true;
+        manager = GameObject.Find("Body").GetComponent<ResourceManager>();
         pos = transform.position;
         x=Time.time;
     }
@@ -33,7 +32,7 @@ public class SineMovement : MonoBehaviour
     void Update()
     {
         MoveRight();
-        if (musicManager)
+        if (manager.madOn)
         {
             x += Time.deltaTime;
         }
@@ -48,5 +47,18 @@ public class SineMovement : MonoBehaviour
    
             pos += transform.right * Time.deltaTime * moveSpeed;
             transform.position = pos + transform.up * Mathf.Sin(x * frequency) * magnitude;
+    }
+
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        if ((transform.gameObject.CompareTag("spear") == false))
+        {
+            collision.transform.SetParent(transform);
+        }
+    }
+
+    private void OnCollisionExit2D(Collision2D collision)
+    {
+        collision.transform.SetParent(null);
     }
 }

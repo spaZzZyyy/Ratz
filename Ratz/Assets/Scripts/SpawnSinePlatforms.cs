@@ -15,7 +15,6 @@ public class SpawnSinePlatforms : MonoBehaviour
             newPlatform.GetComponent<SineMovement>().frequency = Random.Range(1, 2);
             newPlatform.GetComponent<SineMovement>().magnitude = Random.Range(1, 10);
             int randBool = Random.Range(0, 2);
-            newPlatform.GetComponent<SineMovement>().musicManager = randBool != 0;
         }
     }
 
