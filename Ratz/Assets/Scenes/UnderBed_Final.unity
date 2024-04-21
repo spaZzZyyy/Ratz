@@ -11853,7 +11853,6 @@ MonoBehaviour:
   beatManager: {fileID: 498572327}
   beatCount: 0.25
   noHalftime: 0
-  playerGO: {fileID: 155190384}
 --- !u!61 &150665494
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -12016,11 +12015,6 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!1 &155190384 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 1860721860058945537, guid: eb955578cefa3754c9115cb97ecedf1b, type: 3}
-  m_PrefabInstance: {fileID: 1860721858757405134}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &157707623
 GameObject:
   m_ObjectHideFlags: 0
@@ -15823,7 +15817,6 @@ MonoBehaviour:
   beatManager: {fileID: 498572327}
   beatCount: 1
   noHalftime: 0
-  playerGO: {fileID: 155190384}
 --- !u!61 &220060745
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -17772,7 +17765,6 @@ MonoBehaviour:
   beatManager: {fileID: 498572327}
   beatCount: 0.25
   noHalftime: 0
-  playerGO: {fileID: 155190384}
 --- !u!61 &265371371
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -18834,7 +18826,6 @@ MonoBehaviour:
   beatManager: {fileID: 498572327}
   beatCount: 0.125
   noHalftime: 0
-  playerGO: {fileID: 155190384}
 --- !u!61 &285236235
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -19488,7 +19479,7 @@ Camera:
   m_GameObject: {fileID: 295044841}
   m_Enabled: 1
   serializedVersion: 2
-  m_ClearFlags: 1
+  m_ClearFlags: 4
   m_BackGroundColor: {r: 0.19215687, g: 0.3019608, b: 0.4745098, a: 0}
   m_projectionMatrixMode: 1
   m_GateFitMode: 2
@@ -20195,7 +20186,6 @@ MonoBehaviour:
   beatManager: {fileID: 498572327}
   beatCount: 0.0625
   noHalftime: 0
-  playerGO: {fileID: 155190384}
 --- !u!61 &301593808
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -20343,7 +20333,6 @@ MonoBehaviour:
   beatManager: {fileID: 498572327}
   beatCount: 0.5
   noHalftime: 0
-  playerGO: {fileID: 155190384}
 --- !u!61 &305035538
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -24056,7 +24045,6 @@ MonoBehaviour:
   beatManager: {fileID: 498572327}
   beatCount: 0.125
   noHalftime: 1
-  playerGO: {fileID: 155190384}
 --- !u!114 &398473704
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -33855,7 +33843,6 @@ MonoBehaviour:
   beatManager: {fileID: 498572327}
   beatCount: 0.5
   noHalftime: 0
-  playerGO: {fileID: 155190384}
 --- !u!61 &587365791
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -34061,7 +34048,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 64.50003, y: -65}
+  m_AnchoredPosition: {x: 64.5, y: -65}
   m_SizeDelta: {x: 800, y: 800}
   m_Pivot: {x: 0.4999999, y: 0.5000001}
 --- !u!114 &588548345
@@ -35003,7 +34990,6 @@ MonoBehaviour:
   beatManager: {fileID: 498572327}
   beatCount: 0.5
   noHalftime: 0
-  playerGO: {fileID: 155190384}
 --- !u!61 &608785288
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -37739,8 +37725,8 @@ Canvas:
   m_GameObject: {fileID: 685460822}
   m_Enabled: 1
   serializedVersion: 3
-  m_RenderMode: 0
-  m_Camera: {fileID: 0}
+  m_RenderMode: 1
+  m_Camera: {fileID: 295044845}
   m_PlaneDistance: 100
   m_PixelPerfect: 0
   m_ReceivesEvents: 1
@@ -37749,7 +37735,7 @@ Canvas:
   m_SortingBucketNormalizedSize: 0
   m_AdditionalShaderChannelsFlag: 0
   m_SortingLayerID: 0
-  m_SortingOrder: 0
+  m_SortingOrder: 3000
   m_TargetDisplay: 0
 --- !u!224 &685460826
 RectTransform:
@@ -37768,6 +37754,7 @@ RectTransform:
   - {fileID: 1411966723}
   - {fileID: 1341789507}
   - {fileID: 1027165775}
+  - {fileID: 1322874561}
   m_Father: {fileID: 0}
   m_RootOrder: 19
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -41114,7 +41101,6 @@ MonoBehaviour:
   beatManager: {fileID: 498572327}
   beatCount: 0.25
   noHalftime: 0
-  playerGO: {fileID: 155190384}
 --- !u!61 &757130996
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -46447,7 +46433,6 @@ MonoBehaviour:
   beatManager: {fileID: 498572327}
   beatCount: 0.125
   noHalftime: 0
-  playerGO: {fileID: 155190384}
 --- !u!114 &855819707
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -48211,7 +48196,6 @@ MonoBehaviour:
   beatManager: {fileID: 498572327}
   beatCount: 0.5
   noHalftime: 0
-  playerGO: {fileID: 155190384}
 --- !u!61 &910749857
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -65408,6 +65392,57 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   cheese: {fileID: 204037211}
+--- !u!1 &1322874560
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1322874561}
+  - component: {fileID: 1322874562}
+  m_Layer: 5
+  m_Name: ScreenShaderP
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &1322874561
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1322874560}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 1564608466}
+  m_Father: {fileID: 685460826}
+  m_RootOrder: 5
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 0, y: 0}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &1322874562
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1322874560}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7a7a18abe2b35814bb68282a1fe0b7a4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  screenBaby: {fileID: 1564608465}
 --- !u!1 &1325068159
 GameObject:
   m_ObjectHideFlags: 0
@@ -66528,7 +66563,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 64.50002, y: -65}
+  m_AnchoredPosition: {x: 64.5, y: -65}
   m_SizeDelta: {x: 800, y: 800}
   m_Pivot: {x: 0.4999999, y: 0.5000001}
 --- !u!114 &1341789508
@@ -73009,7 +73044,6 @@ MonoBehaviour:
   beatManager: {fileID: 498572327}
   beatCount: 0.25
   noHalftime: 0
-  playerGO: {fileID: 155190384}
 --- !u!61 &1385322285
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -81903,7 +81937,6 @@ MonoBehaviour:
   beatManager: {fileID: 498572327}
   beatCount: 0.25
   noHalftime: 1
-  playerGO: {fileID: 155190384}
 --- !u!61 &1496449891
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -84467,6 +84500,82 @@ Transform:
   m_Father: {fileID: 192635684}
   m_RootOrder: 296
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 92.388}
+--- !u!1 &1564608465
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1564608466}
+  - component: {fileID: 1564608468}
+  - component: {fileID: 1564608467}
+  m_Layer: 5
+  m_Name: ScreenShader
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 0
+--- !u!224 &1564608466
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1564608465}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 0}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1322874561}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 1, y: 1}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 800, y: 459.93265}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &1564608467
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1564608465}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Material: {fileID: 2100000, guid: 77b3b4bab1f1d4741b1a646cb7e31e5a, type: 2}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_RaycastTarget: 1
+  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
+  m_Maskable: 1
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+  m_Sprite: {fileID: 21300000, guid: b281b91a70a624a0da1c43adc1c30c7b, type: 3}
+  m_Type: 0
+  m_PreserveAspect: 0
+  m_FillCenter: 1
+  m_FillMethod: 4
+  m_FillAmount: 1
+  m_FillClockwise: 1
+  m_FillOrigin: 0
+  m_UseSpriteMesh: 0
+  m_PixelsPerUnitMultiplier: 1
+--- !u!222 &1564608468
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1564608465}
+  m_CullTransparentMesh: 1
 --- !u!1 &1565068675
 GameObject:
   m_ObjectHideFlags: 0
@@ -109073,7 +109182,6 @@ MonoBehaviour:
   beatManager: {fileID: 498572327}
   beatCount: 0.125
   noHalftime: 0
-  playerGO: {fileID: 155190384}
 --- !u!114 &1777396696
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -111686,7 +111794,6 @@ MonoBehaviour:
   beatManager: {fileID: 498572327}
   beatCount: 0.125
   noHalftime: 0
-  playerGO: {fileID: 155190384}
 --- !u!61 &1851090375
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -113646,7 +113753,6 @@ MonoBehaviour:
   beatManager: {fileID: 498572327}
   beatCount: 0.125
   noHalftime: 1
-  playerGO: {fileID: 155190384}
 --- !u!114 &1896194864
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -114340,7 +114446,6 @@ MonoBehaviour:
   beatManager: {fileID: 498572327}
   beatCount: 0.25
   noHalftime: 0
-  playerGO: {fileID: 155190384}
 --- !u!61 &1910558094
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -134125,7 +134230,6 @@ MonoBehaviour:
   beatManager: {fileID: 498572327}
   beatCount: 0.5
   noHalftime: 0
-  playerGO: {fileID: 155190384}
 --- !u!61 &2142905806
 BoxCollider2D:
   m_ObjectHideFlags: 0
