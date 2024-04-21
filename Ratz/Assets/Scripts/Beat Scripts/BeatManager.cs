@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Microsoft.Unity.VisualStudio.Editor;
 using UnityEngine;
 using UnityEngine.Events;
 
@@ -15,6 +16,7 @@ public class BeatManager : MonoBehaviour
     private void Start() {
         staticBPM = _bpm;
     }
+
 
     private void Update() {
         //! old version
@@ -33,7 +35,12 @@ public class BeatManager : MonoBehaviour
             }
             
         }
+
+
     }
+
+
+
 }
 
 [System.Serializable]
