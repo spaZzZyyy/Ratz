@@ -16,6 +16,7 @@ public class SineMovement : MonoBehaviour
     public float magnitude = 0.5f;
 
     ResourceManager manager;
+    GameObject playerGO;
 
     float x;
 
@@ -26,6 +27,7 @@ public class SineMovement : MonoBehaviour
         manager = GameObject.Find("Body").GetComponent<ResourceManager>();
         pos = transform.position;
         x=Time.time;
+        playerGO = GameObject.Find("Player");
     }
 
     // Update is called once per frame
@@ -59,6 +61,6 @@ public class SineMovement : MonoBehaviour
 
     private void OnCollisionExit2D(Collision2D collision)
     {
-        collision.transform.SetParent(null);
+        collision.transform.SetParent(playerGO.transform);
     }
 }

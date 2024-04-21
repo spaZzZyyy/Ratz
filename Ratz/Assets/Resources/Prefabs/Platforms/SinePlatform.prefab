@@ -29,7 +29,7 @@ Transform:
   m_GameObject: {fileID: 4889128837016963883}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 3.6601, y: 1.4604, z: 1}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1642734295593908833}
@@ -103,7 +103,6 @@ MonoBehaviour:
   moveSpeed: 3
   frequency: 1
   magnitude: 6
-  musicManager: 0
 --- !u!61 &4889128837016963895
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -128,7 +127,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 1, y: 1}
+  m_Size: {x: 4.589508, y: 1}
   m_EdgeRadius: 0
 --- !u!50 &-3001616827544963001
 Rigidbody2D:
@@ -177,7 +176,7 @@ Transform:
   m_GameObject: {fileID: 7708961731185993467}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0.0032976426, y: 0.008837519, z: 16.218992}
-  m_LocalScale: {x: 0.18857913, y: 0.26619756, z: 1}
+  m_LocalScale: {x: 0.9, y: 0.26619756, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 4889128837016963894}

@@ -11853,6 +11853,7 @@ MonoBehaviour:
   beatManager: {fileID: 498572327}
   beatCount: 0.25
   noHalftime: 0
+  playerGO: {fileID: 155190384}
 --- !u!61 &150665494
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -12015,6 +12016,11 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!1 &155190384 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 1860721860058945537, guid: eb955578cefa3754c9115cb97ecedf1b, type: 3}
+  m_PrefabInstance: {fileID: 1860721858757405134}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &157707623
 GameObject:
   m_ObjectHideFlags: 0
@@ -15817,6 +15823,7 @@ MonoBehaviour:
   beatManager: {fileID: 498572327}
   beatCount: 1
   noHalftime: 0
+  playerGO: {fileID: 155190384}
 --- !u!61 &220060745
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -17765,6 +17772,7 @@ MonoBehaviour:
   beatManager: {fileID: 498572327}
   beatCount: 0.25
   noHalftime: 0
+  playerGO: {fileID: 155190384}
 --- !u!61 &265371371
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -18826,6 +18834,7 @@ MonoBehaviour:
   beatManager: {fileID: 498572327}
   beatCount: 0.125
   noHalftime: 0
+  playerGO: {fileID: 155190384}
 --- !u!61 &285236235
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -20186,6 +20195,7 @@ MonoBehaviour:
   beatManager: {fileID: 498572327}
   beatCount: 0.0625
   noHalftime: 0
+  playerGO: {fileID: 155190384}
 --- !u!61 &301593808
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -20333,6 +20343,7 @@ MonoBehaviour:
   beatManager: {fileID: 498572327}
   beatCount: 0.5
   noHalftime: 0
+  playerGO: {fileID: 155190384}
 --- !u!61 &305035538
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -24045,6 +24056,7 @@ MonoBehaviour:
   beatManager: {fileID: 498572327}
   beatCount: 0.125
   noHalftime: 1
+  playerGO: {fileID: 155190384}
 --- !u!114 &398473704
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -33843,6 +33855,7 @@ MonoBehaviour:
   beatManager: {fileID: 498572327}
   beatCount: 0.5
   noHalftime: 0
+  playerGO: {fileID: 155190384}
 --- !u!61 &587365791
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -34990,6 +35003,7 @@ MonoBehaviour:
   beatManager: {fileID: 498572327}
   beatCount: 0.5
   noHalftime: 0
+  playerGO: {fileID: 155190384}
 --- !u!61 &608785288
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -41100,6 +41114,7 @@ MonoBehaviour:
   beatManager: {fileID: 498572327}
   beatCount: 0.25
   noHalftime: 0
+  playerGO: {fileID: 155190384}
 --- !u!61 &757130996
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -46432,6 +46447,7 @@ MonoBehaviour:
   beatManager: {fileID: 498572327}
   beatCount: 0.125
   noHalftime: 0
+  playerGO: {fileID: 155190384}
 --- !u!114 &855819707
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -48195,6 +48211,7 @@ MonoBehaviour:
   beatManager: {fileID: 498572327}
   beatCount: 0.5
   noHalftime: 0
+  playerGO: {fileID: 155190384}
 --- !u!61 &910749857
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -72992,6 +73009,7 @@ MonoBehaviour:
   beatManager: {fileID: 498572327}
   beatCount: 0.25
   noHalftime: 0
+  playerGO: {fileID: 155190384}
 --- !u!61 &1385322285
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -81885,6 +81903,7 @@ MonoBehaviour:
   beatManager: {fileID: 498572327}
   beatCount: 0.25
   noHalftime: 1
+  playerGO: {fileID: 155190384}
 --- !u!61 &1496449891
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -109054,6 +109073,7 @@ MonoBehaviour:
   beatManager: {fileID: 498572327}
   beatCount: 0.125
   noHalftime: 0
+  playerGO: {fileID: 155190384}
 --- !u!114 &1777396696
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -111666,6 +111686,7 @@ MonoBehaviour:
   beatManager: {fileID: 498572327}
   beatCount: 0.125
   noHalftime: 0
+  playerGO: {fileID: 155190384}
 --- !u!61 &1851090375
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -113625,6 +113646,7 @@ MonoBehaviour:
   beatManager: {fileID: 498572327}
   beatCount: 0.125
   noHalftime: 1
+  playerGO: {fileID: 155190384}
 --- !u!114 &1896194864
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -114318,6 +114340,7 @@ MonoBehaviour:
   beatManager: {fileID: 498572327}
   beatCount: 0.25
   noHalftime: 0
+  playerGO: {fileID: 155190384}
 --- !u!61 &1910558094
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -134102,6 +134125,7 @@ MonoBehaviour:
   beatManager: {fileID: 498572327}
   beatCount: 0.5
   noHalftime: 0
+  playerGO: {fileID: 155190384}
 --- !u!61 &2142905806
 BoxCollider2D:
   m_ObjectHideFlags: 0
