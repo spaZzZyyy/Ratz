@@ -37,7 +37,7 @@ public class CheckPoint : MonoBehaviour
     }
 
     void changeLights(GameObject respawnPoint){
-        if (respawnPoint = this.gameObject){
+        if (respawnPoint == this.gameObject){
 
             if(lightsTriggered == false){
 
