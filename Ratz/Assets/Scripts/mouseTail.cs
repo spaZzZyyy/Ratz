@@ -141,13 +141,15 @@ public class mouseTail : MonoBehaviour
             ResetTail();
             tailRun.enabled = false;
             tail.enabled = true;
-            if(player_movement.isFalling == false){
-                recordPlayerTransform.position = playerTransform.position;
+            if(player_movement.isFalling == false && this.gameObject == tailNormal.gameObject){ // player gameobject is grandparent
+                if (tailNormal.transform.parent.parent.name == "Player"){
+                    recordPlayerTransform.position = playerTransform.position;
+                }
             }
         }
 
         if(player_movement.IsGrounded() && firstTime == true){
-            StartCoroutine("JustLanded");
+            //StartCoroutine("JustLanded");
         }
 
         if(playerMoving == false){ 
