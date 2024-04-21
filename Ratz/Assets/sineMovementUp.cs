@@ -18,12 +18,14 @@ public class sineMovementUp : MonoBehaviour
     float x;
 
     Vector3 pos;
+    GameObject playerGO;
     // Start is called before the first frame update
     void Start()
     {
         manager = GameObject.Find("Body").GetComponent<ResourceManager>();
         pos = transform.position;
         x = Time.time;
+        playerGO = GameObject.Find("Player");
     }
 
     // Update is called once per frame
