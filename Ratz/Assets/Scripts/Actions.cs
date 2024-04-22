@@ -16,4 +16,5 @@ public static class Actions
     public static Action<GameObject> OnPlayerHitCheckPoint;
     public static Action OnPlayerEnterMadness;
     public static Action OnPlayerExitMadness;
+    public static Action OnFlowerShoot;
 }
