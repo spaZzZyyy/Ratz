@@ -32830,7 +32830,7 @@ PrefabInstance:
       objectReference: {fileID: 872830891}
     - target: {fileID: 1860721860058945537, guid: eb955578cefa3754c9115cb97ecedf1b, type: 3}
       propertyPath: m_Name
-      value: PlayerFinal
+      value: Player
       objectReference: {fileID: 0}
     - target: {fileID: 1860721860058945566, guid: eb955578cefa3754c9115cb97ecedf1b, type: 3}
       propertyPath: m_RootOrder

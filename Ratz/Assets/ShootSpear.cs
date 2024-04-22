@@ -10,21 +10,11 @@ public class ShootSpear : MonoBehaviour
     [SerializeField] float speed;
     [SerializeField] private GameObject wallLeft;
     [SerializeField] private GameObject wallRight;
-    [SerializeField] GameObject flower;
-    Animator flowerAni;
-    bool onSpearSpawn = false;
 
     private void Start()
     {
         wallLeft = GameObject.Find("Left");
         wallRight = GameObject.Find("Right");
-        flowerAni = flower.GetComponent<Animator>();
-    }
-
-    void Update(){
-        if (onSpearSpawn){
-            StartCoroutine(OnFlowerShoot());
-        }
     }
    
     public void spawnSpears() 
@@ -45,7 +35,8 @@ public class ShootSpear : MonoBehaviour
                     spearParent = wallRight;
                 }
                 Debug.Log("spawning spears");
-                onSpearSpawn = true;
+                Actions.OnFlowerShoot();
+    
                 var newPlatform = Instantiate(Resources.Load("Prefabs/Platforms/spear"), parent.transform);
                 Physics2D.IgnoreCollision(newPlatform.GetComponent<Collider2D>(), spearParent.GetComponent<Collider2D>());
                 newPlatform.GetComponent<spears>().direction = parent.gameObject.GetComponent<ShootSpear>().direction;
@@ -78,13 +69,6 @@ public class ShootSpear : MonoBehaviour
         {
             spawnSingleSpear();
         }
-    }
-
-    IEnumerator OnFlowerShoot(){
-        flowerAni.SetBool("FlowerShooting", true);
-        yield return new WaitForSeconds(0.5f);
-        flowerAni.SetBool("FlowerShooting", false);
-        onSpearSpawn = false;
     }
 
     private GameObject findClosestSpear()
