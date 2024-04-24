@@ -30,6 +30,7 @@ public class mouseTail : MonoBehaviour
     public float tailEndHeight;
     private Transform tarDirTransform;
     private LineRenderer tail;
+    private LineRenderer tailRun;
     private bool playerMoving;
     [SerializeField] Transform playerTransform;
     [SerializeField] Transform recordPlayerTransform;
@@ -41,6 +42,11 @@ public class mouseTail : MonoBehaviour
     private InputAction MoveRight;
     private bool heldRight;
     bool playerRunning;
+    [SerializeField] GameObject tailRunGO;
+    [SerializeField] GameObject tailNormal;
+    bool alreadyReset = false;
+    private float smoothSpeedRecord;
+    
 
 
     // Start is called before the first frame update
@@ -70,8 +76,10 @@ public class mouseTail : MonoBehaviour
     void Start()
     {
         recordPlayerTransform.position = playerTransform.position;
-        tail = GetComponent<LineRenderer>();
+        tail = tailNormal.GetComponent<LineRenderer>();
+        tailRun = tailRunGO.GetComponent<LineRenderer>();
         tail.enabled = true;
+        tailRun.enabled = false;
         _playerThickness = transform.localScale.x;
         tarDirTransform = GetComponentInChildren<Transform>();
         lineRend.positionCount = length;
@@ -80,7 +88,9 @@ public class mouseTail : MonoBehaviour
         trailSpeedFactor = trailSpeed;
         wigFactor = wiggleMagnitude;
         player_movement = GetComponentInParent<PlayerMovement>();
+        smoothSpeedRecord = smoothSpeed;
         ResetTail();
+        
     }
 
     /// <summary>
@@ -95,28 +105,60 @@ public class mouseTail : MonoBehaviour
             match = false;
         }
         playerRunning = playerControls.Gameplay.MoveLeft.ReadValue<float>() > 0 || playerControls.Gameplay.MoveRight.ReadValue<float>() > 0;
-
+        /*
+        nom
+        12
+        -0.06
+        0.2
+        300
+        2000
+        4.44
+        30
+        5
+        2
+        6.38
+        5.71
+        run
+        4
+        -0.06
+        0.0001
+        70
+        2000
+        4.44
+        30
+        5
+        2
+        6.38
+        5.71
+        */
         if (playerRunning) { 
+            
             playerMoving = false;
+            tailRun.enabled = true;
+            tail.enabled = false;
         }else
         {
-            recordPlayerTransform.position = playerTransform.position;
             ResetTail();
+            tailRun.enabled = false;
+            tail.enabled = true;
+            if(player_movement.isFalling == false && this.gameObject == tailNormal.gameObject){ // player gameobject is grandparent
+                if (tailNormal.transform.parent.parent.name == "Player"){
+                    recordPlayerTransform.position = playerTransform.position;
+                }
+            }
         }
 
         if(player_movement.IsGrounded() && firstTime == true){
-            StartCoroutine("JustLanded");
+            //StartCoroutine("JustLanded");
         }
 
-        if(playerMoving == false){
+        if(playerMoving == false){ 
             if(match == false){
                 ResetTail();
             }
-
-            if(player_movement.isFalling){
-                ResetTail();
-            }
         }
+
+//isFalling is in playerMovement just checks if velocity.y is 0
 
         if(player_movement.IsGrounded() == false){
             firstTime = true;
@@ -144,6 +186,18 @@ public class mouseTail : MonoBehaviour
             lineRend.SetPositions(segmentPoses);
         #endregion
 
+
+        if(match == false){
+            if (this.gameObject == tailNormal.gameObject){
+                smoothSpeed = -1;
+            }
+        }
+
+        if(match == true){
+            if (this.gameObject == tailNormal.gameObject){
+                smoothSpeed = smoothSpeedRecord;
+            }
+        }
         FlipTail();
 
 /*
@@ -159,6 +213,7 @@ public class mouseTail : MonoBehaviour
     }
 
     void ResetTail(){
+        /*
         if(match == false){
             wigFactor = jumpWig;
             trailSpeedFactor = jumpTailSpeed;
@@ -169,6 +224,31 @@ public class mouseTail : MonoBehaviour
                 segmentPoses[i] = segmentPoses[i - 1] + targetDir.right * targetDistance;
             }
             lineRend.SetPositions(segmentPoses);
+        }
+        */
+        
+
+        if (match == true){
+            if (alreadyReset == false)
+            {
+                wigFactor = jumpWig;
+                trailSpeedFactor = jumpTailSpeed;
+
+                segmentPoses[0] = targetDir.position;
+
+                for (int i = 1; i < length; i++){
+                    segmentPoses[i] = targetDir.position;
+                }
+
+                for (int i = 1; i < length; i++){
+                    segmentPoses[i] = segmentPoses[i - 1] + targetDir.right * targetDistance;
+                }
+                lineRend.SetPositions(segmentPoses);
+
+                alreadyReset = true;
+            }
+        } else {
+            alreadyReset = false;
         }
     }
     void FlipTailLeft(InputAction.CallbackContext ctx){

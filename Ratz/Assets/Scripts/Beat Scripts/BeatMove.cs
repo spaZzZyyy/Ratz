@@ -15,6 +15,7 @@ public class BeatMove : MonoBehaviour
     private float distance; 
     private float bpm;
     public bool noHalftime;
+    GameObject playerGO;
 
 
 
@@ -22,7 +23,7 @@ public class BeatMove : MonoBehaviour
         i = 0;
         transform.position = points[startingPoint].position;
         bpm = beatManager._bpm;
-
+        playerGO = GameObject.Find("Player");
     }
     void Update() {
         transform.position = Vector2.MoveTowards(transform.position, points[i].position, speed * Time.deltaTime);
@@ -43,7 +44,7 @@ public class BeatMove : MonoBehaviour
     }
 
     private void OnCollisionExit2D(Collision2D collision) {
-        collision.transform.SetParent(null);
+        collision.transform.SetParent(playerGO.transform);
     }
    
 

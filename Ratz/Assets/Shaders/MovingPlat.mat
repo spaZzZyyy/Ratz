@@ -39,12 +39,14 @@ Material:
     m_Ints: []
     m_Floats:
     - _Boolean: 0
+    - _CellDensity: 2.51
     - _Dither: 1.1
     - _Interpolate: 2.5
     - _IsActive: 1
     - _OpacityActive: 0
     - _QueueControl: 0
     - _QueueOffset: 0
+    - _SpeedNoise: 7.1
     - _TransMax: 1.3
     - _TransMin: 0.75
     - _Transparency: 2.12
