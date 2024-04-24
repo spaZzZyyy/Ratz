@@ -7,7 +7,7 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: GreenGoop2
+  m_Name: GreenGoop2 1
   m_Shader: {fileID: -6465566751694194690, guid: 3312dd112314e254c940751beb01e9f6, type: 3}
   m_ValidKeywords: []
   m_InvalidKeywords: []
@@ -51,7 +51,7 @@ Material:
     - _power: 0.11
     - _speed: 2.12
     m_Colors:
-    - _Color: {r: 0, g: 0.043678753, b: 0.0006860537, a: 1}
+    - _Color: {r: 0, g: 19.227222, b: 0, a: 1}
   m_BuildTextureStacks: []
 --- !u!114 &3964357141268925585
 MonoBehaviour:

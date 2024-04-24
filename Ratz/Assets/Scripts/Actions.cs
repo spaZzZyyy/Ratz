@@ -18,4 +18,5 @@ public static class Actions
     public static Action OnPlayerExitMadness;
     public static Action OnFlowerShoot;
     public static Action OnPlayerDeath;
+    public static Action OnBossStart;
 }
