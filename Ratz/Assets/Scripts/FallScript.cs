@@ -11,6 +11,7 @@ public class FallScript : MonoBehaviour
         if(respawn.gameObject.CompareTag("Player")) {
             healthManager.takeDamage(2);
             healthManager.respawn = true;
+            Actions.OnPlayerDeath();
         }
     }
 }

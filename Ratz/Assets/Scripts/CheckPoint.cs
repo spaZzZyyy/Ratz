@@ -10,6 +10,7 @@ public class CheckPoint : MonoBehaviour
     // Start is called before the first frame update
     [SerializeField] GameObject lights;
     [SerializeField] GameObject lights2;
+    [SerializeField] GameObject deathPS;
     Light2D lightScript;
     Light2D lightScript2;
     GameObject respawnPoint;
@@ -30,15 +31,20 @@ public class CheckPoint : MonoBehaviour
 
     private void OnEnable() {
         Actions.OnPlayerHitCheckPoint += changeLights;
+        Actions.OnPlayerDeath += deathPlay;
     }
 
     private void OnDisable() {
         Actions.OnPlayerHitCheckPoint -= changeLights;
+        Actions.OnPlayerDeath -= deathPlay;
+    }
+
+    void deathPlay(){
+        deathPS.GetComponent<ParticleSystem>().Play();
     }
 
     void changeLights(GameObject respawnPoint){
         if (respawnPoint == this.gameObject){
-
             if(lightsTriggered == false){
 
                 StartCoroutine("flickerLights");
