@@ -6,7 +6,7 @@ using UnityEngine;
 public class startMusicTrigger : MonoBehaviour
 {
     [SerializeField] musicManager musicManager;
-    [SerializeField] mapControl mapControl;
+    //[SerializeField] mapControl mapControl;
     private bool isOn = false;
 
     private void OnTriggerEnter2D(Collider2D collision) {
