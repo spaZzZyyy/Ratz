@@ -11,4 +11,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/UnderBed_Final.unity
     guid: 7b52125eb606c654f9ad744137d951ba
+  - enabled: 1
+    path: Assets/Scenes/RhythmBoss 1.unity
+    guid: c684021fe1884684baf42e64b213cad4
   m_configObjects: {}
