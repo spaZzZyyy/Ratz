@@ -7,6 +7,7 @@ public class enviromentManager : MonoBehaviour
     private ResourceManager manager;
     private SceneManagerBoss bossManager;
     private GameObject threePillars;
+    [SerializeField] scriptBoss scriptBoss;
 
     void OnEnable(){
         Actions.OnBossStart += startBoss;
@@ -29,7 +30,7 @@ public class enviromentManager : MonoBehaviour
 
     public void callEnviroment()
     {
-        if (bossManager.attackChoice == 2)
+        if (scriptBoss.attackPattern == 2)
         {
             GameObject.FindGameObjectWithTag("spearSpawn").gameObject.GetComponent<ShootSpear>().spawnSpears();
         }

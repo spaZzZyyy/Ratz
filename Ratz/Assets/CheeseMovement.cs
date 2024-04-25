@@ -11,13 +11,14 @@ public class CheeseMovement : MonoBehaviour
     private float maxSpeed = 60.0f;
     private float curSpeed = 0.0f;
     private float attackDur = 0.0f;
-    [SerializeField] scriptBoss scriptBoss;
+    scriptBoss scriptBoss;
     [SerializeField] public int projectileCount;
     [SerializeField] GameObject projectile;
     [SerializeField] private float maxAttackDur;
     [SerializeField] public int projMoveSpeed;
     [SerializeField] public float radius;
     [SerializeField] private GameObject miniCheese;
+    private GameObject gameRef;
     float delayTime;
 
     [SerializeField] private float startAngle = 90f, endAngle = 270f;
@@ -26,6 +27,10 @@ public class CheeseMovement : MonoBehaviour
     {
         dir = Vector2.left;
         projectileCount = 8;
+
+        gameRef = GameObject.FindGameObjectWithTag("gameRef");
+        gameRef.GetComponent<CheeseMovement>();
+        //CheeseMovement = gameRef.GetComponent<refScriptBoss>();
     }
 
     // Update is called once per frame

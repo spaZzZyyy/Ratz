@@ -66,10 +66,13 @@ public class musicManager : MonoBehaviour
         slowSong = playerControls.Gameplay.Slow;
         slowSong.Enable();
         slowSong.performed += slowDownTrackAction;
+
+        Actions.OnBossStart += startMusic;
     }
 
     private void OnDisable()
     {
+        Actions.OnBossStart -= startMusic;
         changeSong.Disable();
         slowSong.Disable();
     }
