@@ -11,7 +11,7 @@ public class CheeseMovement : MonoBehaviour
     private float maxSpeed = 60.0f;
     private float curSpeed = 0.0f;
     private float attackDur = 0.0f;
-    [SerializeField] public int attackChoice;
+    [SerializeField] scriptBoss scriptBoss;
     [SerializeField] public int projectileCount;
     [SerializeField] GameObject projectile;
     [SerializeField] private float maxAttackDur;
@@ -31,7 +31,7 @@ public class CheeseMovement : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        switch (attackChoice)
+        switch (scriptBoss.attackPattern)
         {
             case 1:
                 charge();

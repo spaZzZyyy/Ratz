@@ -15,12 +15,13 @@ MonoBehaviour:
   gravityForce: 9
   movementSpeed: 8
   jumpForce: 35
+  numJumps: 0
   groundLayer:
     serializedVersion: 2
     m_Bits: 1024
   groundCheckDistance: 2.18
   minJumpHeight: 0.5
   dashDistance: 600
-  dashCoolDown: 0.92
+  dashCoolDown: 0.32
   dashDuration: 0.12
   coyoteTime: 1.32

@@ -22,6 +22,6 @@ MonoBehaviour:
   groundCheckDistance: 0.1
   minJumpHeight: 0.1
   dashDistance: 30
-  dashCoolDown: 1
-  dashDuration: 0.2
+  dashCoolDown: 0.2
+  dashDuration: 0.25
   coyoteTime: 1

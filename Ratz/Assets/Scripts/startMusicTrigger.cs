@@ -14,6 +14,7 @@ public class startMusicTrigger : MonoBehaviour
         if(isOn == false) {
             if(collision.gameObject.CompareTag("Player")){
                 musicManager.startGame = true;
+                Actions.OnBossStart();
                 //mapControl.initiate = true;
                 isOn = true;
             }

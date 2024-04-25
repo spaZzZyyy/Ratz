@@ -8,6 +8,18 @@ public class enviromentManager : MonoBehaviour
     private SceneManagerBoss bossManager;
     private GameObject threePillars;
 
+    void OnEnable(){
+        Actions.OnBossStart += startBoss;
+    }
+
+    void OnDisable(){
+        Actions.OnBossStart -= startBoss;
+    }
+
+    void startBoss(){
+        callEnviroment();
+    }
+
     private void Start()
     {
         manager = GameObject.Find("Body").GetComponent<ResourceManager>();

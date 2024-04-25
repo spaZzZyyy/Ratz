@@ -6,6 +6,7 @@ public class SceneManagerBoss : MonoBehaviour
 {
     [SerializeField] int maxAttackRange;
     [SerializeField] private CheeseMovement cheese;
+    [SerializeField] scriptBoss scriptBoss;
     [SerializeField] public int attackBeats;
     public int attackChoice;
 
@@ -16,10 +17,23 @@ public class SceneManagerBoss : MonoBehaviour
     [SerializeField] private int healthMax;
     private int health;
 
+    void OnEnable(){
+        Actions.OnBossStart += startBoss;
+    }
+
+    void OnDisable(){
+        Actions.OnBossStart -= startBoss;
+    }
+
+    void startBoss(){
+        callAttack();
+    }
+
     private void Start()
     {
         health = healthMax;
-
+        scriptBoss.attackBeats = 0;
+        scriptBoss.attackPattern = 0;
     }
 
     private void Update()
@@ -38,33 +52,33 @@ public class SceneManagerBoss : MonoBehaviour
     public void callAttack()
     {
         
-        if (attackBeats <= 0)
+        if (scriptBoss.attackBeats <= 0)
         {
-            cheese = GameObject.FindGameObjectWithTag("Enemy").GetComponent<CheeseMovement>();
             attackChoice = selectAttack();
             if(attackChoice == 1)
             {
-                attackBeats = attackDuration1;
+                scriptBoss.attackBeats = attackDuration1;
             }
             else if (attackChoice == 2)
             {
-                attackBeats = attackDuration2;
+                scriptBoss.attackBeats = attackDuration2;
             }
             else if(attackChoice == 3)
             {
-                attackBeats = attackDuration3;
+                scriptBoss.attackBeats = attackDuration3;
             }
-        }
-        else
-        {
-            attackBeats--;
-        }
+            }
+            else
+            {
+                scriptBoss.attackBeats--;
+            }
+        
     }
     private int selectAttack()
     {
         int rand = Random.Range(1, maxAttackRange);
         Debug.Log(rand);
-        cheese.attackChoice = rand;
+        scriptBoss.attackPattern = rand;
         return rand;
         
     }

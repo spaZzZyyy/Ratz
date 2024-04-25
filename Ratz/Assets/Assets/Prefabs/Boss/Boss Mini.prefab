@@ -154,3 +154,5 @@ MonoBehaviour:
   bigCheese: {fileID: 4784444171497962715, guid: 6082d1c184f72c843b73ed9fab1b6217, type: 3}
   jumpForce: 18
   curSpeed: 10
+  manager: {fileID: 0}
+  scriptBoss: {fileID: 11400000, guid: 70141341e4ec8524e82a5637c06e3039, type: 2}

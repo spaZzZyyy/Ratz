@@ -15,6 +15,7 @@ public class miniCheese : MonoBehaviour
     [SerializeField] private float jumpForce;
     [SerializeField] private float curSpeed;
     [SerializeField] private SceneManagerBoss manager;
+    [SerializeField] scriptBoss scriptBoss;
 
     private void Start()
     {
@@ -26,8 +27,8 @@ public class miniCheese : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        attackTime = manager.attackBeats;
-        if(attackTime > 0)
+        
+        if(scriptBoss.attackBeats > 0)
         {
 
             if(IsGrounded())
