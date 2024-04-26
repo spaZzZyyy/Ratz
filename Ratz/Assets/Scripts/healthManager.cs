@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Rendering;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public class healthManager : MonoBehaviour
@@ -36,7 +37,12 @@ public class healthManager : MonoBehaviour
         }
 
         if(respawn == true) {
-            if(health < 1) {
+            if (SceneManager.GetActiveScene().buildIndex == 2)
+            {
+                SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+                respawn = false;
+            }
+            else if (health < 1) {
                 health = maxHealth;
                 respawnScript.respawnPoint = respawnScript.mainRespawnPoint;
                 respawnScript.Respawn();
@@ -58,10 +64,7 @@ public class healthManager : MonoBehaviour
             StartCoroutine("OnGiveIFrames");
             Actions.PlayerTookDamage();
             healthWhiskers.sprite = Resources.Load<Sprite>("Sprites/health" + health);
-            Debug.Log(healthWhiskers.sprite);
         }
-        Debug.Log(health);
-
     }
 
     public void gainHealth(int heal){

@@ -8,6 +8,7 @@ public class enviromentManager : MonoBehaviour
     private SceneManagerBoss bossManager;
     private GameObject threePillars;
     [SerializeField] scriptBoss scriptBoss;
+    bool allFall;
 
     void OnEnable(){
         Actions.OnBossStart += startBoss;
@@ -25,7 +26,20 @@ public class enviromentManager : MonoBehaviour
     {
         manager = GameObject.Find("Body").GetComponent<ResourceManager>();
         bossManager = GameObject.Find("BossManager").GetComponent<SceneManagerBoss>();
-        threePillars = GameObject.Find("Pillars");
+        threePillars = GameObject.FindGameObjectWithTag("pillarBoss");
+    }
+
+    private void Update()
+    {
+
+        if (threePillars.transform.GetChild(0).GetComponent<Rigidbody2D>().velocity != Vector2.zero && threePillars.transform.GetChild(1).GetComponent<Rigidbody2D>().velocity != Vector2.zero && threePillars.transform.GetChild(2).GetComponent<Rigidbody2D>().velocity != Vector2.zero)
+        {
+            allFall = true;
+        }
+        else
+        {
+            allFall = false;
+        }
     }
 
     public void callEnviroment()
@@ -40,10 +54,15 @@ public class enviromentManager : MonoBehaviour
             {
                 int childCount = threePillars.transform.childCount;
                 int randChoice = Random.Range(0, childCount);
-                if(threePillars.transform.GetChild(randChoice).GetComponent<Rigidbody2D>().velocity != Vector2.zero)
+                if(threePillars.transform.GetChild(randChoice).GetComponent<Rigidbody2D>().velocity == Vector2.zero)
                 {
                     threePillars.transform.GetChild(randChoice).GetComponent<pillarMovement>().boolFall = true;
-                } else
+                }
+                else if (allFall)
+                {
+                    return;
+                }
+                else
                 {
                     callEnviroment();
                 }

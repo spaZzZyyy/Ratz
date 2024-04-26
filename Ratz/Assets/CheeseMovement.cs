@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Net.Http.Headers;
 using TMPro;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class CheeseMovement : MonoBehaviour
@@ -11,14 +12,14 @@ public class CheeseMovement : MonoBehaviour
     private float maxSpeed = 60.0f;
     private float curSpeed = 0.0f;
     private float attackDur = 0.0f;
-    scriptBoss scriptBoss;
+    [SerializeField] scriptBoss scriptBoss;
     [SerializeField] public int projectileCount;
     [SerializeField] GameObject projectile;
     [SerializeField] private float maxAttackDur;
     [SerializeField] public int projMoveSpeed;
+    [SerializeField] public float projDown;
     [SerializeField] public float radius;
     [SerializeField] private GameObject miniCheese;
-    private GameObject gameRef;
     float delayTime;
 
     [SerializeField] private float startAngle = 90f, endAngle = 270f;
@@ -27,10 +28,6 @@ public class CheeseMovement : MonoBehaviour
     {
         dir = Vector2.left;
         projectileCount = 8;
-
-        gameRef = GameObject.FindGameObjectWithTag("gameRef");
-        gameRef.GetComponent<CheeseMovement>();
-        //CheeseMovement = gameRef.GetComponent<refScriptBoss>();
     }
 
     // Update is called once per frame
@@ -128,8 +125,10 @@ public class CheeseMovement : MonoBehaviour
               Vector2 bulDir = (bulMoveVec- transform.position).normalized;
 
               GameObject bul = Instantiate(projectile);
-              bul.transform.position = transform.position;
-              bul.GetComponent<goop>().setMoveDir(bulDir);
+            Physics2D.IgnoreCollision(bul.gameObject.GetComponent<Collider2D>(), this.gameObject.GetComponent<Collider2D>());
+            bul.transform.position = new Vector2(this.transform.position.x, this.transform.position.y);
+            
+            bul.GetComponent<goop>().setMoveDir(bulDir);
               bul.GetComponent<goop>().setMoveSpeed(projMoveSpeed);
 
             angle += angleStep;

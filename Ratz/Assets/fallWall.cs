@@ -13,7 +13,6 @@ public class fallWall : MonoBehaviour
     private void OnTriggerEnter2D(Collider2D collision)
     {
         
-        Debug.Log("falling");
         if (collision.gameObject.tag == "Player" && !fell)
         {
             fell = true;

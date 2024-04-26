@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class ShootSpear : MonoBehaviour
 {
@@ -10,13 +11,23 @@ public class ShootSpear : MonoBehaviour
     [SerializeField] float speed;
     [SerializeField] private GameObject wallLeft;
     [SerializeField] private GameObject wallRight;
+    [SerializeField] private bool allSpawed;
+    int spearCount;
 
     private void Start()
     {
         wallLeft = GameObject.Find("Left");
         wallRight = GameObject.Find("Right");
     }
-   
+
+    private void Update()
+    {   
+        spearCount = GameObject.FindGameObjectsWithTag("spear").Count();
+        if (spearCount == 6 ) {
+            allSpawed = true;
+        }
+    }
+
     public void spawnSpears() 
     {
         var parents = GameObject.FindGameObjectsWithTag("spearSpawn");
@@ -35,7 +46,12 @@ public class ShootSpear : MonoBehaviour
                     spearParent = wallRight;
                 }
                 Debug.Log("spawning spears");
-                Actions.OnFlowerShoot();
+
+                if(SceneManager.GetActiveScene().buildIndex == 1)
+                {
+                    Actions.OnFlowerShoot();
+                }
+                
     
                 var newPlatform = Instantiate(Resources.Load("Prefabs/Platforms/spear"), parent.transform);
                 Physics2D.IgnoreCollision(newPlatform.GetComponent<Collider2D>(), spearParent.GetComponent<Collider2D>());
@@ -64,6 +80,11 @@ public class ShootSpear : MonoBehaviour
             Physics2D.IgnoreCollision(newPlatform.GetComponent<Collider2D>(), parent.GetComponent<Collider2D>());
             newPlatform.GetComponent<spears>().direction = spears[randoSpearIndex].gameObject.GetComponent<ShootSpear>().direction;
             newPlatform.GetComponent<spears>().speed = spears[randoSpearIndex].gameObject.GetComponent<ShootSpear>().speed;
+        }
+
+        else if (allSpawed)
+        {
+            return;
         }
         else
         {

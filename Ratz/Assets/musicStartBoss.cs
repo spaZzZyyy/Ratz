@@ -15,7 +15,6 @@ public class musicStartBoss : MonoBehaviour
     }
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        Debug.Log("hit");
         if (isOn == false)
         {
             if (collision.gameObject.CompareTag("Player"))
