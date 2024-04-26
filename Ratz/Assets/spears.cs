@@ -9,10 +9,14 @@ public class spears : MonoBehaviour
     public float speed;
     bool rmSpear = false;
     [SerializeField] float lastingTime = 6f;
+    bool spearLeft;
+    bool turnedLeft;
     // Start is called before the first frame update
     void Start()
     {
         _rb = GetComponent<Rigidbody2D>();
+        spearLeft = false;
+       
     }
 
     // Update is called once per frame
@@ -35,11 +39,21 @@ public class spears : MonoBehaviour
             Destroy(this.gameObject);
                 }
 
+        if (_rb.velocity.x < 0 && !turnedLeft)
+        {
+            spearLeft = true;
+        }
+        if (spearLeft && !turnedLeft)
+        {
+            transform.localScale = new Vector3(-transform.localScale.x, transform.localScale.y, transform.localScale.z);
+            turnedLeft = true;
+        }
+
     }
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        
+        Debug.Log(collision.gameObject.name);
         if (collision.gameObject.tag != "Player" && collision.gameObject.tag != "Enemy" && collision.gameObject.tag != "mainCheese")
         {
             if (collision.gameObject.layer == 8)

@@ -20,6 +20,7 @@ TagManager:
   - mainCheese
   - bossManager
   - gameRef
+  - pillarBoss
   layers:
   - Default
   - TransparentFX

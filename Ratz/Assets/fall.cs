@@ -45,7 +45,6 @@ public class fall : MonoBehaviour
         }
         if (timer < 0)
         {
-            Debug.Log(rb.velocity);
             rb.velocity += rb.velocity * fallSpeedIncrease;
         }
     }

@@ -45,13 +45,15 @@ public class SceneManagerBoss : MonoBehaviour
                 Destroy(enemy);
             }
             Destroy(GameObject.FindGameObjectWithTag("mainCheese"));
-            Debug.Log("Game Over, you win");
         }
     }
 
     public void callAttack()
     {
-        
+        if (cheese == null)
+        {
+            findCheese();
+        }
         if (scriptBoss.attackBeats <= 0)
         {
             attackChoice = selectAttack();
@@ -73,6 +75,14 @@ public class SceneManagerBoss : MonoBehaviour
                 scriptBoss.attackBeats--;
             }
         
+    }
+
+    private void findCheese()
+    {
+        if(GameObject.FindGameObjectWithTag("bossManager").GetComponent<SceneManagerBoss>().health > 0)
+        {
+            cheese = GameObject.FindGameObjectWithTag("Enemy").GetComponent<CheeseMovement>();
+        }
     }
     private int selectAttack()
     {

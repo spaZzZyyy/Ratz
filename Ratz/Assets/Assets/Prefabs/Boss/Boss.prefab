@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 4784444171497962712}
   - component: {fileID: 4784444171497962713}
   - component: {fileID: 4784444171497962714}
-  m_Layer: 6
+  m_Layer: 0
   m_Name: Boss
   m_TagString: Enemy
   m_Icon: {fileID: 0}
@@ -133,7 +133,7 @@ Rigidbody2D:
   m_Interpolate: 0
   m_SleepingMode: 1
   m_CollisionDetection: 0
-  m_Constraints: 0
+  m_Constraints: 4
 --- !u!114 &4784444171497962714
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -147,11 +147,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   acceleration: 2
-  attackChoice: 0
+  scriptBoss: {fileID: 11400000, guid: 70141341e4ec8524e82a5637c06e3039, type: 2}
   projectileCount: 10
   projectile: {fileID: 324083478218477001, guid: 0f63a0817c1453c4f98d50b3ef2221a3, type: 3}
   maxAttackDur: 50
   projMoveSpeed: 5
+  projDown: 2
   radius: 10
   miniCheese: {fileID: 5008560575853412548, guid: dd3bd7fac078c6e429a819d268848ed6, type: 3}
   startAngle: -90

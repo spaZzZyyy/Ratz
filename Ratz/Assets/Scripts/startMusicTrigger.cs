@@ -10,10 +10,10 @@ public class startMusicTrigger : MonoBehaviour
     private bool isOn = false;
 
     private void OnTriggerEnter2D(Collider2D collision) {
-        Debug.Log("hit");
         if(isOn == false) {
             if(collision.gameObject.CompareTag("Player")){
                 musicManager.startGame = true;
+                musicManager.switchTracksActionCopy();
                 Actions.OnBossStart();
                 //mapControl.initiate = true;
                 isOn = true;

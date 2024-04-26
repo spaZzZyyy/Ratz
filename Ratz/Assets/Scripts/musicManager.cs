@@ -219,7 +219,7 @@ public class musicManager : MonoBehaviour
         }
     }
 
-    void startMusic() {
+    public void startMusic() {
         musicIsPlaying = true;
         for (int i = 0; i < numOfTracks; i++) {
             trackList[i].UnPause();
@@ -308,7 +308,40 @@ public class musicManager : MonoBehaviour
         }
     }
 
-    
+    public void switchTracksActionCopy()
+    {
+        //switch tracks
+        
+            stopMusic();
+            Actions.OnPlayerSwitchTrack();
+            Debug.Log("PlayerSwitchedTrack");
+            //switchTracks();
+            startMusic();
+
+            //check for resources if entering halftime
+            if (trackToPlay == 0 || trackToPlay == 2)
+            {
+                if (halfOut == false)
+                {
+                    stopMusic();
+                    Actions.OnPlayerSwitchTrack();
+                    halftimeTracks();
+                    changeHalfTime();
+                    startMusic();
+                    //no more spamming, adds 10% everytime you start
+                    resourceManager.halfAmount = resourceManager.halfAmount + (resourceManager.halfMax / 10);
+                }
+            }
+            else
+            {
+                stopMusic();
+                Actions.OnPlayerSwitchTrack();
+                halftimeTracks();
+                changeHalfTime();
+                startMusic();
+            }
+        
+    }
 
     /*
     void setMusicSpeed(){

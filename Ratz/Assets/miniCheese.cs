@@ -40,6 +40,7 @@ public class miniCheese : MonoBehaviour
         }
         else
         {
+            rb.velocity = Vector3.zero;
             Vector2 middlePosition = new Vector2(4, -4.5f);
             if (transform.position.x < 3.75 || transform.position.x > 4.25)
             {
