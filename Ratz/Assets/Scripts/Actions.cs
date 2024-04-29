@@ -26,4 +26,6 @@ public static class Actions
     public static Action OnBossMiniSlimes;
     public static Action OnBossAttackBurst;
     public static Action OnBossHurt;
+
+    public static Action OnGameEnd;
 }

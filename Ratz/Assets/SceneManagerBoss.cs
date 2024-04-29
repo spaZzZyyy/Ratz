@@ -101,6 +101,9 @@ public class SceneManagerBoss : MonoBehaviour
         if (health > 0){
             Actions.OnBossHurt();
         }
+        if (health < 0){
+            Actions.OnGameEnd();
+        }
         Debug.Log(health);
     }
 }
