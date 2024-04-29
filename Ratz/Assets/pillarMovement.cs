@@ -68,15 +68,14 @@ public class pillarMovement : MonoBehaviour
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        Debug.Log(collision.gameObject.tag);
         if (collision.gameObject.name == "Floor" || (collision.gameObject.tag == "Enemy" && scriptBoss.attackPattern != 3) || collision.gameObject.tag == "Player")
         {
-            if ((collision.gameObject.tag == "Enemy" || collision.gameObject.tag != "mainCheese") && rb.velocity.y < 0)
+            if ((collision.gameObject.tag == "Enemy" || collision.gameObject.tag != "mainCheese") && rb.velocity.y <= 0)
             {
                 Debug.Log(rb.velocity.y);
                 Debug.Log("damaged boss");
                 GameObject.Find("BossManager").GetComponent<SceneManagerBoss>().DamageBoss();
-            } else if (collision.gameObject.tag == "Player")
+            } else if (collision.gameObject.tag == "Player" && rb.velocity.y <= 0)
             {
                 GameObject.Find("HealthManager").GetComponent<healthManager>().takeDamage(1);
             }

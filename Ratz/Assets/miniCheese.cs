@@ -16,12 +16,14 @@ public class miniCheese : MonoBehaviour
     [SerializeField] private float curSpeed;
     [SerializeField] private SceneManagerBoss manager;
     [SerializeField] scriptBoss scriptBoss;
+    bool faceLeft;
 
     private void Start()
     {
         box = GetComponent<BoxCollider2D>();
         rb = GetComponent<Rigidbody2D>();
         manager = GameObject.FindGameObjectWithTag("bossManager").GetComponent<SceneManagerBoss>();
+        faceLeft = false;
         
     }
     // Update is called once per frame
@@ -54,12 +56,28 @@ public class miniCheese : MonoBehaviour
                 Destroy(this.gameObject);
             }
             
-        }        
+        }
+
+        if (startDir.x == Vector2.left.x && faceLeft)
+        {
+            flip();
+            faceLeft = false;
+        }
+        else if (startDir.x == Vector2.right.x && !faceLeft)
+        {
+            flip();
+            faceLeft = true;
+        }
     }
     public bool IsGrounded()
     {
         RaycastHit2D rayHit = Physics2D.BoxCast(box.bounds.center, box.bounds.size, 0, Vector2.down, 0.1f, groundLayer);
         return rayHit.collider != null;
+    }
+
+    private void flip()
+    {
+        transform.localScale = new Vector3(-transform.localScale.x, transform.localScale.y, transform.localScale.z);
     }
 
     public void Jump()

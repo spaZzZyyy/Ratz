@@ -31,7 +31,6 @@ public class ShaderHurt : MonoBehaviour
     IEnumerator tookDmg(){
         yield return new WaitForSeconds(timeHurt);
         material.SetInt("_OnOff", 1); 
-        Debug.Log("PlayerTookDmg");
     }
     
 }
