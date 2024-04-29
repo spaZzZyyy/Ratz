@@ -96,5 +96,6 @@ public class SceneManagerBoss : MonoBehaviour
     public void DamageBoss()
     {
         health--;
+        Debug.Log(health);
     }
 }

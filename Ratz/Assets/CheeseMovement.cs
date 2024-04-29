@@ -21,6 +21,8 @@ public class CheeseMovement : MonoBehaviour
     [SerializeField] public float radius;
     [SerializeField] private GameObject miniCheese;
     float delayTime;
+    bool faceLeft;
+    Rigidbody2D rb;
 
     [SerializeField] private float startAngle = 90f, endAngle = 270f;
     // Start is called before the first frame update
@@ -28,6 +30,9 @@ public class CheeseMovement : MonoBehaviour
     {
         dir = Vector2.left;
         projectileCount = 8;
+        faceLeft = true;
+        rb = GetComponent<Rigidbody2D>();
+
     }
 
     // Update is called once per frame
@@ -51,7 +56,15 @@ public class CheeseMovement : MonoBehaviour
                // Debug.Log("somehow here");
                 break;
         }
-
+        if (dir.x == Vector2.left.x && !faceLeft)
+        {
+            flip();
+            faceLeft = true;
+        } else if (dir.x == Vector2.right.x && faceLeft)
+        {
+            flip();
+            faceLeft = false;
+        }
     }
 
     private void OnCollisionEnter2D(Collision2D collision)
@@ -67,7 +80,10 @@ public class CheeseMovement : MonoBehaviour
         }
     }
 
-
+    private void flip()
+    {
+        transform.localScale = new Vector3(-transform.localScale.x, transform.localScale.y, transform.localScale.z);
+    }
     private void charge()
     {
         transform.Translate(dir * curSpeed * Time.deltaTime);

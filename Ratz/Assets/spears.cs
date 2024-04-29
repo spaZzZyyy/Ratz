@@ -53,7 +53,6 @@ public class spears : MonoBehaviour
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        Debug.Log(collision.gameObject.name);
         if (collision.gameObject.tag != "Player" && collision.gameObject.tag != "Enemy" && collision.gameObject.tag != "mainCheese")
         {
             if (collision.gameObject.layer == 8)
