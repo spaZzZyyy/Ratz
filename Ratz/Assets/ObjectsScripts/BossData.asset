@@ -13,5 +13,5 @@ MonoBehaviour:
   m_Name: BossData
   m_EditorClassIdentifier: 
   bossPrefab: {fileID: 4784444171497962715, guid: 6082d1c184f72c843b73ed9fab1b6217, type: 3}
-  attackPattern: 3
-  attackBeats: 6
+  attackPattern: 1
+  attackBeats: 5

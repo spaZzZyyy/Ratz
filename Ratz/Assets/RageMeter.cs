@@ -24,11 +24,11 @@ public class RageMeter : MonoBehaviour
     }
     void Update()
     {
-        if (manager.madOn)
+        if (manager.halfOn && manager.madOn && manager.halfMax > 0)
         {
             mask.SetActive(true);
             eyes.SetActive(true);
-            precentage = manager.madAmount / manager.madMax;
+            precentage = manager.halfAmount / manager.halfMax;
             mask.transform.position = new Vector3(maskStartPosition.x, maskStartPosition.y - canvasSize * precentage, maskStartPosition.z);
             eyes.transform.position = eyesStartPosition;
         }
