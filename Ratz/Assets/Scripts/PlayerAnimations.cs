@@ -61,10 +61,10 @@ public class PlayerAnimations : MonoBehaviour
     {
         //  Actions.OnPlayerJump -= PlayerJumped;
         /*   Actions.OnPlayerDashed -= PlayerDashed; */
-        Actions.OnParry -= PlayerParried;
-        Actions.NotParry -= PlayerNotParried;
+        //Actions.OnParry -= PlayerParried;
+        //Actions.NotParry -= PlayerNotParried;
         Actions.PlayerTookDamage -= TakeDamage;
-        Actions.OnPlayerSwitchTrack += switchTracks;
+        Actions.OnPlayerSwitchTrack -= switchTracks;
         Actions.OnPlayerEnterMadness -= PlayerEnterMadness;
         Actions.OnPlayerExitMadness -= PlayerExitMadness;
         jump.Disable();

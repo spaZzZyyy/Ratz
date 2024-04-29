@@ -19,4 +19,10 @@ public static class Actions
     public static Action OnFlowerShoot;
     public static Action OnPlayerDeath;
     public static Action OnBossStart;
+
+
+    //Boss Animations Actions
+    public static Action OnBossCharge;
+    public static Action OnBossMiniSlimes;
+    public static Action OnBossAttackBurst;
 }

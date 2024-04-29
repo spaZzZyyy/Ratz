@@ -37,17 +37,21 @@ public class CheeseMovement : MonoBehaviour
         {
             case 1:
                 charge();
+                Actions.OnBossCharge();
                 break;
             case 2:
                 spreadShot();
+                Actions.OnBossAttackBurst();
                 break;
             case 3:
                 miniSlimes();
+                Actions.OnBossMiniSlimes();
                 break;
             default:
                // Debug.Log("somehow here");
                 break;
         }
+
     }
 
     private void OnCollisionEnter2D(Collision2D collision)
@@ -70,8 +74,18 @@ public class CheeseMovement : MonoBehaviour
 
         curSpeed += acceleration * Time.deltaTime;
 
-        if (curSpeed > maxSpeed)
+        if (curSpeed > maxSpeed){
             curSpeed = maxSpeed;
+        }
+
+        /*
+        if (dir.x > 0){
+            Actions.OnBossMoveLeft();
+        }
+        if (dir.x < 0){
+            Actions.OnBossMoveRight();
+        }
+        */
     }
 
     private void spreadShot()
