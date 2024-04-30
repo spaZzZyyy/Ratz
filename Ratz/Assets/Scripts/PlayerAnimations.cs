@@ -4,8 +4,7 @@ using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 using UnityEngine.InputSystem;
-using UnityEngine.iOS;
-using UnityEngine.U2D.Animation;
+
 
 public class PlayerAnimations : MonoBehaviour
 {
