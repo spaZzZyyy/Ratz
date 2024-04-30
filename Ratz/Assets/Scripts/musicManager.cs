@@ -10,8 +10,10 @@ public class musicManager : MonoBehaviour
     #region Variables
     [SerializeField] AudioSource track1;
     [SerializeField] AudioSource track2;
-    [SerializeField] AudioSource track3;
-    [SerializeField] AudioSource track4;
+
+
+    // [SerializeField] AudioSource track3;
+    // [SerializeField] AudioSource track4;
 
 
     //[SerializeField] AudioSource stopTime;
@@ -43,10 +45,12 @@ public class musicManager : MonoBehaviour
     //! eliCode
     [SerializeField] BeatManager beatManager;
     [SerializeField] ResourceManager resourceManager;
-    public bool halfOut = false;
-    public bool madOut = true;
+    public bool halfOut;
+    public bool madOut;
     private bool halfIt;
     public bool platformMad;
+    AudioLowPassFilter audioFilter1;
+    AudioLowPassFilter audioFilter2;
     //!
     #endregion
 
@@ -84,6 +88,10 @@ public class musicManager : MonoBehaviour
         audioSourceToPlay = trackList[trackToPlay];
         platformMad = false;
         madOut = true;
+        halfOut = true;
+        audioFilter1 = track1.GetComponent(typeof(AudioLowPassFilter)) as AudioLowPassFilter;
+        audioFilter2 = track2.GetComponent(typeof(AudioLowPassFilter)) as AudioLowPassFilter;
+        
     }
 
     void Update()
@@ -97,11 +105,12 @@ public class musicManager : MonoBehaviour
 
         }
         */
+        //track1.AudioDistortionFilter.distortionLevel = 1;
 
 
 
         if(halfOut == true) {
-            if(trackToPlay == 1 || trackToPlay == 3) {
+            if(trackToPlay == 2) {
                 stopMusic();
                 halftimeTracks();
                 changeHalfTime();
@@ -159,7 +168,7 @@ public class musicManager : MonoBehaviour
 
     void halftimeTracks(){
         //going to halftime
-        if (trackToPlay == 0 || trackToPlay == 2){
+        if (trackToPlay == 0){
             trackToPlay++;
             musicChanged = true;
             //trackSpeed = .5f;
@@ -190,9 +199,9 @@ public class musicManager : MonoBehaviour
 
     void madnessTracks(){
         //entering madness
-        if (trackToPlay < 2){
-            trackToPlay = trackToPlay + 2;
-            musicChanged = true;
+        if (platformMad == false){
+            // trackToPlay = trackToPlay + 2;
+            // musicChanged = true;
             //!turning off boxCollider goes here
             platformMad = true;
             resourceManager.madOn = true;
@@ -200,15 +209,15 @@ public class musicManager : MonoBehaviour
 
         //leaving madness
         } else {
-            trackToPlay = trackToPlay - 2;
-            musicChanged = true;
+            // trackToPlay = trackToPlay - 2;
+            // musicChanged = true;
             //!turning on boxCollider goes here
             platformMad = false;
             resourceManager.madOn = false;
             Actions.OnPlayerExitMadness();
         }
-        audioSourceToPlay = trackList[trackToPlay];
-        beatManager._audioSource = trackList[trackToPlay];
+        // audioSourceToPlay = trackList[trackToPlay];
+        // beatManager._audioSource = trackList[trackToPlay];
     }
 
     void stopMusic() {
@@ -231,8 +240,6 @@ public class musicManager : MonoBehaviour
         trackList = new List<AudioSource>();
         trackList.Add(track1);
         trackList.Add(track2);
-        trackList.Add(track3);
-        trackList.Add(track4);
         numOfTracks = trackList.Count;
         for (int i = 0; i < numOfTracks; i++) {
             trackList[i].Play();
@@ -250,14 +257,14 @@ public class musicManager : MonoBehaviour
         //switch tracks
         if (ctx.performed)
         {
-            stopMusic();
-            Actions.OnPlayerSwitchTrack();
-            Debug.Log("PlayerSwitchedTrack");
+            // stopMusic();
+            // Actions.OnPlayerSwitchTrack();
+            // Debug.Log("PlayerSwitchedTrack");
             //switchTracks();
-            startMusic();
+            //startMusic();
 
             //check for resources if entering halftime
-            if(trackToPlay == 0 || trackToPlay == 2) {
+            if(trackToPlay == 0) {
                 if(halfOut == false) {
                     stopMusic();
                     Actions.OnPlayerSwitchTrack();
@@ -276,23 +283,35 @@ public class musicManager : MonoBehaviour
             }   
         }
     }
-    //NAMES ARE GOOFED, THIS IS FOR ENTERING MADNESS
+    //! NAMES ARE GOOFED, THIS IS FOR ENTERING MADNESS
     void slowDownTrackAction(InputAction.CallbackContext ctx)
     {
         if(ctx.performed)
         {
-            if(trackToPlay == 0 || trackToPlay == 1) {
-                if(madOut == false) {
-                    stopMusic();
-                    madnessTracks();
-                    startMusic();
-                }
-            } else {
-                stopMusic();
+            //if(trackToPlay == 0 || trackToPlay == 1) {
+            if(madOut == false) {
+                //stopMusic();
                 madnessTracks();
-                startMusic();
-            }
+                changeMadness();
+                //startMusic();
+            //  }
+            } //else {
+                //stopMusic();
+                //madnessTracks();
+                //startMusic();
+            //}
             
+        }
+    }
+
+    void changeMadness() {
+        for(int i = 0; i < numOfTracks; i++) {
+            if(platformMad == true) {    
+                audioFilter1.enabled = true;
+                audioFilter2.enabled = true;
+            } else {
+                audioFilter1.enabled = false;
+                audioFilter2.enabled = false;            }
         }
     }
 
