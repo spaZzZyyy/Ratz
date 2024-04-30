@@ -1,12 +1,10 @@
 using System.Collections;
 using System.Collections.Generic;
-using UnityEditor.Experimental.GraphView;
-using UnityEditor.UI;
 using UnityEngine;
 
 public class EnemyMovementFollow : MonoBehaviour
 {
-    [SerializeField] GameObject player;
+   /* [SerializeField] GameObject player;
     [SerializeField] private float speed;
     [SerializeField] private AttackPlayer playerAttack;
     [SerializeField] private float rayCastOffset;
@@ -94,6 +92,6 @@ public class EnemyMovementFollow : MonoBehaviour
             dir = Vector2.left;
         }
         return dir;
-    }
+    }*/
     
 }
