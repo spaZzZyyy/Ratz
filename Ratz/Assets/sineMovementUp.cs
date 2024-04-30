@@ -59,6 +59,6 @@ public class sineMovementUp : MonoBehaviour
 
     private void OnCollisionExit2D(Collision2D collision)
     {
-        collision.transform.SetParent(null);
+        collision.transform.SetParent(playerGO.transform);
     }
 }
