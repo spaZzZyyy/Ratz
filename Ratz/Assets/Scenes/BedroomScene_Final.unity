@@ -10442,7 +10442,7 @@ SpriteRenderer:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 853077684}
-  m_Enabled: 1
+  m_Enabled: 0
   m_CastShadows: 0
   m_ReceiveShadows: 0
   m_DynamicOccludee: 1
@@ -19794,7 +19794,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 136892406451725361, guid: e34100e8f64a0fd40a33bd1f6b7b412c, type: 3}
       propertyPath: m_RootOrder
-      value: 39
+      value: 40
       objectReference: {fileID: 0}
     - target: {fileID: 136892406451725361, guid: e34100e8f64a0fd40a33bd1f6b7b412c, type: 3}
       propertyPath: m_AnchorMax.x
