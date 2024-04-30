@@ -17,7 +17,7 @@ public class SceneManagerBoss : MonoBehaviour
     [SerializeField] private int attackDuration3;
 
     [SerializeField] private int healthMax;
-    private int health;
+    [SerializeField] private int health;
 
     void OnEnable(){
         Actions.OnBossStart += startBoss;
@@ -40,7 +40,7 @@ public class SceneManagerBoss : MonoBehaviour
 
     private void Update()
     {
-        if (health <0) {
+        if (health <=0) {
             var enemies = GameObject.FindGameObjectsWithTag("Enemy");
             foreach (var enemy in enemies)
             {
