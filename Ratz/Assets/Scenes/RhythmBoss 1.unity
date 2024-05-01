@@ -2026,7 +2026,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 32f2a396c26a659419195b246c707628, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  offset: {x: 0, y: 10, z: -10}
+  offset: {x: 0, y: 5, z: -10}
   ease: 0.25
   cam: {fileID: 225607321}
   target: {fileID: 1860721858652837285}
