@@ -56,7 +56,7 @@ Material:
     - _density: 10.96
     - _intensity: 1.15
     - _isMad: 1
-    - _power: 2.48
+    - _power: 1.08
     - _speed: 1.66
     m_Colors:
     - _Color: {r: 0.6132076, g: 0.02024743, b: 0.02024743, a: 0}
