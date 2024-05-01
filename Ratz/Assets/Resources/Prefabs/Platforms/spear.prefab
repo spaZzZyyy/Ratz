@@ -269,7 +269,7 @@ BoxCollider2D:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1544924580232579974}
-  m_Enabled: 1
+  m_Enabled: 0
   m_Density: 1
   m_Material: {fileID: 0}
   m_IsTrigger: 0
@@ -518,15 +518,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8173344276756176400, guid: ae21229b0a4279a4e973ece982665518, type: 3}
       propertyPath: m_Bounds.m_Center.x
-      value: 0.24176979
+      value: 0.2418356
       objectReference: {fileID: 0}
     - target: {fileID: 8173344276756176400, guid: ae21229b0a4279a4e973ece982665518, type: 3}
       propertyPath: m_Bounds.m_Center.y
-      value: 0.23866153
+      value: 0.23865867
       objectReference: {fileID: 0}
     - target: {fileID: 8173344276756176400, guid: ae21229b0a4279a4e973ece982665518, type: 3}
       propertyPath: m_Bounds.m_Extent.x
-      value: 5.755562
+      value: 5.755575
       objectReference: {fileID: 0}
     - target: {fileID: 8324441810143097585, guid: ae21229b0a4279a4e973ece982665518, type: 3}
       propertyPath: m_LocalRotation.w
@@ -550,19 +550,19 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8768268607080710701, guid: ae21229b0a4279a4e973ece982665518, type: 3}
       propertyPath: m_Bounds.m_Center.x
-      value: -1.9350812
+      value: -1.9350436
       objectReference: {fileID: 0}
     - target: {fileID: 8768268607080710701, guid: ae21229b0a4279a4e973ece982665518, type: 3}
       propertyPath: m_Bounds.m_Center.y
-      value: -3.1936588
+      value: -3.1936574
       objectReference: {fileID: 0}
     - target: {fileID: 8768268607080710701, guid: ae21229b0a4279a4e973ece982665518, type: 3}
       propertyPath: m_Bounds.m_Extent.x
-      value: 3.499717
+      value: 3.4997175
       objectReference: {fileID: 0}
     - target: {fileID: 8768268607080710701, guid: ae21229b0a4279a4e973ece982665518, type: 3}
       propertyPath: m_Bounds.m_Extent.y
-      value: 0.39728832
+      value: 0.3972869
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 4843985084834002234, guid: ae21229b0a4279a4e973ece982665518, type: 3}
