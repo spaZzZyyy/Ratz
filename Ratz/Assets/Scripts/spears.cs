@@ -72,6 +72,7 @@ public class spears : MonoBehaviour
             if (!rmSpear && collision.gameObject.tag == "Player")
             {
                 GameObject.Find("HealthManager").GetComponent<healthManager>().takeDamage(1);
+                Debug.Log("SPEAR DMG");
                 Destroy(gameObject);
             }
             else if (!rmSpear) 
