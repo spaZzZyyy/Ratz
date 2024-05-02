@@ -338,7 +338,7 @@ public class musicManager : MonoBehaviour
             startMusic();
 
             //check for resources if entering halftime
-            if (trackToPlay == 0 || trackToPlay == 2)
+            if (trackToPlay == 0)
             {
                 if (halfOut == false)
                 {

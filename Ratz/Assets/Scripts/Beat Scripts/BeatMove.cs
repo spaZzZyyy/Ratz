@@ -20,7 +20,7 @@ public class BeatMove : MonoBehaviour
 
 
     void Start() {
-        i = 1;
+        i = 0;
         transform.position = points[startingPoint].position;
         bpm = beatManager._bpm;
         playerGO = GameObject.Find("Player");
@@ -49,7 +49,7 @@ public class BeatMove : MonoBehaviour
    
 
     public void Move() {
-       // if(Vector2.Distance(transform.position, points[i].position) < 0.5f) {
+        if(Vector2.Distance(transform.position, points[i].position) < 0.5f) {
             if((i + 1) == points.Length) {
                 i = 0;
                 distance = (points[points.Length - 1].position - points[i].position).magnitude;
@@ -57,7 +57,7 @@ public class BeatMove : MonoBehaviour
                 i++;
                 distance = (points[i - 1].position - points[i].position).magnitude;
             }
-      //  }
+        }
         
     }    
 }

@@ -21,6 +21,10 @@ TagManager:
   - bossManager
   - gameRef
   - pillarBoss
+  - cameraReset
+  - cameraMove
+  - cameraBounds
+  - cageMusic
   layers:
   - Default
   - TransparentFX
